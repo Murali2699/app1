@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      <title>Payment Automation Dashboard</title>
+      <meta content="" name="description">
+      <meta content="" name="keywords">
+      <!-- Favicons -->
+      <link href="assets/img/tn_logo.png" rel="icon">
+      <link href="assets/img/tn_logo.png" rel="apple-touch-icon">
+      <!-- Google Fonts -->
+      <link href="https://fonts.gstatic.com" rel="preconnect">
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+      <!-- Vendor CSS Files -->
+      <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+      <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
+      <link rel="stylesheet" href="assets/vendor/sweetalert2/css/sweetalert.min.css" />
+      <link rel="stylesheet" href="assets/vendor/sweetalert2/css/sweetalert2.min.css" />
+      <!-- <link rel="stylesheet" href="assets/vendor/toggle/bootstrap-toggle.min.css" /> -->
+      <!-- CSS File --> 
+      <link href="assets/css/style.css" rel="stylesheet">
+      <script src="assets/components/official_header.js" type="text/javascript" defer></script>
+      <!-- <link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"> -->
+      <style type="text/css">
+         .card-green-text {
+         /* background-color: #008000; */
+         background-color: #6eba6e !important;
+         color: #fff;
+         font-size: 14px;
+         font-weight: bold;
+         }
+         .card-green-blue
+         {
+         /*  background-color: #5f14d3;*/
+         background-color: #8e63d0 !important;
+         color: #fff;
+         font-size: 14px;
+         font-weight: bold;
+         }
+         .cus-grid th {
+         vertical-align: middle;
+         } 
+         .bg-card-blue {
+         /* background-color: #008000; */
+         background-color: #2c41b4 !important;
+         color: #fff;
+         font-size: 14px;
+         font-weight: bold;
+         } 
+         #accordionExample .accordion-button:not(.collapsed)::after, .accordion-button::after {
+         filter: invert(1) grayscale(100%) brightness(200%) !important;
+         }
+        input.form-control.form-control-sm {
+        margin-bottom: 1rem;
+        }
+        .dt-buttons.btn-group.flex-wrap {
+        position: absolute;
+        right: 2rem;
+        }
+      .card-lg-blue-text {
+        background-color: #2c93b4 !important;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .card-lg-orange-text {
+        background: #c09012 !important;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      th {
+        text-align: center;
+      }
+      a#xlsx_btn {
+      position: absolute;
+      right: 8rem;
+      top: 1rem;
+      }
+      a#csv_btn {
+      position: absolute;
+      right: 2rem;
+      top: 1rem;
+      }
+        input[type="date"] {
+            padding: 0.4rem;
+        }
+      </style>
+   </head>
+   <body>
+      <!-- ======= Header & sidemenu ======= -->
+      <official-header-component></official-header-component>
+      <div id="preloader"></div>
+      <!-- End Sidebar-->
+      <main id="main" class="main">
+         <!-- Dashboard view starts -->
+         <section>
+            <div class="container-fluid">
+               <div class="card mb-1">
+                  <form id="formFilters" method="post">
+                     <div class="card-body pb-0 pt-2">
+                        <div class="accordion" id="accordionExample">
+                           <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                 <button id="btnfilter" style="    background: linear-gradient(to right, rgb(44 43 88), rgb(34 25 111)) !important;
+                                    color: #fff !important;" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                 <i class="bi bi-funnel"></i>  <span class="px-2">File Uploading Status Filter</span>
+                                 </button>
+                              </h2>
+                              <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                 <div class="accordion-body w-100">
+                                    <div class="row mb-2 boxflex">
+                                       <!-- <h5 class="card-title pb- mb-0"><i class="bi bi-funnel"></i>  Report Filter </h5> -->
+                                       <div class="col-md-3">
+                                          <label for="ddl_scheme_cate" class="form-label fw-bold">Scheme category</label>
+                                          <select class="form-select" id="ddl_scheme_cate" name="ddl_scheme_cate">
+                                             <option value="">--All--</option>
+                                             <option value="">Scheme category 1</option>
+                                             <option value="">Scheme category 2</option>
+                                          </select>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <label for="ddl_scheme_code" class="form-label fw-bold">Scheme Code</label>
+                                          <select class="form-select" id="ddl_scheme_code" name="ddl_scheme_code">
+                                             <option value="">--Select--</option>
+                                             <option value="0212">0212</option>
+                                             <option value="0209">0209</option>
+                                             <option value="0219">0219</option>
+                                             <option value="0100">0100</option>
+                                             <option value="0207">0207</option>
+                                             <option value="0221">0221</option>
+                                             <option value="0208">0208</option>
+                                             <option value="0001">0001</option>
+                                             <option value="0220">0220</option>
+                                             <option value="0211">0211</option>
+                                             <option value="0218">0218</option>
+                                             <option value="0213">0213</option>
+                                             <option value="0206">0206</option>
+                                             <option value="0210">0210</option>
+                                          </select>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <label for="ddl_scheme_name" class="form-label fw-bold">Scheme Name</label>
+                                          <select class="form-select" id="ddl_scheme_name" name="ddl_scheme_name">
+                                             <option value="">--Select--</option>
+                                          </select>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <label for="ddl_sub_scheme" class="form-label fw-bold">Sub Scheme Name</label>
+                                          <select class="form-select" id="ddl_sub_scheme" name="ddl_sub_scheme">
+                                             <option value="">--Select--</option>
+                                          </select>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <label for="ddl_department" class="form-label fw-bold mt-3">Department</label>
+                                          <select class="form-select" id="ddl_department" name="ddl_department">
+                                             <option value="">--Select--</option>
+                                          </select>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <label for="ddl_sub_department" class="form-label fw-bold mt-3">Sub Department</label>
+                                          <select class="form-select" id="ddl_sub_department" name="ddl_sub_department">
+                                             <option value="">--Select--</option>
+                                          </select>
+                                       </div>
+                                    </div>
+                                    <!-- <hr> -->
+
+                                    <!-- <div class="row boxflex">
+                                       <div class="col-md-3">
+                                          <label for="ddl_district" class="form-label fw-bold">District</label>
+                                          <select class="form-select" id="ddl_district" name="ddl_district">
+                                             <option value="">--Select--</option>
+                                             <option value="17">Ariyalur</option>
+                                             <option value="35">Chengalpattu</option>
+                                             <option value="2">Chennai</option>
+                                             <option value="12">Coimbatore</option>
+                                             <option value="18">Cuddalore</option>
+                                             <option value="5">Dharmapuri</option>
+                                             <option value="13">Dindigul</option>
+                                             <option value="10">Erode</option>
+                                             <option value="33">Kallakurichi</option>
+                                             <option value="3">Kancheepuram</option>
+                                             <option value="30">Kanniyakumari</option>
+                                             <option value="14">Karur</option>
+                                             <option value="31">Krishnagiri</option>
+                                             <option value="24">Madurai</option>
+                                             <option value="38">Mayiladuthurai</option>
+                                             <option value="19">Nagapattinam</option>
+                                             <option value="9">Namakkal</option>
+                                             <option value="11">Nilgiris</option>
+                                             <option value="16">Perambalur</option>
+                                             <option value="22">Pudukkottai</option>
+                                             <option value="27">Ramanathapuram</option>
+                                             <option value="37">Ranipet</option>
+                                             <option value="8">Salem</option>
+                                             <option value="23">Sivagangai</option>
+                                             <option value="34">Tenkasi</option>
+                                             <option value="21">Thanjavur</option>
+                                             <option value="25">Theni</option>
+                                             <option value="15">Thiruchirappalli</option>
+                                             <option value="36">Thirupathur</option>
+                                             <option value="20">Thiruvarur</option>
+                                             <option value="28">Thoothukudi</option>
+                                             <option value="29">Tirunelveli</option>
+                                             <option value="32">Tiruppur</option>
+                                             <option value="1">Tiruvallur</option>
+                                             <option value="6">Tiruvannamalai</option>
+                                             <option value="4">Vellore</option>
+                                             <option value="7">Viluppuram</option>
+                                             <option value="26">Virudhunagar</option>
+                                          </select>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <label for="ddl_taluk" class="form-label fw-bold">Taluk</label>
+                                          <select class="form-select" id="ddl_taluk" name="ddl_taluk">
+                                             <option value="">--Select--</option>
+                                          </select>
+                                       </div>
+                                    </div> -->
+
+                                    <hr>
+                                    <div class="row mb-2 boxflex">
+                                        <!-- <div class="col-md-3">
+                                          <label class="form-label fw-bold" for="dayWeekMonthFilter">Payment Period</label>
+                                          <select name="dayWeekMonthFilter" id="dayWeekMonthFilter" class="form-select" aria-invalid="false">
+                                            <option value="" disabled="" selected="">Select Payment Period</option>
+                                            <option value="1">Today</option>
+                                            <option value="2">This Week</option>
+                                            <option value="3" selected="">This Month</option>
+                                            <option value="0">Custom Date Range</option>
+                                            <option value="4">Custom Year Month</option>
+                                          </select>
+                                        </div>
+                                        <div class="col-md" id="from_date_col">
+                                          <label for="from_date" class="form-label fw-bold mt-3">From Date</label>
+                                          <input type="date" name="from_date" id="from_date" class="form-control form-control-sm">
+                                        </div>
+                                        <div class="col-md" id="to_date_col">
+                                          <label for="to_date" class="form-label fw-bold mt-3">To Date</label>
+                                          <input type="date" name="to_date" id="to_date" class="form-control form-control-sm">
+                                        </div> -->
+                      
+                                        <!-- <div class="col-md" id="ddl_month_col" style="display: none;"> -->
+                                        <!-- <div class="col-md" id="ddl_month_col">
+                                          <label for="ddl_month" class="form-label fw-bold">Select Month</label>
+                                          <select name="ddl_month" id="ddl_month" class="form-select">
+                                            <option value="" disabled="" selected="">Select Month</option>
+                                            <option value="01">January</option>
+                                            <option value="02">February</option>
+                                            <option value="03">March</option>
+                                            <option value="04">April</option>
+                                            <option value="05">May</option>
+                                            <option value="06">June</option>
+                                            <option value="07">July</option>
+                                            <option value="08">August</option>
+                                            <option value="09">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                          </select>
+                                        </div> -->
+                                        <!-- <div class="col-md" id="ddl_year_col" style="display: none;"> -->
+                                        <!-- <div class="col-md" id="ddl_year_col">
+                                          <label for="ddl_year" class="form-label fw-bold">Select Year</label>
+                                          <select name="ddl_year" id="ddl_year" class="form-select">
+                                            <option value="" disabled="" selected="">Select Year</option>
+                                            <option value="2024" >2024</option>
+                                            <option value="2025">2025</option>
+                                            <option value="2026">2026</option>
+                                            <option value="2027">2027</option>
+                                            <option value="2028">2028</option>
+                                            <option value="2029">2029</option>
+                                            <option value="2030">2030</option>
+                                            <option value="2031">2031</option>
+                                          </select>
+                                        </div> -->
+
+
+                                        <div class="col-md" id="from_date_col">
+                                            <label for="from_date" class="form-label fw-bold mt-3">Upload File From Date</label>
+                                            <input type="date" name="from_date" id="from_date" class="form-control form-control-sm">
+                                          </div>
+                                          <div class="col-md" id="to_date_col">
+                                            <label for="to_date" class="form-label fw-bold mt-3">Upload File To Date</label>
+                                            <input type="date" name="to_date" id="to_date" class="form-control form-control-sm">
+                                          </div>
+                      
+                      
+                                      </div>
+                                    <div class="row mb-2 boxflex">
+                                       <button class="btn btn-success float-end cbtn col-md-2" type="submit"><i class="bi bi-pencil-square"></i> Submit</button>
+                                    </div>
+                                 </div>
+                                 <input type="hidden" name="approvelpayment" id="approvelpayment">
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+               <div class="card mb-1 mt-4" id="div_report_tbl">
+                  <div class="card-body">
+                     
+                     <div class="col-lg-12 mt-2 clear-both" style="    clear: both;">
+                        <div class="table-responsive cus-grid">
+                            
+                            <!-- <a href="#" class="btn btn-primary cbtn" id="xlsx_btn"><i class="bi bi-file-earmark-excel"></i> EXCEL</a>
+                            <a href="#" class="btn btn-primary mx-2 cbtn" id="csv_btn"><i class="bi bi-file-earmark-pdf"></i> CSV</a> -->
+
+                           <table class="table table-striped w-100 no-footer dataTable mt-3" id="tblUploadfileList" aria-describedby="tblUploadfileList_info">
+                              <thead>
+                                 <tr>
+                                    <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblUploadfileList" aria-label="S.No: activate to sort column descending" aria-sort="ascending">S.No</th>
+
+                                    <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblUploadfileList" aria-label="Scheme category: activate to sort column descending" aria-sort="ascending">Scheme category</th>
+                                    
+                                    <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblUploadfileList" aria-label="scheme name: activate to sort column descending" aria-sort="ascending">scheme name </th>
+
+                                    <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblUploadfileList" aria-label="sub scheme name: activate to sort column descending" aria-sort="ascending">sub scheme name </th>
+
+                                    <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblUploadfileList" aria-label="district: activate to sort column descending" aria-sort="ascending">File Name</th>
+
+                                    <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblUploadfileList" aria-label="received date: activate to sort column descending" aria-sort="ascending">Initiate Date & Time</th>
+
+                                    <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblUploadfileList" aria-label="received date: activate to sort column descending" aria-sort="ascending">Available Records</th>
+
+                                    <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblUploadfileList" aria-label="received date: activate to sort column descending" aria-sort="ascending">Duplicate Beneficiaries Records</th>
+                                    <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblUploadfileList" aria-label="received date: activate to sort column descending" aria-sort="ascending">Invalid Aadhaar Records</th>
+
+                                    <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblUploadfileList" aria-label="received date: activate to sort column descending" aria-sort="ascending">Invalid Records</th>
+
+                                    <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblUploadfileList" aria-label="received date: activate to sort column descending" aria-sort="ascending">Invalid Account Records</th>
+                                    <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblUploadfileList" aria-label="received date: activate to sort column descending" aria-sort="ascending">valid Records</th>
+
+                                    <!-- <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblUploadfileList" aria-label="received date: activate to sort column descending" aria-sort="ascending">Processed Records</th> -->
+
+                                    <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblUploadfileList" aria-label="received date: activate to sort column descending" aria-sort="ascending">Completed Date & Time</th>
+
+                                    <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblUploadfileList" aria-label="status: activate to sort column descending" aria-sort="ascending"> Status </th>
+                                 </tr>                                 
+                              </thead>
+                              <tbody>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- END: list card end here -->
+               <!-- START: modal popup -->
+               <!-- Button trigger modal -->
+            </div>
+         </section>
+      </main>
+      <!-- End #main -->
+      <!-- ======= Footer ======= -->
+      <footer id="footer" class="footer">
+         <div class="copyright">
+            &copy; Copyright <strong><span>TNeGA</span></strong>. All Rights Reserved
+         </div>
+         <div class="credits">
+            Designed & Developed by <a href="https://tngis.tn.gov.in/" target="_blank">TNeGA</a>
+         </div>
+      </footer>
+      <!-- End Footer -->
+      <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+      <!-- Delete modal starts -->
+      <!-- view crop info ends -->
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script type="text/javascript" src="assets/vendor/jquery-validate/js/jquery.validate.min.js"></script>
+
+
+    <!-- data table -->
+    <script src="assets/vendor/datatable/jquery.dataTables.min.js"></script>
+    <script src="assets/vendor/datatable/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="assets/vendor/datatable/js/dataTables.js"></script>
+    <script type="text/javascript" src="assets/vendor/datatable/js/dataTables.bootstrap4.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/jszip.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/pdfmake.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/vfs_fonts.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="assets/vendor/sweetalert2/js/sweetalert.min.js"></script>
+    <script src="assets/vendor/sweetalert2/js/sweetalert2.all.min.js"></script>
+    <script src="assets/vendor/toggle/bootstrap-toggle.min.js"></script>
+    <script src="assets/js/global.js"></script>
+    <script src="assets/js/alpinejs_3_10_2.min.js" defer></script>
+    <script src="assets/lang/reports.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js'></script>
+    <script src="assets/scripts/xlsx.full.min.js"></script>
+    <script src="assets/scripts/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
+    <!-- <script src="assets/scripts/jspdf.debug.js"></script> -->
+    <!-- data table -->
+
+
+
+
+
+    
+    <!-- Main JS File -->
+    
+    <script src="assets/js/global.js"></script>
+    <script src="assets/js/base64tojson.js"></script>
+    <script src="assets/js/crypto-js.js"></script>
+    <script src="assets/js/aes.js"></script>
+  
+
+    <script type="text/javascript" src="assets/vendor/toastr/toastr.min.js"></script>
+    
+    <!-- Crypto js -->
+    <script src="assets/vendor/encryption/crypto-js.min.js"></script>
+    <!-- Encryption js -->
+    <script src="assets/vendor/encryption/Encryption.js"></script>
+    <script src="assets/vendor/sweetalert2/js/sweetalert2.all.min.js"></script>
+    
+    
+ 
+ <script type="text/javascript">
+  
+var url = window.location.href;
+var page_url = url.split('/');
+var page = page_url[4];
+
+var userDataString = getCookie('payment_official');
+userDataString = JSON.parse(userDataString);
+$(document).ready(function () {
+  $(document).on({
+        //  ajaxStart: function () {
+        //    $('#preloader').show();
+        //   //  console.log('preloader is show');
+        //  },
+         ajaxStop: function () {
+           $('#preloader').hide();
+          //  console.log('preloader is show');
+         }
+       });
+
+  $('.official').each(function (i, obj) {
+    var href = obj.getAttribute("href");
+    if (href == page) {
+      obj.classList.add('active');
+    } else {
+      obj.classList.remove('active');
+    }
+  });
+  // $('#preloader').hide();
+ 
+  var userDataString = getCookie('payment_official');
+  if (!userDataString) {
+    $('#preloader').show();
+    window.location.href = "login.html";
+  }
+
+  userDataString = JSON.parse(userDataString);
+  $('#official_username').text(userDataString['first_name']);
+  $('#UserID').val(userDataString['user_id']);
+  window.loginUser_id = userDataString['user_id'];
+  reloID = userDataString['role_id'];
+    roleBasedPageAllow(loginUser_id,reloID);
+  getSchemeCategory();
+  getDistricts();
+
+  $('#ddl_sub_scheme').on('change',function(){      
+   $('#ddl_department').empty();
+   $('#ddl_sub_department').empty();
+
+   $('#ddl_department').append($('<option>', {value: "",text: "--ALL--"}));
+   $('#ddl_sub_department').append($('<option>', {value: "",text: "--ALL--"}));
+    $('#preloader').show();
+     $.ajax({
+       url: APIURL +'schem_filter',
+       type: "POST",
+       headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+       data: {case: "get_department",scheme_code:$('#ddl_scheme_code').val(),scheme_name:$('#ddl_scheme_name').val(),sub_scheme_name:$('#ddl_sub_scheme').val(),user_id:loginUser_id},
+       success: function(response) {
+        $('#preloader').hide();
+          //  console.log("department:", response);
+           var department_code = response.data[0];
+          //  console.log(department_code.department);
+           getDepartment(department_code.department);
+       },
+       error: function(xhr, status, error) {
+        $('#preloader').hide();
+           console.log("Error:", error);
+       }
+     });
+  });
+
+  $('#ddl_district').on('change', function () {
+    var district_code = $('#ddl_district').val();
+    $('#ddl_taluk').empty();
+    $('#ddl_taluk').append('<option value="">--ALL--</option>');
+    getTaluk(district_code);
+  });
+
+
+});
+
+
+$(document).ready(function() {
+    // Initialize tooltips
+    $('[data-toggle="tooltip"]').tooltip({
+        html: true, // Enable HTML content in the tooltip
+        // Show dynamic content when the tooltip is shown
+        title: function() {
+            return $(this).data('content');
+        }
+    });
+});
+
+
+
+
+function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  }
+
+/* filters */
+function getSchemeCategory(){
+    
+    $('#ddl_scheme_name').empty();
+    $('#ddl_sub_scheme').empty();
+    $('#ddl_department').empty();
+    $('#ddl_sub_department').empty();
+ 
+    $('#ddl_scheme_name').append($('<option>', {value: "", text: "--All--"}));
+    $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--All--"}));
+    $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
+    $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
+ 
+  $.ajax({
+    url: APIURL +'schem_filter',
+    type: "POST",
+    headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+    data: {case: "get_scheme_category",get_column:"scheme_code",groupbycolumn:"scheme_code",user_id:loginUser_id},
+    success: function(response) {
+       //  console.log("Success:", response);
+        var schemeCode = response.data;
+       //  console.log('scheme code >>> ',schemeCode);
+ 
+        $('#ddl_scheme_cate').empty();
+        $('#ddl_scheme_cate').append($('<option>', {
+              value: "",
+              text: "--All--"
+          }));
+
+        $.each(schemeCode, function (index, scheme) {
+            // console.log('scheem code lenthg >>> ', schemeCode.length);
+            if(schemeCode.length >1){
+              $('#ddl_scheme_cate').append($('<option>', {
+                value: scheme.scheme_category,
+                text: scheme.scheme_category
+            }));
+            }else{
+              $('#ddl_scheme_cate').append($('<option>', {
+                value: scheme.scheme_category,
+                text: scheme.scheme_category
+            }).prop('selected', true));
+            $('#ddl_scheme_cate').trigger('change');
+            }
+         });
+    },
+    error: function(xhr, status, error) {
+        console.log("Error:", error);
+    }
+  });
+}
+
+
+$('#ddl_scheme_cate').on('change',function(){
+  
+    $('#ddl_scheme_code').empty();
+    $('#ddl_scheme_name').empty();
+    $('#ddl_sub_scheme').empty();
+    $('#ddl_department').empty();
+    $('#ddl_sub_department').empty();
+
+    $('#ddl_scheme_code').append($('<option>', {value: "", text: "--All--"}));
+    $('#ddl_scheme_name').append($('<option>', {value: "", text: "--All--"}));
+    $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--All--"}));
+    $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
+    $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
+  
+   $.ajax({
+     url: APIURL +'schem_filter',
+     type: "POST",
+     headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+     data: {case: "get_scheme_code",get_column:"scheme_code",groupbycolumn:"scheme_code",whereColumn:$('#ddl_scheme_cate').val(),user_id:loginUser_id},
+     success: function(response) {
+        //  console.log("Success:", response);
+         var schemeCode = response.data;
+        //  console.log('scheme code >>> ',schemeCode);
+  
+         $('#ddl_scheme_code').empty();
+         $('#ddl_scheme_code').append($('<option>', {
+               value: "",
+               text: "--All--"
+           }));  
+
+        $.each(schemeCode, function (index, scheme) {
+            // console.log('scheem code lenthg >>> ', schemeCode.length);
+            if(schemeCode.length >1){
+              $('#ddl_scheme_code').append($('<option>', {
+                value: scheme.scheme_code,
+                text: scheme.scheme_code
+            }));
+            }else{
+              $('#ddl_scheme_code').append($('<option>', {
+                value: scheme.scheme_code,
+                text: scheme.scheme_code
+            }).prop('selected', true));
+            $('#ddl_scheme_code').trigger('change');
+            }
+         });
+     },
+     error: function(xhr, status, error) {
+         console.log("Error:", error);
+     }
+   });
+})
+
+
+
+$('#ddl_scheme_code').on('change',function(){
+
+     $('#ddl_sub_scheme').empty();
+     $('#ddl_scheme_name').empty();
+     $('#ddl_sub_scheme').empty();
+     $('#ddl_department').empty();
+     $('#ddl_sub_department').empty();
+
+     $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--ALL--"}));
+     $('#ddl_scheme_name').append($('<option>', {value: "", text: "--ALL--"}));
+     $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--ALL--"}));
+     $('#ddl_department').append($('<option>', {value: "",text: "--ALL--"}));
+     $('#ddl_sub_department').append($('<option>', {value: "",text: "--ALL--"}));
+
+      $('#preloader').show();
+   $.ajax({
+   url: APIURL +'schem_filter',
+   type: "POST",
+   headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+   data: {case: "get_scheme",scheme_code:$('#ddl_scheme_code').val(),user_id:loginUser_id},
+   success: function(response) {
+    $('#preloader').hide();
+      //  console.log("Success:", response);
+       var schemeCode = response.data;
+      //  console.log(schemeCode.scheme_code);
+       $('#ddl_scheme_name').empty();
+       $('#ddl_scheme_name').append($('<option>', {
+             value: "",
+             text: "--ALL--"
+         }));
+       // Iterate over the JSON object and append options
+       $.each(schemeCode, function (index, scheme) {
+        // console.log('scheem code lenthg >>> ', schemeCode.length);
+        if(schemeCode.length >1){
+          $('#ddl_scheme_name').append($('<option>', {
+             value: scheme.scheme_name,
+             text: scheme.scheme_name
+         }));
+        }else{
+          $('#ddl_scheme_name').append($('<option>', {
+             value: scheme.scheme_name,
+             text: scheme.scheme_name
+         }).prop('selected', true));
+         $('#ddl_scheme_name').trigger('change');
+        }
+         
+
+       });
+   },
+   error: function(xhr, status, error) {
+    $('#preloader').hide();
+       console.log("Error:", error);
+   }
+ });
+
+});
+
+$('#ddl_scheme_name').on('change',function(){
+
+   
+   // $('#ddl_scheme_name').empty();
+   $('#ddl_sub_scheme').empty();
+   $('#ddl_department').empty();
+   $('#ddl_sub_department').empty();
+
+   
+   // $('#ddl_scheme_name').append($('<option>', {value: "", text: "--ALL--"}));
+   $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--ALL--"}));
+   $('#ddl_department').append($('<option>', {value: "",text: "--ALL--"}));
+   $('#ddl_sub_department').append($('<option>', {value: "",text: "--ALL--"}));
+
+
+$('#preloader').show();
+   $.ajax({
+   url: APIURL +'schem_filter',
+   type: "POST",
+   headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+   data: {case: "get_sub_scheme",scheme_code:$('#ddl_scheme_code').val(),scheme_name:$('#ddl_scheme_name').val(),user_id:loginUser_id},
+   success: function(response) {
+    $('#preloader').hide();
+      //  console.log("Success:", response);
+       var schemeCode = response.data;
+      //  console.log(schemeCode.scheme_code);
+       $('#ddl_sub_scheme').empty();
+       $('#ddl_sub_scheme').append($('<option>', {
+             value: "",
+             text: "--ALL--"
+         }));
+       // Iterate over the JSON object and append options
+       $.each(schemeCode, function (index, scheme) {
+        if(schemeCode.length > 1){
+          $('#ddl_sub_scheme').append($('<option>', {
+             value: scheme.subscheme_name,
+             text: scheme.subscheme_name
+         }));
+        }else{
+          $('#ddl_sub_scheme').append($('<option>', {
+             value: scheme.subscheme_name,
+             text: scheme.subscheme_name
+         }).prop('selected', true));
+        }
+        $('#ddl_sub_scheme').trigger('change');
+       });
+   },
+   error: function(xhr, status, error) {
+    $('#preloader').hide();
+       console.log("Error:", error);
+   }
+ });
+
+});
+
+// get_scheme
+
+
+/* filters */
+function getDepartment(depID){
+   $('#ddl_department').empty();
+   $('#ddl_sub_department').empty();
+
+   $('#ddl_department').append($('<option>', {value: "",text: "--ALL--"}));
+   $('#ddl_sub_department').append($('<option>', {value: "",text: "--ALL--"}));
+    $('#preloader').show();
+$.ajax({
+   url: APIURL +'get_department',
+   type: "POST",
+   headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+   data: {type: "department"},
+   success: function(response) {
+       // console.log("Success:",JSON.parse(response)[0].data );
+       var department = response[0].data;
+       // Handle the successful response here
+       $('#ddl_department').empty();
+       $('#ddl_department').append($('<option>', {
+             value: "",
+             text: "--ALL--"
+         }));
+       // Iterate over the JSON object and append options
+       $.each(department, function (index, dep) {
+         if(dep.department_code==depID){
+           $('#ddl_department').append($('<option>', {
+             value: dep.department_code,
+             text: dep.department_name
+           }).attr('selected', 'selected'));
+           // $('#ddl_department').trigger('change');
+
+           $.ajax({
+                 url: APIURL +'schem_filter',
+                 type: "POST",
+                 headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+                 data: {case: "get_sub_department",scheme_code:$('#ddl_scheme_code').val(),scheme_name:$('#ddl_scheme_name').val(),sub_scheme_name:$('#ddl_sub_scheme').val(),department:$('#ddl_department').val(),user_id:loginUser_id},
+                 success: function(response) {
+                  $('#preloader').hide();
+                    //  console.log("department:", response);
+                     var subdepartment_code = response.data[0];
+                    //  console.log(subdepartment_code.department);
+                     get_sub_department(dep.department_code,subdepartment_code.subdepartment);
+                 },
+                 error: function(xhr, status, error) {
+                  $('#preloader').hide();
+                     console.log("Error:", error);
+                 }
+             });
+           
+         }
+       });
+   },
+   error: function(xhr, status, error) {
+       console.log("Error:", error);
+       // Handle the error here
+   }
+ });
+}
+
+
+// $('#ddl_department').on('change',function(){
+ function get_sub_department(depID,subDepID){
+   $('#ddl_sub_department').empty();
+   $('#ddl_sub_department').append($('<option>', {value: "",text: "--ALL--"}));
+    $('#preloader').show();
+     // var department = $('#ddl_department').val();
+     $.ajax({
+     url: APIURL +'get_department',
+     type: "POST",
+     headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+     data: {type: "sub_department",department_code:depID},
+     success: function(response) {
+      $('#preloader').hide();
+         // console.log("Success:",JSON.parse(response)[0].data );
+         var department = response[0].data;
+         // Handle the successful response here
+         $('#ddl_sub_department').empty();
+         $('#ddl_sub_department').append($('<option>', {
+               value: "",
+               text: "--ALL--"
+           }));
+         // Iterate over the JSON object and append options
+         $.each(department, function (index, sub_dep) {
+           if(sub_dep.sub_department_code==subDepID){
+             $('#ddl_sub_department').append($('<option>', {
+               value: sub_dep.sub_department_code,
+               text: sub_dep.sub_department_name
+           }).attr('selected', 'selected'));
+           }
+         });
+     },
+     error: function(xhr, status, error) {
+      $('#preloader').hide();
+         console.log("Error:", error);
+         // Handle the error here
+     }
+   });
+ }
+
+  function getDistricts(){
+      const userDataString = getCookie("payment_official");
+      const userData = JSON.parse(userDataString);
+
+      var districtID=0;
+      var data=[];
+      if(userData['district_code']!=0){
+      districtID=userData['district_code'];
+      data={ case: 'district',district_code: districtID,user_id:userData['user_id']};
+      } else {
+      data={ case: 'district',user_id:userData['user_id']};
+      }
+
+      $('#ddl_taluk').empty();
+      $('#ddl_taluk').append('<option value="">--ALL--</option>');
+      $('#preloader').show();
+    $.ajax({
+      url: userMasterAPIURL+'userMaster',
+      method: 'POST',
+      headers: {'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+      data: data,
+      dataType: 'json',
+      success: function (response) {
+        $('#preloader').hide();
+        //console.log(response);
+        var district = response.district;
+        var districtDropdown = $("#ddl_district");
+        $('#ddl_district').empty();
+        $('#ddl_district').append($('<option>', {value: "",text: "--ALL--"}));
+          
+        if(districtID==0 || districtID ==undefined){
+        // populateDropdown('ddl_district', response.districts, 'district');              
+        } else {
+        districtDropdown.html('<option value="'+district['district_code']+'">'+district['district_name']+'</option>');
+        $('#ddl_district').trigger('change');
+        var district_code= district['district_code'];
+          getTaluk(district_code);
+        } 
+      },
+      error: function () {
+        $('#preloader').hide();
+        console.error('Error fetching district data');
+      }
+    });
+  }
+
+
+  
+
+  /*START : Get Taluk list*/
+  function getTaluk(districtID){
+    $('#ddl_taluk').empty();
+    $('#ddl_taluk').append('<option value="">--ALL--</option>');
+    // var district=$("#ddl_district").val();
+      const userDataString = getCookie("payment_official");
+      const userData = JSON.parse(userDataString);
+
+      // var district=district_code;
+      var talukID=0;
+      var data=[];
+      if(userData['taluk_code']!=0){
+      // districtID=userData['district_code'];
+      talukID=userData['taluk_code'];
+      data={ case: 'taluk',district_code: districtID,taluk_code: talukID,user_id:userData['user_id']};
+      } else {
+      data={ case: 'taluk',district_code: districtID,user_id:userData['user_id']};
+      }
+      $('#preloader').show();
+    
+    $.ajax({
+      url: userMasterAPIURL+'userMaster', // Replace with your API endpoint
+      method: 'POST',
+      headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+      data: data,
+      dataType: 'json',
+      success: function (response) {
+        $('#preloader').hide();
+        /*$('#ddl_taluk').empty();
+        $.each(response.taluk, function (index, value) 
+        {
+            $('#ddl_taluk').append('<option value="' + value.taluk_code + '">' + value.taluk_name + ' </option>');
+        });*/
+        var taluk = response.taluk
+        var talukDropdown = $("#ddl_taluk");
+      //  populateDropdown('ddl_taluk', response.taluk, 'taluk'); 
+        if(talukID==0){
+        //   populateDropdown('ddl_taluk', response.taluk, 'taluk');             
+        } else {
+          
+          talukDropdown.html('<option value="'+taluk['taluk_code']+'">'+taluk['taluk_name']+'</option>');
+        $('#ddl_taluk').trigger('change');
+        }
+
+      },
+      error: function () {
+        $('#preloader').hide();
+        Swal.fire({
+          icon: "error",
+          title: "Service Error!",
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+    });
+  }
+
+//   $("#from_date").prop("disabled", true);
+//     $("#to_date").prop("disabled", true);
+
+//     // selectbox
+//     $("#ddl_month_col").hide();
+//     $("#ddl_year_col").hide();
+    
+    $("#ddl_month_col").prop("disabled", true);
+    $("#ddl_year_col").prop("disabled", true);
+
+
+
+
+//   $('#dayWeekMonthFilter').on('change',function(){
+//       var payment_period = $('#dayWeekMonthFilter').val();
+//       if(payment_period == 0){
+//         $("#from_date_col").show();
+//         $("#to_date_col").show();
+//         $("#from_date").prop("disabled", false);
+//         $("#to_date").prop("disabled", false);
+
+//         $("#ddl_month_col").hide();
+//         $("#ddl_year_col").hide();
+//         $("#ddl_month").prop("disabled", true);
+//         $("#ddl_year").prop("disabled", true);
+
+//       }else if(payment_period == 4){
+
+//         $("#from_date_col").hide();
+//         $("#to_date_col").hide();
+//         $("#from_date").prop("disabled", false);
+//         $("#to_date").prop("disabled", false);
+
+//         $("#ddl_month_col").show();
+//         $("#ddl_year_col").show();
+//         $("#ddl_month").prop("disabled", false);
+//         $("#ddl_year").prop("disabled", false);
+    
+//       } else{
+//         $("#from_date").val('');
+//         $("#from_date").prop("disabled", true);
+//         $("#to_date").val('');
+//         $("#to_date").prop("disabled", true);
+
+//         $("#from_date_col").show();
+//         $("#to_date_col").show();
+//         $("#from_date").prop("disabled", true);
+//         $("#to_date").prop("disabled", true);
+
+//         $("#ddl_month_col").hide();
+//         $("#ddl_year_col").hide();
+//         $("#ddl_month").prop("disabled", true);
+//         $("#ddl_year").prop("disabled", true);
+//       }
+//   });
+
+
+  $('#to_date').on('change', function() {
+      var fromDate = $('#from_date').val();
+      var toDate = $(this).val();
+      if (fromDate && toDate && fromDate > toDate) {
+        alert('To Date should not be earlier than From Date.');
+        $(this).val('');
+      }
+  });
+
+//   $('#paymentDate').on('change', function() {
+//     var todayDate = new Date(); 
+//     todayDate.setDate(todayDate.getDate() - 1);
+//     var toDate = new Date($(this).val());
+//     if (toDate < todayDate) {
+//         alert('To Date should be a future date.');
+//         $(this).val('');
+//     }
+//     $('#paymentDate_error').hide();
+//   });
+
+//   $('#paymentDate').on('change', function() {
+//     var todayDate = new Date(); 
+//     todayDate.setDate(todayDate.getDate() - 1);
+//     var toDate = new Date($(this).val());
+//     if (toDate < todayDate) {
+//         alert('To Date should be a future date.');
+//         $(this).val('');
+//     }
+//     $('#paymentDate_error').hide();
+//   });
+
+
+
+  /*END : Get Taluk list*/
+// });
+
+var formsFilter = [];
+window.localStorage.removeItem('filters');
+/*from submit*/
+$(document).ready(function() {
+  $("#formFilters").validate({
+          rules: {
+            ddl_scheme_cate: {required: true},
+            ddl_scheme_code: {required: true},
+            ddl_scheme_name: {required: true},
+            ddl_sub_scheme: {required: true},
+            ddl_department: {required: true},
+            ddl_sub_department: {required: true},
+            from_date : {required: true},
+            to_date : {required: true},
+          },
+          messages: {
+            ddl_scheme_cate: {required: "Select the Scheme Category"},
+            ddl_scheme_code: {required: "Select the Scheme Code"},
+            ddl_scheme_name: {required: "Select the scheme Name"},
+            ddl_sub_scheme: {required: "Select the Sub Scheme Name"},
+            ddl_department: {required: "Select the Deparment"},
+            ddl_sub_department: {required: "Select the Sub Deparment"},
+            from_date : {required: "Select the From Date"},
+            to_date : {required: "Select the To Date"},
+          },
+          errorClass: "help-inline text-danger",
+          errorElement: "span",
+          highlight: function(element, errorClass, validClass) {
+              $(element).parents('.form-group').addClass('has-error');
+          },
+          unhighlight: function(element, errorClass, validClass) {
+              $(element).parents('.form-group').removeClass('has-error');
+              $(element).parents('.form-group').addClass('has-success');
+          },
+          submitHandler: function(form,e) {
+              e.preventDefault();
+              // console.log('Form submitted');
+              formsFilter.length = 0;
+              formsFilter = [];
+              var formData = $(form).serialize();
+              window.localStorage.removeItem('filters');
+              window.localStorage.setItem('filters', JSON.stringify(formData));
+
+              fileuploadStatusList();
+            //   $('#div_report_tbl').show();
+              
+              // $("#tblCard").show();
+              /*scroll function*/
+              // $('html, body').animate({
+              //   scrollTop: $("#tblCard").offset().top
+              // }, 2000);
+
+              return false;
+          }
+    });
+});
+
+// fileuploadStatusList();
+// $('#div_report_tbl').hide();
+
+function fileuploadStatusList(){
+  var dataFilters = window.localStorage.getItem('filters');
+  $('#preloader').show();
+
+    $('#tblUploadfileList').DataTable().clear().destroy();
+    $('#tblUploadfileList').DataTable({
+        "aLengthMenu": [10, 25, 50,100],
+        "pageLength": 50,
+        "footer": true,
+        "dom": 'Bfrtip',
+        "buttons": [
+          {
+                extend: 'csv',
+                text: 'CSV',
+                filename: 'upload file Status',
+                exportOptions: {
+                    rows: ':visible', // Export visible rows
+                    modifier: {
+                        selected: null // Export all rows, not just selected
+                    }
+                }
+            },
+            {
+                extend: 'excel',
+                text: 'Excel',
+                filename: 'upload file Status' // Set custom filename for Excel
+            },
+            {
+                extend: 'pdf',
+                text: 'PDF',
+                filename: 'upload file Status' // Set custom filename for PDF
+            }],
+        "searching": true,
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+            "url": APIURL + 'upload_file_status_list',
+            "type": "POST",
+            "headers": { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+            "dataType": "JSON",
+            "data": function (data) {
+              data.fileters = dataFilters;
+              data.user_id = loginUser_id;
+            },
+          "beforeSend": function () {
+            // $('#preloader').show();
+            tblPreloaderEnable('tblUploadfileList');
+          },
+          "error": function (xhr, error, thrown) {
+                Swal.fire({
+                    icon: "error",
+                    title: 'Service Error !',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            },
+            "dataSrc": 'data',
+          },
+        "columns": [
+            { "data": "S.No", render: function (data, type, row, meta) {
+                return meta.row + meta.settings._iDisplayStart + 1;
+                }
+            },
+            { "data": "scheme_code" },
+            { "data": "scheme_name" },
+            { "data": "subscheme_name" },
+            { "data": "file_name" },
+            { "data": "initiated_ts" },
+            { "data": "available_records"},
+            { "data": "duplicate_beneficiaries_records"},
+            { "data": "invalid_aadhaar_records"},
+            { "data": "invalid_records"},
+            { "data": "ivalid_account_records"},
+            { "data": "valid_records"},
+            // { "data": "processed_records"},
+            { "data": "completed_ts"},
+            { "data": "upload status",
+              "render": function (data, type, row, meta) {
+                    let uploadStatus = ``;
+                    if(row.upload_status == 'InProgress'){
+                      uploadStatus = `<span class="badge bg-info" data-toggle="tooltip" data-placement="top" title="Upload completed" data-content="Date: ${row.upload_remarks}">${row.upload_status}</span>`;
+                    }else if(row.upload_status == 'Pending'){
+                      uploadStatus = `<span class="badge bg-waring" data-toggle="tooltip" data-placement="top" title="Upload completed" data-content="Date: ${row.upload_remarks}">${row.upload_status}</span>`;
+                    }else if(row.upload_status == 'Updated'){
+                      uploadStatus = `<span class="badge bg-success" data-toggle="tooltip" data-placement="top" title="Upload completed" data-content="Date: ${row.upload_remarks}">${row.upload_status}</span>`;
+                    }
+                    return uploadStatus;
+                }
+            }
+            
+        ],
+        "aoColumnDefs": [{
+          'bSortable': false,
+          'aTargets': [0]
+        }],
+        "drawCallback": function (settings) {
+            // Your drawCallback logic goes here
+            // For example, updating dropdowns or other elements after the table is drawn
+        },
+        "initComplete": function (settings, json) {
+         $('#preloader').hide(); // Hide the preloader after DataTable initialization
+         tableRecordCount = json.recordsTotal;
+        }
+    });  
+}
+
+
+function populateDropdown(dropdownId, data, fieldName) {
+    const dropdown = document.getElementById(dropdownId);
+
+    data.forEach(item => {
+      const option = document.createElement('option');
+      option.value = item[fieldName + '_code'];
+      option.textContent = item[fieldName + '_name'];
+      dropdown.appendChild(option);
+    });
+  }
+
+
+
+  $('#selectAllCheckbox').on('change', function () {
+    // console.log($(this).prop('checked'));
+      $('tbody :checkbox').prop('checked', $(this).prop('checked'));
+  });
+  
+  $('#selectAllCheckbox2').on('change', function () {
+    // console.log($(this).prop('checked'));
+      $('tbody :checkbox').prop('checked', $(this).prop('checked'));
+  });
+
+  $('#selectAllCheckbox3').on('change', function () {
+    // console.log($(this).prop('checked'));
+      $('tbody :checkbox').prop('checked', $(this).prop('checked'));
+  });
+
+
+
+// function viewScheme(listID){
+//   $('#preloader').show();
+//   $.ajax({
+//     url: APIURL + 'viewpopupData', // Replace with your API endpoint
+//     method: 'POST', // Change the method to GET
+//     headers: {
+//         'X-APP-KEY': config.app_key,
+//         'X-APP-NAME': config.app_name
+//     },
+//     data: {
+//       list_id: listID
+//     },
+//     dataType: 'json',
+//     success: function (response) {
+//       $('#preloader').hide();
+//         if (response.success == 1) {
+//             output = response.data[0];
+//             $('#popup_head').text(output.beneficiary_name);
+//             $('#popup_scheme').text(output.scheme_name);
+//             $('#popup_year').text(output.year_part);
+//             $('#popup_month').text(output.Month);
+//             $('#popup_beneficiary_name').text(output.beneficiary_name);
+//             $('#popup_beneficiary_mobile').text(output.beneficiary_mobile_no);
+//             $('#popup_account_type').text(output.payment_mode);
+//             $('#popup_installment').text(output.installment_id);
+//             $('#popup_amount').text(output.amount);
+//             $('#popup_transcation').text(output.created_ts);
+
+//             // console.log();
+//               var activeColStart = `<div class="col-lg-6">`;
+//               var activeColStart = `</div>`;
+//               var activeTitleOne = `<h5 class="card-title mb-2 px-2"><i class="bi bi-check2-circle"></i> Activity</h5>`;
+//               var activeTitletwo = `<h5 class="card-title mb-2 px-2"><i class="bi bi-check2-circle"></i> Re-Initiate Activity</h5>`;
+
+//               var transcation = `<div class="activity">${activeTitleOne}
+//                   <div class="activity-item d-flex">
+//                     <div class="activite-label">01</div>
+//                     <i class="bi bi-circle-fill activity-badge text-success align-self-start"></i>
+//                     <div class="activity-content">
+//                       Transcation by <span class="text-danger">Jayachandran</span>, <small>${output.created_ts}</small> <span class="badge text-bg-primary">Pending</span>
+//                     </div>
+//                   </div>
+
+//                   <div class="activity-item d-flex">
+//                     <div class="activite-label">02</div>
+//                     <i class="bi bi-circle-fill activity-badge text-success align-self-start"></i>
+//                     <div class="activity-content">
+//                       Transcation by <span class="text-danger">Jayachandran</span>, <small>${output.approved_ts}</small> <span class="badge text-bg-primary">Approved</span>
+//                     </div>
+//                   </div>
+//               </div>`;
+
+//               $('#check_activity').html(transcation);
+
+//         } else if (response.success == 0) {
+//             Swal.fire({
+//                 icon: "error",
+//                 title: response.message,
+//                 showConfirmButton: false,
+//                 timer: 2000
+//             })
+//         }
+//     },
+//     error: function () {
+//       $('#preloader').hide();
+//       Swal.fire({
+//           icon: "error",
+//           title: "Service Error!",
+//           showConfirmButton: false,
+//           timer: 2000
+//       })
+//     }
+//   });
+// }
+
+function generateUniqueId() {
+  const timestamp = new Date().getTime();
+  // const random = Math.floor(Math.random() * 1000); // Adjust the range as needed
+  return `${timestamp}`;//${random}
+}
+
+
+function tblPreloaderEnable(tableName){
+      var processingDiv = document.getElementById(tableName+'_processing');
+      var displayStatus = window.getComputedStyle(processingDiv).display;
+      if (displayStatus === 'block') {
+      $('#'+tableName+'_processing').html(`<div id="preloader"></div>`);
+      } else {
+        $('#'+tableName+'_processing').text(`<div id="preloader"></div>`);
+      }
+}
+
+
+
+var generate_payment_enable = window.localStorage.getItem('generate_payment_enable');
+var transfer_payment_enable = window.localStorage.getItem('transfer_payment_enable');
+
+if(generate_payment_enable === 'true'){
+  // triggerScript('generate_payment_file_cnrt');
+  $('#generate_payment_real_btn').hide();
+  $('#generate_payment_status').addClass('d-inline');
+  $('#generate_payment_status').show();
+  $('#generate_payment_disable_btn').show();
+}
+
+if(transfer_payment_enable === 'true'){
+  // triggerScript2('transfer_payment_file')
+    $('#transfer_payment_status').addClass('d-inline');
+    $('#transfer_payment_status').show();
+    $('#transfer_payment_disable_btn').show();
+    $('#transfer_payment_enable').hide();
+}
+
+$('#xlsx_btn').on('click',function(){
+  $('#preloader').show();
+  var totalRecords = totalgetReportRecords;
+  var dataFilters = window.localStorage.getItem('filters');
+
+  $.ajax({
+       url: APIURL +'get_all_payment_report_list',
+       type: "POST",
+       headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+       data: {total_list_count:totalRecords,fileters:dataFilters,user_id:loginUser_id},
+       success: function(response) {
+        if(response.success ==1){
+            // console.log('get Report Record all', response.data);
+            exportJsonToExcel(response.data,'payment report');
+        }else{
+            Swal.fire({
+            icon: "error",
+            title: "Data Not Found !",
+            showConfirmButton: false,
+            timer: 2000
+          })
+            console.log('get report is data not found');
+        }
+       },
+       error: function(xhr, status, error) {
+        $('#preloader').hide();
+           console.log("Error:", error);
+       }
+     });
+});
+
+$('#csv_btn').on('click',function(){
+  // alert('click pdf btn');
+  $('#preloader').show();
+  var totalRecords = totalgetReportRecords;
+  var dataFilters = window.localStorage.getItem('filters');
+
+  $.ajax({
+       url: APIURL +'get_all_payment_report_list',
+       type: "POST",
+       headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+       data: {total_list_count:totalRecords,fileters:dataFilters,user_id:loginUser_id},
+       success: function(response) {
+        if(response.success ==1){
+            // console.log('get Report Record all', response.data);
+            // exportJsonToPdf(response.data,'payment report');
+
+            convertJsonToCsv(response.data,'payment report');
+        }else{
+          Swal.fire({
+          icon: "error",
+          title: "Data Not Found !",
+          showConfirmButton: false,
+          timer: 2000
+        })
+            console.log('get report is data not found');
+        }
+       },
+       error: function(xhr, status, error) {
+        $('#preloader').hide();
+           console.log("Error:", error);
+       }
+     });
+});
+
+
+function exportJsonToExcel(jsonData, file_name) {
+  var data = jsonData.map(obj => Object.values(obj));
+  var ws = XLSX.utils.aoa_to_sheet([Object.keys(jsonData[0])].concat(data));
+  var wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  var binaryData = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
+  var blob = new Blob([s2ab(binaryData)], { type: 'application/octet-stream' });
+  saveAs(blob, file_name + '.xlsx');
+  $('#preloader').hide();
+}
+
+function s2ab(s) {
+  var buf = new ArrayBuffer(s.length);
+  var view = new Uint8Array(buf);
+  for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+  return buf;
+}
+
+function convertJsonToCsv(jsonData,filename) {
+    // Extract column headers from the first object
+    let columns = Object.keys(jsonData[0]);
+
+    // Create CSV content
+    let csvContent = [
+        columns.join(','), // Header row
+        ...jsonData.map(obj => columns.map(col => obj[col]).join(',')) // Data rows
+    ].join('\n');
+
+    // return csvContent;
+
+    let blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    let link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', filename+'.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+
+
+</script>
+</body>
+</html>

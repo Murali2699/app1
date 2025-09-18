@@ -1,0 +1,259 @@
+function convertToXML(base64Input) {
+  // Step 1: Decode the Base64 input to binary data
+  const binaryData = atob(base64Input);
+
+  // Step 2: Convert binary data to a string
+  const xmlString = new TextDecoder("utf-8").decode(
+    new Uint8Array([...binaryData].map((char) => char.charCodeAt(0)))
+  );
+
+  // Return the XML string
+  convertXmlToJson(xmlString);
+}
+function convertXmlToJson(xmlString) {
+  var parser = new DOMParser();
+  var xmlDoc = parser.parseFromString(xmlString, "text/xml");
+  var tab = "\t";
+  var jsonData1 = xml2json(xmlDoc, tab);
+  var jsonObj = JSON.parse(jsonData1);
+  var name = jsonObj.KycRes.UidData.Poi["@name"];
+  var gender = jsonObj.KycRes.UidData.Poi["@gender"];
+  var dob = jsonObj.KycRes.UidData.Poi["@dob"];
+  var house = jsonObj.KycRes.UidData.Poa["@house"];
+  var street = jsonObj.KycRes.UidData.Poa["@street"];
+  var lm=jsonObj.KycRes.UidData.Poa["@lm"];
+  var co= jsonObj.KycRes.UidData.Poa["@co"];
+  var state= jsonObj.KycRes.UidData.Poa["@state"];
+  var pc = jsonObj.KycRes.UidData.Poa["@pc"];
+  var dist = jsonObj.KycRes.UidData.Poa["@dist"];
+  var photo_base64 = jsonObj.KycRes.UidData.Pht;
+  var uidd = jsonObj.KycRes.UidData.uid;
+  var jsonObj = {
+    name: name,
+    gender: gender,
+    dob: dob,
+    land_mark: lm,
+    relation_name: co,
+    state_name:state,
+    house_no: house,
+    street_name: street,
+    pincode: pc,
+    district_name: dist,
+    state_name:state,
+    photo:photo_base64,
+    uid:uidd
+  };
+  var jsonStr = JSON.stringify(jsonObj);
+
+  document.cookie = "kmut_web_portal=" + jsonStr;
+  var expirationDate = new Date();
+  expirationDate.setDate(expirationDate.getDate() + 1);
+  document.cookie =
+    "kmut_web_portal=" + jsonStr + "; expires=" + expirationDate.toUTCString();
+}
+function xml2json(xml, tab) {
+  var X = {
+    toObj: function (xml) {
+      var o = {};
+      if (xml.nodeType == 1) {
+        // element node ..
+        if (xml.attributes.length)
+          // element with attributes  ..
+          for (var i = 0; i < xml.attributes.length; i++)
+            o["@" + xml.attributes[i].nodeName] = (
+              xml.attributes[i].nodeValue || ""
+            ).toString();
+        if (xml.firstChild) {
+          // element has child nodes ..
+          var textChild = 0,
+            cdataChild = 0,
+            hasElementChild = false;
+          for (var n = xml.firstChild; n; n = n.nextSibling) {
+            if (n.nodeType == 1) hasElementChild = true;
+            else if (n.nodeType == 3 && n.nodeValue.match(/[^ \f\n\r\t\v]/))
+              textChild++; // non-whitespace text
+            else if (n.nodeType == 4) cdataChild++; // cdata section node
+          }
+          if (hasElementChild) {
+            if (textChild < 2 && cdataChild < 2) {
+              // structured element with evtl. a single text or/and cdata node ..
+              X.removeWhite(xml);
+              for (var n = xml.firstChild; n; n = n.nextSibling) {
+                if (n.nodeType == 3)
+                  // text node
+                  o["#text"] = X.escape(n.nodeValue);
+                else if (n.nodeType == 4)
+                  // cdata node
+                  o["#cdata"] = X.escape(n.nodeValue);
+                else if (o[n.nodeName]) {
+                  // multiple occurence of element ..
+                  if (o[n.nodeName] instanceof Array)
+                    o[n.nodeName][o[n.nodeName].length] = X.toObj(n);
+                  else o[n.nodeName] = [o[n.nodeName], X.toObj(n)];
+                } // first occurence of element..
+                else o[n.nodeName] = X.toObj(n);
+              }
+            } else {
+              // mixed content
+              if (!xml.attributes.length) o = X.escape(X.innerXml(xml));
+              else o["#text"] = X.escape(X.innerXml(xml));
+            }
+          } else if (textChild) {
+            // pure text
+            if (!xml.attributes.length) o = X.escape(X.innerXml(xml));
+            else o["#text"] = X.escape(X.innerXml(xml));
+          } else if (cdataChild) {
+            // cdata
+            if (cdataChild > 1) o = X.escape(X.innerXml(xml));
+            else
+              for (var n = xml.firstChild; n; n = n.nextSibling)
+                o["#cdata"] = X.escape(n.nodeValue);
+          }
+        }
+        if (!xml.attributes.length && !xml.firstChild) o = null;
+      } else if (xml.nodeType == 9) {
+        // document.node
+        o = X.toObj(xml.documentElement);
+      } else alert("unhandled node type: " + xml.nodeType);
+      return o;
+    },
+    toJson: function (o, name, ind) {
+      var json = name ? '"' + name + '"' : "";
+      if (o instanceof Array) {
+        for (var i = 0, n = o.length; i < n; i++)
+          o[i] = X.toJson(o[i], "", ind + "\t");
+        json +=
+          (name ? ":[" : "[") +
+          (o.length > 1
+            ? "\n" + ind + "\t" + o.join(",\n" + ind + "\t") + "\n" + ind
+            : o.join("")) +
+          "]";
+      } else if (o == null) json += (name && ":") + "null";
+      else if (typeof o == "object") {
+        var arr = [];
+        for (var m in o) arr[arr.length] = X.toJson(o[m], m, ind + "\t");
+        json +=
+          (name ? ":{" : "{") +
+          (arr.length > 1
+            ? "\n" + ind + "\t" + arr.join(",\n" + ind + "\t") + "\n" + ind
+            : arr.join("")) +
+          "}";
+      } else if (typeof o == "string")
+        json += (name && ":") + '"' + o.toString() + '"';
+      else json += (name && ":") + o.toString();
+      return json;
+    },
+    innerXml: function (node) {
+      var s = "";
+      if ("innerHTML" in node) s = node.innerHTML;
+      else {
+        var asXml = function (n) {
+          var s = "";
+          if (n.nodeType == 1) {
+            s += "<" + n.nodeName;
+            for (var i = 0; i < n.attributes.length; i++)
+              s +=
+                " " +
+                n.attributes[i].nodeName +
+                '="' +
+                (n.attributes[i].nodeValue || "").toString() +
+                '"';
+            if (n.firstChild) {
+              s += ">";
+              for (var c = n.firstChild; c; c = c.nextSibling) s += asXml(c);
+              s += "</" + n.nodeName + ">";
+            } else s += "/>";
+          } else if (n.nodeType == 3) s += n.nodeValue;
+          else if (n.nodeType == 4) s += "<![CDATA[" + n.nodeValue + "]]>";
+          return s;
+        };
+        for (var c = node.firstChild; c; c = c.nextSibling) s += asXml(c);
+      }
+      return s;
+    },
+    escape: function (txt) {
+      return txt
+        .replace(/[\\]/g, "\\\\")
+        .replace(/[\"]/g, '\\"')
+        .replace(/[\n]/g, "\\n")
+        .replace(/[\r]/g, "\\r");
+    },
+    removeWhite: function (e) {
+      e.normalize();
+      for (var n = e.firstChild; n; ) {
+        if (n.nodeType == 3) {
+          // text node
+          if (!n.nodeValue.match(/[^ \f\n\r\t\v]/)) {
+            // pure whitespace text node
+            var nxt = n.nextSibling;
+            e.removeChild(n);
+            n = nxt;
+          } else n = n.nextSibling;
+        } else if (n.nodeType == 1) {
+          // element node
+          X.removeWhite(n);
+          n = n.nextSibling;
+        } // any other node
+        else n = n.nextSibling;
+      }
+      return e;
+    },
+  };
+  if (xml.nodeType == 9)
+    // document node
+    xml = xml.documentElement;
+  var json = X.toJson(X.toObj(X.removeWhite(xml)), xml.nodeName, "\t");
+  return (
+    "{\n" +
+    tab +
+    (tab ? json.replace(/\t/g, tab) : json.replace(/\t|\n/g, "")) +
+    "\n}"
+  );
+}
+//XMLto Json
+function xmlStringToJsonObject(base64XML) {
+  const xmlString = atob(base64XML);
+  const parser = new DOMParser();
+  const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+
+  function xmlToJson(xml) {
+    let obj = {};
+
+    if (xml.nodeType === 1) {
+      // element
+      if (xml.attributes.length > 0) {
+        obj["@attributes"] = {};
+        for (let j = 0; j < xml.attributes.length; j++) {
+          const attribute = xml.attributes.item(j);
+          obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+        }
+      }
+    } else if (xml.nodeType === 3) {
+      // text
+      obj = xml.nodeValue;
+    }
+
+    // Do children
+    if (xml.hasChildNodes()) {
+      for (let i = 0; i < xml.childNodes.length; i++) {
+        const item = xml.childNodes.item(i);
+        const nodeName = item.nodeName;
+
+        if (typeof obj[nodeName] === "undefined") {
+          obj[nodeName] = xmlToJson(item);
+        } else {
+          if (typeof obj[nodeName].push === "undefined") {
+            const old = obj[nodeName];
+            obj[nodeName] = [];
+            obj[nodeName].push(old);
+          }
+          obj[nodeName].push(xmlToJson(item));
+        }
+      }
+    }
+    return obj;
+  }
+
+  const jsonObject = xmlToJson(xmlDoc);
+  return jsonObject;
+}

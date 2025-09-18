@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Payment Automation Dashboard</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <!-- Favicons -->
+    <link href="assets/img/tn_logo.png" rel="icon">
+    <link href="assets/img/tn_logo.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
+    <link rel="stylesheet" href="assets/vendor/sweetalert2/css/sweetalert.min.css" />
+    <link rel="stylesheet" href="assets/vendor/sweetalert2/css/sweetalert2.min.css" />
+    <!-- <link rel="stylesheet" href="assets/vendor/toggle/bootstrap-toggle.min.css" /> -->
+    <!-- CSS File --> 
+    <link href="assets/css/style.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"> -->
+    <script src="assets/components/official_header.js" type="text/javascript" defer></script>
+  </head>
+  <body>
+    <!-- ======= Header & sidemenu ======= -->
+    <official-header-component></official-header-component>
+    <div id="preloader"></div>
+    <!-- ======= Header & sidemenu ======= -->
+
+    <main id="main" class="main">
+
+      <!-- Dashboard view starts -->
+      <section>
+        <div class="container-fluid">
+       
+          <!-- END: Dropdown card end here -->
+          <div class="card1 mb-2 mt-3">
+            <div class="card-body1">
+              <form id="schemeRegister" method="post">
+                <div class="card mb-2 mt-3">
+                  <div class="card-body">
+                    <div class="row mb-2">
+                      <h5 class="card-title pb- mb-0"><i class="bi bi-check2-circle"></i>  Scheme Registration </h5>
+                      <div class="col-md-4 mb-2">
+                        <label for="schemeCategory" class="form-label fw-bold">Scheme category</label>
+                        <input type="text" class="form-control" name="schemeCategory" id="schemeCategory" placeholder="Enter Scheme Code">
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="schemeCode" class="form-label fw-bold">Scheme Code</label>
+                        <input type="text" class="form-control" name="schemeCode" id="schemeCode" placeholder="Enter Scheme Code">
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="schemeName" class="form-label fw-bold">Scheme Name</label>
+                        <input type="text" class="form-control" name="schemeName" id="schemeName" placeholder="Enter Scheme Name">
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="subSchemeName" class="form-label fw-bold">Sub Scheme Name</label>
+                        <input type="text" class="form-control" name="subSchemeName" id="subSchemeName" placeholder="Enter Sub Scheme Name">
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="dep" class="form-label fw-bold">Department</label>
+                        <select class="form-select" id="dep" name="dep">
+                          <option value="">Select Department</option>
+                          <option value="1">Department 1</option>
+                          <option value="1">Department 2</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="sub_dep" class="form-label fw-bold">Sub Department</label>
+                        <select class="form-select" id="sub_dep" name="sub_dep">
+                          <option value="">Select Sub Department</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="paymentCycle" class="form-label fw-bold">Payment Cycle</label>
+                        <select class="form-select" id="paymentCycle" name="paymentCycle">
+                        </select>
+
+                        <!-- <select name="dayWeekMonthFilter" id="dayWeekMonthFilter" class="form-select" aria-invalid="false">
+                          <option value="1" selected="">Monthly</option>
+                          <option value="fq">Financial Quarterly</option>
+                          <option value="cq">Calendar Quarterly</option>
+                          <option value="fh">Financial Half-Yearly</option>
+                          <option value="ch">Calendar Half-Yearly</option>
+                          <option value="14">Yearly</option>
+                        </select> -->
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="installment" class="form-label fw-bold">Installment</label>
+                        <select class="form-select" id="installment" name="installment">
+                          <option value="">Select Installment</option>
+                          <option value="1">1</option>
+                          <option value="1">2</option>
+                          <option value="1">3</option>
+                          <option value="1">4</option>
+                          <option value="1">5</option>
+                          <option value="1">6</option>
+                          <option value="1">7</option>
+                          <option value="1">8</option>
+                          <option value="1">9</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="paymentMethod" class="form-label fw-bold">Payment Method</label>
+                        <select class="form-select" id="paymentMethod" name="paymentMethod">
+                        </select>
+                      </div>
+                    </div>
+<hr>
+                    <div class="row mb-2">
+                      <div class="col-md-4 mb-2">
+                        <label for="budgetCode" class="form-label fw-bold">Budget Code</label>
+                        <input type="text" class="form-control" id="budgetCode" name="budgetCode" placeholder="Enter Budget Code">
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="acHead" class="form-label fw-bold">Account Head</label>
+                        <input type="text" class="form-control" id="acHead" name="acHead" placeholder="Enter Account Head">
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="nodalBank" class="form-label fw-bold">Nodal Bank</label>
+                        <input type="text" class="form-control" id="nodalBank" name="nodalBank" placeholder="Enter Nodal Bank">
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="nodalBankIinNo" class="form-label fw-bold">Nodal Bank IIN Number</label>
+                        <input type="text" class="form-control" id="nodalBankIinNo" name="nodalBankIinNo" placeholder="Enter Nodal Bank IIN Number">
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="nodalBankUserNo" class="form-label fw-bold">DBT Code</label>
+                        <input type="text" class="form-control" id="nodalBankUserNo" name="nodalBankUserNo" placeholder="Enter DBT Code">
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="acNo" class="form-label fw-bold">Account Number</label>
+                        <input type="text" class="form-control" id="acNo" name="acNo" placeholder="Account Number">
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="bankBranchName" class="form-label fw-bold">Branch Name</label>
+                        <input type="text" class="form-control" id="bankBranchName" name="bankBranchName" placeholder="Enter Branch Name">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card mb-2 mt-3 alert alert-success">
+                  <div class="card-body ">
+                    <ul class="nav nav-tabs" id="myTab1" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab1" data-bs-toggle="tab" data-bs-target="#home-tab1-pane" type="button" role="tab" aria-controls="home-tab1-pane" aria-selected="true"><i class="bi bi-file-earmark-check"></i> UAT</button>
+                      </li>
+                      <li class="nav-item mx-2" role="presentation">
+                        <button class="nav-link" id="profile-tab2" data-bs-toggle="tab" data-bs-target="#profile-tab2-pane" type="button" role="tab" aria-controls="profile-tab2-pane" aria-selected="false"><i class="bi bi-send"></i> Production</button>
+                      </li>
+                    </ul>
+
+                    <div class="tab-content" id="myTabContent">
+                      <div class="tab-pane fade show active" id="home-tab1-pane" role="tabpanel" aria-labelledby="home-tab1" tabindex="0">
+                          <div class="row mb-2">
+                      <h5 class="card-title pb- mb-0"><i class="bi bi-check2-circle"></i> UAT  FTP Config</h5>
+                      <div class="col-md-4">
+                        <label for="uat_ftp_host" class="form-label fw-bold">FTP Host</label>
+                        <input type="text" class="form-control" id="uat_ftp_host" name="uat_ftp_host" placeholder="Enter FTP Name">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="uat_ftp_port" class="form-label fw-bold">FTP Port</label>
+                        <input type="text" class="form-control" id="uat_ftp_port" name="uat_ftp_port" placeholder="Enter FTP Name">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="uat_ftp_username" class="form-label fw-bold">FTP User Name</label>
+                        <input type="text" class="form-control" id="uat_ftp_username" name="uat_ftp_username" placeholder="Enter FTP User Name">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="uat_ftp_password" class="form-label fw-bold">FTP Password</label>
+                        <input type="text" class="form-control" id="uat_ftp_password" name="uat_ftp_password" placeholder="Enter Password">
+                      </div>
+                      <div class="col-md-4 mt-2">
+                        <label for="uat_ftp_request_path" class="form-label fw-bold">FTP Request Path</label>
+                        <input type="text" class="form-control" id="uat_ftp_request_path" name="uat_ftp_request_path" placeholder="Enter FTP User Name">
+                      </div>
+                      <div class="col-md-4 mt-2">
+                        <label for="uat_ftp_response_path" class="form-label fw-bold">FTP Response Path</label>
+                        <input type="text" class="form-control" id="uat_ftp_response_path" name="uat_ftp_response_path" placeholder="Enter FTP User Name">
+                      </div>
+                      <div class="col-md-4 mt-2">
+                        <label for="uat_ftp_response_ack_path" class="form-label fw-bold">FTP Response Acknowledgement File Path</label>
+                        <input type="text" class="form-control" id="uat_ftp_response_ack_path" name="uat_ftp_response_ack_path" placeholder="Enter FTP User Name">
+                      </div>
+                      <div class="col-md-4 mt-2">
+                        <label for="uat_ftp_response_fl_path" class="form-label fw-bold">FTP Response Full Complete Path</label>
+                        <input type="text" class="form-control" id="uat_ftp_response_fl_path" name="uat_ftp_response_fl_path" placeholder="Enter FTP User Name">
+                      </div>
+                      </div>
+                    </div>
+                    
+                  <div class="tab-pane fade" id="profile-tab2-pane" role="tabpanel" aria-labelledby="profile-tab2" tabindex="0">
+                        <div class="row mb-2">
+                      <h5 class="card-title pb- mb-0"><i class="bi bi-check2-circle"></i> Production  FTP Config</h5>
+                      <div class="col-md-4">
+                        <label for="production_ftp_host" class="form-label fw-bold">FTP Host</label>
+                        <input type="text" class="form-control" id="production_ftp_host" name="production_ftp_host" placeholder="Enter FTP Name">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="production_ftp_port" class="form-label fw-bold">FTP Port</label>
+                        <input type="text" class="form-control" id="production_ftp_port" name="production_ftp_port" placeholder="Enter FTP Name">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="production_ftp_username" class="form-label fw-bold">FTP User Name</label>
+                        <input type="text" class="form-control" id="production_ftp_username" name="production_ftp_username" placeholder="Enter FTP User Name">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="production_ftp_password" class="form-label fw-bold">FTP Password</label>
+                        <input type="password" class="form-control" id="production_ftp_password" name="production_ftp_password" placeholder="Enter Password">
+                      </div>
+                      <div class="col-md-4 mt-2">
+                        <label for="production_ftp_request_path" class="form-label fw-bold">FTP Request Path</label>
+                        <input type="text" class="form-control" id="production_ftp_request_path" name="production_ftp_request_path" placeholder="Enter FTP User Name">
+                      </div>
+                      <div class="col-md-4 mt-2">
+                        <label for="production_ftp_response_path" class="form-label fw-bold">FTP Response Path</label>
+                        <input type="text" class="form-control" id="production_ftp_response_path" name="production_ftp_response_path" placeholder="Enter FTP User Name">
+                      </div>
+                      <div class="col-md-4 mt-2">
+                        <label for="production_ftp_response_ack_path" class="form-label fw-bold">FTP Response Acknowledgement File Path</label>
+                        <input type="text" class="form-control" id="production_ftp_response_ack_path" name="production_ftp_response_ack_path" placeholder="Enter FTP User Name">
+                      </div>
+                      <div class="col-md-4 mt-2">
+                        <label for="production_ftp_response_fl_path" class="form-label fw-bold">FTP Response Full Complete Path</label>
+                        <input type="text" class="form-control" id="production_ftp_response_fl_path" name="production_ftp_response_fl_path" placeholder="Enter FTP User Name">
+                      </div>
+                     </div>
+                   </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="col-md-12 text-center mt-3 mb-5">
+                    <!-- <a class="btn btn-success cbtn"><i class="bi bi-pencil-square"></i> Create</a> -->
+                    <button class="btn btn-success cbtn" type="submit"><i class="bi bi-pencil-square"></i>Create</button>
+                </div>
+
+                <input type="hidden" name="UserID" id="UserID">
+                <input type="hidden" name="department_text" id="department_text">
+                <input type="hidden" name="sub_department_text" id="sub_department_text">
+              </form>
+              </div>
+            </div>
+          <!-- END: list card end here -->
+          <!-- START: modal popup -->
+          <!-- Button trigger modal -->
+        </div>
+      </section>
+    </main>
+    <!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="copyright">
+        &copy; Copyright <strong><span>TNeGA</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed & Developed by <a href="https://tngis.tn.gov.in/" target="_blank">TNeGA</a>
+      </div>
+    </footer>
+    <!-- End Footer -->
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <!-- Delete modal starts -->
+    <!-- view crop info ends -->
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <!-- <script src="assets/vendor/multiselect/js/multiselect.js"></script>
+      -->
+      <script type="text/javascript" src="assets/vendor/jquery-validate/js/jquery.validate.min.js"></script>
+    <script src="assets/vendor/sweetalert2/js/sweetalert.min.js"></script>
+    <script src="assets/vendor/sweetalert2/js/sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="assets/vendor/toastr/toastr.min.js"></script>
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/global.js"></script>
+    <script src="assets/js/base64tojson.js"></script>
+    <script src="assets/js/crypto-js.js"></script>
+    <script src="assets/js/aes.js"></script>
+  
+    <!-- Crypto js -->
+    <script src="assets/vendor/encryption/crypto-js.min.js"></script>
+    <!-- Encryption js -->
+    <script src="assets/vendor/encryption/Encryption.js"></script>
+    
+    <script type="text/javascript">
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+
+<script type="text/javascript">
+    $(document).on({
+           ajaxStart: function () {
+             $('#preloader').show();
+             console.log('preloader is show');
+           },
+           ajaxStop: function () {
+             $('#preloader').hide();
+             console.log('preloader is show');
+           }
+         });
+  var url = window.location.href;
+  var page_url = url.split('/');
+  var page = page_url[4];
+
+  var userDataString = getCookie('payment_official');
+  userDataString = JSON.parse(userDataString);
+  window.loginUser_id = userDataString['user_id'];
+  
+  reloID = userDataString['role_id'];
+  roleBasedPageAllow(loginUser_id,reloID);
+  
+  $(document).ready(function () {
+    $('.official').each(function (i, obj) {
+      var href = obj.getAttribute("href");
+      if (href == page) {
+        obj.classList.add('active');
+      } else {
+        obj.classList.remove('active');
+      }
+    });
+    $('#preloader').hide();
+    
+    var userDataString = getCookie('payment_official');
+    if (!userDataString) {
+      $('#preloader').show();
+      window.location.href = "login.html";
+    }
+
+    userDataString = JSON.parse(userDataString);
+    $('#official_username').text(userDataString['first_name']);
+    $('#UserID').val(userDataString['user_id']);
+  });
+
+  function getCookie(name) {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(name + '=')) {
+          return cookie.substring(name.length + 1);
+        }
+      }
+      return null;
+    }
+</script>
+<script>
+$(document).ready(function() {
+
+  $('#dep').on('change', function() {
+      var selectedOption = $(this).find(':selected');
+      var selectedText = selectedOption.text();
+      // alert(selectedText);
+      $('#department_text').val('');
+      $('#department_text').val(selectedText);
+  });
+
+  $('#sub_dep').on('change', function() {
+      var selectedOption = $(this).find(':selected');
+      var selectedText = selectedOption.text();
+      // alert(selectedText);
+      $('#sub_department_text').val('');
+      $('#sub_department_text').val(selectedText);
+  });
+
+  
+  setTimeout(() => {
+    $('#schemeRegister').trigger("reset");
+  },500);
+
+
+
+  $("#schemeRegister").validate({
+        rules: {
+            schemeCategory:{required: true},
+            schemeCode: {required: true,minlength: 1,maxlength: 10,},
+            schemeName: {required: true},
+            subSchemeName: {required: true},
+            scheme: {required: true},
+            dep: {required: true},
+            sub_dep: {required: true},
+            paymentCycle: {required: true},
+            budgetCode: {required: true},
+            installment: {required: true},
+            paymentMethod:  {required: true},
+            acHead: {required: true},
+            nodalBank: {required: true},
+            nodalBankIinNo:{required: true},
+            nodalBankUserNo:{required: true},
+            acNo: {required: true},
+            bankBranchName: {required: true},
+            paymentMethode: {required: true},
+            uat_ftp_host: {required: true},
+            uat_ftp_port:{required: true},
+            uat_ftp_username: {required: true},
+            uat_ftp_password: {required: true},
+            uat_ftp_request_path: {required: true},
+            uat_ftp_response_path: {required: true},
+            uat_ftp_response_ack_path: {required: true},
+            uat_ftp_response_fl_path: {required: true},
+            production_ftp_host: {required: true},
+            production_ftp_port: {required: true},
+            production_ftp_username: {required: true},
+            production_ftp_password: {required: true},
+            production_ftp_request_path: {required: true},
+            production_ftp_response_path: {required: true},
+            production_ftp_response_ack_path: {required: true},
+            production_ftp_response_fl_path: {required: true},
+        },
+        messages: {
+          schemeCategory: {required: "Enter the Scheme Category"},
+          schemeCode: {
+                    required: "Enter the Scheme Code",
+                    minlength: 'Scheme Code cannot be less than 1 digits',
+                    maxlength: 'Scheme Code cannot be more than 10 digits',
+                    },
+          schemeName: {required: "Enter the Scheme Name"},
+            dep: {required: "Enter the Deparment"},
+            sub_dep: {required: "Enter the sub Deparment"},
+            paymentCycle: {required: "Enter the Payment Cycle"},
+            budgetCode: {required: "Enter the Budget Code"},
+            installment: {required: "Enter the Installment"},
+            acHead: {required: "Enter the Account Head"},
+            nodalBank: {required: "Enter the Nodal Bank"},
+            nodalBankIinNo:{required: "Enter the Nodal Bank IIN Number"},
+            nodalBankUserNo:{required: "Enter the Nodal Bank User Number"},
+            acNo: {required: "Enter the Account No"},
+            bankBranchName: {required: "Enter the Bank BranchName"},
+            paymentMethode: {required: "Enter the PaymentMethode"},
+            uat_ftp_host: {required: "Enter the UAT FTP host"},
+            uat_ftp_port: {required: "Enter the UAT FTP Port"},
+            uat_ftp_username: {required: "Enter the UAT FTP username"},
+            uat_ftp_password: {required: "Enter the UAT FTP password"},
+            uat_ftp_request_path: {required: "Enter the UAT FTP Request Path"},
+            uat_ftp_response_path: {required: "Enter the UAT FTP Response Path"},
+            uat_ftp_response_ack_path: {required: "Enter the UAT FTP Response Acknowledgement File Path"},
+            uat_ftp_response_fl_path: {required: "Enter the UAT FTP Response Full Complete Path"},
+            production_ftp_host: {required: "Enter the production FTP host"},
+            production_ftp_port: {required: "Enter the production FTP Port"},
+            production_ftp_username: {required: "Enter the production FTP username"},
+            production_ftp_password: {required: "Enter the production FTP password"},
+            production_ftp_request_path: {required: "Enter the pproduction FTP Request Path"},
+            production_ftp_response_path: {required: "Enter the production FTP Response Path"},
+            production_ftp_response_ack_path: {required: "Enter the production FTP Response Acknowledgement File Path"},
+            production_ftp_response_fl_path: {required: "Enter the production FTP Response Full Complete Path"},
+        },
+        errorClass: "help-inline text-danger",
+        errorElement: "span",
+        highlight: function(element, errorClass, validClass) {
+            $(element).parents('.form-group').addClass('has-error');
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).parents('.form-group').removeClass('has-error');
+            $(element).parents('.form-group').addClass('has-success');
+        },
+        submitHandler: function(form,e) {
+            e.preventDefault();
+            console.log('Form submitted');
+            $.ajax({
+                type: 'POST',
+                headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+                url: APIURL +'create_scheme',
+                dataType: "html",
+                data: $('form').serialize(),
+                success: function(response) {
+                   var result = JSON.parse(response);
+                    if(result.success==1){
+                      console.log('success');
+                      console.log(result);
+                      Swal.fire({
+                        icon: "success",
+                        title: result.message,
+                        showConfirmButton: false,
+                        timer: 2000
+                      });
+                      window.location.href = "scheme-list.html";
+                    }else{
+                      console.log('Error');
+                      console.log(result);
+                      Swal.fire({
+                        icon: "error",
+                        title: result.message,
+                        showConfirmButton: false,
+                        timer: 2000
+                      });
+                    }
+                },
+                error : function(error) {
+                  Swal.fire({
+                        icon: "error",
+                        title: error,
+                        showConfirmButton: false,
+                        timer: 2000
+                      })
+                }
+            });
+            return false;
+        }
+  });
+  getDepartment();
+});
+
+function getDepartment(){
+  $.ajax({
+      url: APIURL +'get_department',
+      type: "POST",
+      headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+      data: {type: "department"},
+      success: function(response) {
+          // console.log("Success:",JSON.parse(response)[0].data );
+          var department = response[0].data;
+          // Handle the successful response here
+          $('#dep').empty();
+          $('#dep').append($('<option>', {
+                value: "",
+                text: "--All--"
+            }));
+          // Iterate over the JSON object and append options
+          $.each(department, function (index, dep) {
+            $('#dep').append($('<option>', {
+                value: dep.department_code,
+                text: dep.department_name
+            }));
+          });
+
+      },
+      error: function(xhr, status, error) {
+          console.log("Error:", error);
+          // Handle the error here
+      }
+    });
+}
+
+  $('#dep').on('change',function(){
+    var department = $('#dep').val();
+    $.ajax({
+      url: APIURL +'get_department',
+      type: "POST",
+      headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+      data: {type: "sub_department",department_code:department},
+      success: function(response) {
+          // console.log("Success:",JSON.parse(response)[0].data );
+          var department = response[0].data;
+          // Handle the successful response here
+          $('#sub_dep').empty();
+          $('#sub_dep').append($('<option>', {
+                value: "",
+                text: "--All--"
+            }));
+          // Iterate over the JSON object and append options
+          $.each(department, function (index, dep) {
+            $('#sub_dep').append($('<option>', {
+                value: dep.sub_department_code,
+                text: dep.sub_department_name
+            }));
+          });
+
+      },
+      error: function(xhr, status, error) {
+          console.log("Error:", error);
+          // Handle the error here
+      }
+    });
+  });
+
+  dropDownList('Payment Cycle','#paymentCycle');
+  dropDownList('Installment','#installment');
+
+  function dropDownList(type,element){
+  var userDataString = getCookie('payment_official');
+  userDataString = JSON.parse(userDataString);
+  window.loginUser_id = userDataString['user_id'];
+
+    $.ajax({
+      url: APIURL +'fn_general_getdropdownvalues',
+      type: "POST",
+      headers: {'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+      data: {user_id: loginUser_id,dropdown_type:type},
+      success: function(response) {
+        
+          var dropdownList = response.data;
+          $(element).empty();
+          $(element).append($('<option>', {
+                value: "",
+                text: "Select "+type
+            }));
+          // Iterate over the JSON object and append options
+          $.each(dropdownList, function (index, dep) {
+            $(element).append($('<option>', {
+                value: dep.id,
+                text: dep.display_text
+            }));
+          });
+
+      },
+      error: function(xhr, status, error) {
+          console.log("Error:", error);
+          // Handle the error here
+      }
+    });
+  }
+
+  paymentMode();
+  function paymentMode(){
+    var userDataString = getCookie('payment_official');
+    userDataString = JSON.parse(userDataString);
+    window.loginUser_id = userDataString['user_id'];
+  
+      $.ajax({
+        url: APIURL +'fn_general_getpaymentmethods',
+        type: "POST",
+        headers: {'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+        data: {user_id: loginUser_id},
+        success: function(response) {
+          
+            var dropdownList = response.data;
+            $('#paymentMethod').empty();
+            $('#paymentMethod').append($('<option>', {
+                  value: "",
+                  text: "Select Payment Method"
+              }));
+            // Iterate over the JSON object and append options
+            $.each(dropdownList, function (index, type) {
+              $('#paymentMethod').append($('<option>', {
+                  value: type.id,
+                  text: type.payment_mode
+              }));
+            });
+  
+        },
+        error: function(xhr, status, error) {
+            console.log("Error:", error);
+            // Handle the error here
+        }
+      });
+    }
+</script>
+  </body>
+</html>

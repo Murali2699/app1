@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Payment Automation Dashboard</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <!-- Favicons -->
+    <link href="assets/img/tn_logo.png" rel="icon">
+    <link href="assets/img/tn_logo.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
+    <link rel="stylesheet" href="assets/vendor/sweetalert2/css/sweetalert.min.css" />
+    <link rel="stylesheet" href="assets/vendor/sweetalert2/css/sweetalert2.min.css" />
+    <!-- <link rel="stylesheet" href="assets/vendor/toggle/bootstrap-toggle.min.css" /> -->
+    <!-- CSS File --> 
+    <link href="assets/css/style.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"> -->
+    <script src="assets/components/official_header.js" type="text/javascript" defer></script>
+  </head>
+  <body>
+
+    <style>
+        span#pending_approval_processing {
+        position: absolute;
+        top: 4.5rem;
+        left: 15rem;
+        width: auto;
+        }
+        span#progress_strat {
+        position: absolute;
+        top: 4.5rem;
+        left: 15rem;
+        width: auto;
+        }
+        .text-danger {
+        font-size: 13px;
+        font-weight: bold;
+        }
+        div.pamentDateGroup {
+        position: absolute;
+        right: 19rem;
+        margin-top: -19px;
+        font-weight: bold;
+        font-size: smaller;
+        width: 244px;
+        }
+        .top .dt-buttons {
+        float: left !important;
+        }
+      span#paymentDate_error {
+        position: absolute;
+        bottom: -22px;
+        }
+        ul#myTab .nav-link{
+          margin-top: 0.7rem;
+        }
+        div.pamentDateGroup {
+        position: absolute;
+        right: 19rem;
+        margin-top: -19px;
+        font-weight: bold;
+        font-size: smaller;
+        width: 244px;
+        }
+        span#paymentDate_error {
+          position: absolute;
+          bottom: -22px;
+          }
+      .bi-check-lg::before,.bi-x-lg::before {
+        font-size: 2rem;
+      }
+      .function_1_td,.function_2_td,.function_3_td{
+        vertical-align: middle;
+        text-align: center;
+      }
+      .fs-custom-dummy{
+          font-size: medium;
+          font-weight: bold;
+      }
+      .cursor-auto{
+        cursor: auto!important;
+      }
+        span#opration-error {
+        position: absolute;
+        left: 12rem;
+        }
+
+
+    </style>
+    <!-- ======= Header & sidemenu ======= -->
+    <official-header-component></official-header-component>
+    <div id="preloader"></div> 
+    <!-- End Sidebar-->
+    <main id="main" class="main">
+      <!-- Dashboard view starts -->
+      <section>
+        <div class="container-fluid">
+          <div class="card mb-1">
+            <form id="formFilters" method="post">
+               <div class="card-body pb-0 pt-2">
+                <div class="row mb-2 boxflex">
+                  <h5 class="card-title pb- mb-0"><i class="bi bi-check2-circle"></i>View Payment Summary</h5>
+                  <div class="col-md">
+                    <label for="ddl_scheme_cate" class="form-label fw-bold">Scheme Category</label>
+                    <select class="form-select" id="ddl_scheme_cate" name="ddl_scheme_cate">
+                      <option value="1">--All--</option>
+                    </select>
+                  </div>
+                  <div class="col-md" id="ddl_year_col">
+                    <label for="ddl_year" class="form-label fw-bold">Select Year - Month</label>
+                    <select name="ddl_year" id="ddl_year" class="form-select" data-live-search="true">
+                        <option value="">Year-Month</option>
+                    </select>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="row mb-2 boxflex">
+                  <!-- <a class="btn btn-success float-end cbtn col-md-1" id="get_filter"><i class="bi bi-check2-circle"></i> Submit</a> -->
+                  <button class="btn btn-success float-end cbtn col-md-2" id="getPaymentSummaryBtn" type="submit"><i class="bi bi-pencil-square"></i> Submit</button>
+                </div>
+  
+  
+              </div>
+
+              <input type="hidden" name="approvelpayment" id="approvelpayment">
+            </form>
+          </div>
+          <!-- END: Dropdown card end here -->
+          <div class="card mb-2 mt-3">
+            <div class="card-body">
+              <div class="tab-content" id="myTabContent">
+                <div class="col-lg-12">
+                  <div class="card1">
+                    <div class="card-body1">
+                      <!-- ------------------------------------------- -->
+                      <div class="payment_summary">
+                        <div>
+                            <h5 class="card-title mt-3 mb-0"><i class="bi bi-check2-circle"></i>  Payment Summary List</h5>
+                        </div>                        
+                    </div>
+                    <!-- ----------------------------------------------- -->
+                    
+                      <div class="clear-both"></div>
+                      <div class="col-lg-12 mt-2 clear-both" style="    clear: both;">
+                        <div class="table-responsive">
+                          <table class="table" class="table table-striped w-100 no-footer dataTable mt-3" id="t_payment_summary" aria-describedby="t_payment_summary_info">
+                            <thead>
+                              <tr>
+                                <th scope="col"  class="sorting sorting_asc" tabindex="0" aria-controls="t_payment_summary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">S.No</th>
+                                <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="t_payment_summary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">Scheme Category</th>
+                                <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="t_payment_summary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">Period</th>
+                                <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="t_payment_summary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">Total Beneficiaries</th>
+                                <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="t_payment_summary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">Total Amount</th>
+                                <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="t_payment_summary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">Payment Success</th>
+                                <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="t_payment_summary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">Payment Failure</th>
+                                <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="t_payment_summary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">Payment Inprogress</th>
+                                <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="t_payment_summary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">Payment Success Amount</th>
+                                <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="t_payment_summary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">Payment Failure Amount</th>
+                                <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="t_payment_summary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">Payment Inprogress Amount</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              
+                            </tbody>
+                            <tfoot id=""></tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+        </div>
+      </section>
+    </main>
+    <!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="copyright">
+        &copy; Copyright <strong><span>TNeGA</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed & Developed by <a href="https://tngis.tn.gov.in/" target="_blank">TNeGA</a>
+      </div>
+    </footer>
+    <!-- End Footer -->
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script type="text/javascript" src="assets/vendor/jquery-validate/js/jquery.validate.min.js"></script>
+
+
+    <!-- data table -->
+    <script src="assets/vendor/datatable/jquery.dataTables.min.js"></script>
+    <script src="assets/vendor/datatable/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="assets/vendor/datatable/js/dataTables.js"></script>
+    <script type="text/javascript" src="assets/vendor/datatable/js/dataTables.bootstrap4.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/jszip.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/pdfmake.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/vfs_fonts.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="assets/vendor/sweetalert2/js/sweetalert.min.js"></script>
+    <script src="assets/vendor/sweetalert2/js/sweetalert2.all.min.js"></script>
+    <script src="assets/vendor/toggle/bootstrap-toggle.min.js"></script>
+    <script src="assets/js/global.js"></script>
+    <script src="assets/js/alpinejs_3_10_2.min.js" defer></script>
+    <script src="assets/lang/reports.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js'></script>
+    <script src="assets/scripts/xlsx.full.min.js"></script>
+    <!-- data table -->
+
+
+
+    
+    <!-- Main JS File -->
+    
+    <script src="assets/js/global.js"></script>
+    <script src="assets/js/base64tojson.js"></script>
+    <script src="assets/js/crypto-js.js"></script>
+    <script src="assets/js/aes.js"></script>
+  
+
+    <script type="text/javascript" src="assets/vendor/toastr/toastr.min.js"></script>
+    
+    <!-- Crypto js -->
+    <script src="assets/vendor/encryption/crypto-js.min.js"></script>
+    <!-- Encryption js -->
+    <script src="assets/vendor/encryption/Encryption.js"></script>
+    <script src="assets/vendor/sweetalert2/js/sweetalert2.all.min.js"></script>
+    
+    
+ 
+<script type="text/javascript">
+  var url = window.location.href;
+  var page_url = url.split('/');
+  var page = page_url[4];
+
+  var userDataString = getCookie('payment_official');
+  userDataString = JSON.parse(userDataString);
+  $(document).ready(function () {
+    $(document).on({
+          //  ajaxStart: function () {
+          //    $('#preloader').show();
+          //   //  console.log('preloader is show');
+          //  },
+          ajaxStop: function () {
+            $('#preloader').hide();
+            //  console.log('preloader is show');
+          }
+        });
+
+    $('.official').each(function (i, obj) {
+      var href = obj.getAttribute("href");
+      if (href == page) {
+        obj.classList.add('active');
+      } else {
+        obj.classList.remove('active');
+      }
+    });
+    // $('#preloader').hide();
+  
+    var userDataString = getCookie('payment_official');
+    if (!userDataString) {
+      $('#preloader').show();
+      window.location.href = "login.html";
+    }
+
+    userDataString = JSON.parse(userDataString);
+    $('#official_username').text(userDataString['first_name']);
+    $('#UserID').val(userDataString['user_id']);
+    window.loginUser_id = userDataString['user_id'];
+    reloID = userDataString['role_id'];
+      roleBasedPageAllow(loginUser_id,reloID);
+
+    
+   
+
+});
+
+function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  }
+  $(document).ready(function() {
+    $('#ddl_year').selectpicker();
+    getSchemeCategory();
+    getPaymentSummaryList();
+    getYearMonthOnLoad();
+});
+/* filters */
+
+function getSchemeCategory(){
+    $('#ddl_scheme_name').empty();
+    $('#ddl_sub_scheme').empty();
+    $('#ddl_department').empty();
+    $('#ddl_sub_department').empty();
+ 
+    $('#ddl_scheme_name').append($('<option>', {value: "", text: "--All--"}));
+    $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--All--"}));
+    $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
+    $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
+ 
+    $.ajax({
+        url: APIURL +'schem_filter',
+        type: "POST",
+        headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+        data: {case: "get_scheme_category",get_column:"scheme_code",groupbycolumn:"scheme_code",user_id:loginUser_id},
+        success: function(response) {
+            var schemeCode = response.data;
+            $('#ddl_scheme_cate').empty();
+            $('#ddl_scheme_cate').append($('<option>', {
+                value: "",
+                text: "--All--"
+            }));
+            $.each(schemeCode, function (index, scheme) {
+                if(schemeCode.length >1){
+                    $('#ddl_scheme_cate').append($('<option>', {
+                        value: scheme.scheme_category,
+                        text: scheme.scheme_category
+                    }));
+                }else{
+                    $('#ddl_scheme_cate').append($('<option>', {
+                        value: scheme.scheme_category,
+                        text: scheme.scheme_category
+                    }).prop('selected', true));
+                    $('#ddl_scheme_cate').trigger('change');
+                }
+            });
+        },
+        error: function(xhr, status, error) {
+            console.log("Error:", error);
+        }
+    });
+}
+
+function getYearMonthOnLoad(){
+    $('#ddl_year').empty();
+    $.ajax({
+        url: APIURL +'get_year_filter',
+        type: "POST",
+        headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+        data: { user_id: loginUser_id },
+        success: function(response) {
+            var output = response.data;
+            output.forEach(function(list, index) {
+                    $('#ddl_year').append($('<option>', { value: list.yyyymm, text: list.yyyymm_text }));
+                });
+            const latestYearMonth = output[0].yyyymm;
+            $('#ddl_year').val(latestYearMonth);
+        },
+        error: function(xhr, status, error) {
+            console.log("Error:", error);
+        }
+    });
+    // $('#ddl_year').trigger('change');
+}
+
+  
+$('#ddl_scheme_cate').on('change', function() {
+    $('#ddl_year').empty();
+    let scheme_cate = $(this).val();
+    var userDataString = getCookie('payment_official');
+    userDataString = JSON.parse(userDataString);
+    let loginUser_id = userDataString['user_id'];
+
+    $.ajax({
+        url: APIURL + 'get_year_filter',
+        type: "POST",
+        headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+        data: { user_id: loginUser_id, ddl_scheme_cate: scheme_cate },
+        success: function(response) {
+            if (response.success == 1) {
+                var output = response.data;
+                // console.log('out', output);
+                if(output.length === 0){
+                    Swal.fire({
+                    icon: "info",
+                    title: "No data for the selected Period",
+                    showConfirmButton: false,
+                    timer: 2000
+                    });
+                } else {  
+                output.forEach(function(list, index) {
+                    $('#ddl_year').append($('<option>', { value: list.yyyymm, text: list.yyyymm_text }));
+                });
+                }
+                // Set the default value to the latest year month
+                const latestYearMonth = output[0].yyyymm;
+                $('#ddl_year').val(latestYearMonth);
+            } else {
+                console.log("Error:", response);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log("Error:", error);
+        }
+    });
+});
+
+// Initialize the selectpicker
+$(document).ready(function() {
+    $('#ddl_year').selectpicker('destroy');
+
+});
+$('#getPaymentSummaryBtn').on('click', function(e){
+    e.preventDefault();
+    let schemeCate = $('#ddl_scheme_cate').val();
+    let selectedYearMonth = $('#ddl_year').val();
+    $.ajax({
+        url: APIURL + 'get_payment_summary_list',
+        type: 'POST',
+        headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+        dataType: 'JSON',
+        data: { ddl_scheme_cate: schemeCate, ddl_year: selectedYearMonth },
+        success: function(response) {
+            let paymentSummary = response;
+            if (schemeCate != '' || selectedYearMonth != ''){
+                if (paymentSummary.success) {
+                getPaymentSummaryFilterList(paymentSummary.data);
+            } 
+            $('#t_payment_summary').DataTable().clear().draw();
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
+});
+
+
+//+============================================================
+
+let tableRecordCount = '';
+
+
+  function getPaymentSummaryList() {
+      var userDataString = getCookie('payment_official');
+      userDataString = JSON.parse(userDataString)
+      var loginUser_id = userDataString['user_id'];
+      let schemeCate = $('#ddl_scheme_cate').val();
+      let selectedYearMonth = $('#ddl_year').val();
+
+
+      $('#t_payment_summary').DataTable().clear().destroy();
+      $('#t_payment_summary').DataTable({
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "paging":true,
+        "pageLength": 30,
+        "footer": false,
+        // "dom": 'Bfrtip',
+        "dom": '<"top"B>rt<"bottom"lp><"clear">',
+        "buttons": [
+          {
+            extend: 'csv',
+            text: 'CSV',
+            filename: 'Payment Summary List',
+            exportOptions: {
+              rows: ':visible', 
+                modifier: {
+                  selected: null
+                }
+              }
+            },
+          {
+            extend: 'excel',
+            text: 'Excel',
+            filename: 'Payment Summary List' 
+            },
+          {
+            extend: 'pdf',
+            text: 'PDF',
+            filename: 'Payment Summary List' 
+            }],
+
+          "searching": false,
+          "processing": true,
+          "serverSide": true,
+          "ajax": {
+          "url": APIURL + 'get_payment_summary_list',
+          "type": "POST",
+          "headers": { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+          "dataType": "JSON",
+            data: {
+              user_id: loginUser_id,
+            }, 
+                       
+          "beforeSend": function () {
+            $('#preloader').show(); 
+            tblPreloaderEnable('t_payment_summary');
+          },
+
+          "error": function (xhr, error, thrown) {
+            Swal.fire({
+              icon: "error",
+              title: 'Service Error !',
+              showConfirmButton: false,
+              timer: 2000
+            });
+          },
+          "dataSrc": 'data',
+        },
+        "columns": [
+          {
+            "data": "S.No", render: function (data, type, row, meta) {
+              return meta.row + meta.settings._iDisplayStart + 1;
+            }
+          },
+          { "data": "scheme_category" },
+          { "data": "yyyymm" },
+          { "data": "total_beneficiaries" },
+          { "data": "total_amount" },
+          { "data": "payment_success_count" },
+          { "data": "payment_failure_count" },
+          { "data": "payment_inprogress_count" },
+          { "data": "payment_success_amount" },
+          { "data": "payment_failure_amount" },
+          { "data": "payment_inprogress_amount" },
+        ],
+        "aoColumnDefs": [{ 'bSortable': false, 'aTargets': [0]}],
+        "drawCallback": function (settings) {},
+        "initComplete": function (settings, json) {
+          $('#preloader').hide();
+          tableRecordCount = json.recordsTotal;
+        },
+      }); 
+       
+  }
+
+  function getPaymentSummaryFilterList(e) {
+    // e.preventDefault();
+      var userDataString = getCookie('payment_official');
+      userDataString = JSON.parse(userDataString)
+      var loginUser_id = userDataString['user_id'];
+      let schemeCate = $('#ddl_scheme_cate').val();
+      let selectedYearMonth = $('#ddl_year').val();
+
+      $('#t_payment_summary').DataTable().clear().destroy();
+      $('#t_payment_summary').DataTable({
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "paging":true,
+        "pageLength": 30,
+        "footer": false,
+        // "dom": 'Bfrtip',
+        "dom": '<"top"B>rt<"bottom"lp><"clear">',
+        "buttons": [
+          {
+            extend: 'csv',
+            text: 'CSV',
+            filename: 'Payment Summary List',
+            exportOptions: {
+              rows: ':visible', 
+                modifier: {
+                  selected: null
+                }
+              }
+            },
+          {
+            extend: 'excel',
+            text: 'Excel',
+            filename: 'Payment Summary List' 
+            },
+          {
+            extend: 'pdf',
+            text: 'PDF',
+            filename: 'Payment Summary List' 
+            }],
+
+          "searching": false,
+          "processing": true,
+          "serverSide": true,
+          "ajax": {
+          "url": APIURL + 'get_payment_summary_list',
+          "type": "POST",
+          "headers": { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+          "dataType": "JSON",
+            data: {
+                schemeCate: schemeCate, 
+                yearMonth: selectedYearMonth,
+            }, 
+                       
+          "beforeSend": function () {
+            $('#preloader').show(); 
+            tblPreloaderEnable('t_payment_summary');
+          },
+
+          "error": function (xhr, error, thrown) {
+            Swal.fire({
+              icon: "error",
+              title: 'Service Error !',
+              showConfirmButton: false,
+              timer: 2000
+            });
+          },
+          "dataSrc": 'data',
+        },
+        "columns": [
+          {
+            "data": "S.No", render: function (data, type, row, meta) {
+              return meta.row + meta.settings._iDisplayStart + 1;
+            }
+          },
+          { "data": "scheme_category" },
+          { "data": "yyyymm" },
+          { "data": "total_beneficiaries" },
+          { "data": "total_amount" },
+          { "data": "payment_success_count" },
+          { "data": "payment_failure_count" },
+          { "data": "payment_inprogress_count" },
+          { "data": "payment_success_amount" },
+          { "data": "payment_failure_amount" },
+          { "data": "payment_inprogress_amount" },
+        ],
+        "aoColumnDefs": [{ 'bSortable': false, 'aTargets': [0]}],
+        "drawCallback": function (settings) {},
+        "initComplete": function (settings, json) {
+          $('#preloader').hide();
+          tableRecordCount = json.recordsTotal;
+        },
+      }); 
+       
+  }
+
+//+===============================================================
+ 
+var formsFilter = [];
+window.localStorage.removeItem('filters');
+
+$(document).ready(function() {
+  $("#formFilters").validate({
+          rules: {
+            // ddl_scheme_cate: {required: true},
+            // ddl_year :{required: true},
+          },
+          messages: {
+        //     ddl_scheme_cate: {required: "Select the Scheme Category"},
+        //   ddl_year : {required: "Select the year"},
+          },
+          errorClass: "help-inline text-danger",
+          errorElement: "span",
+          highlight: function(element, errorClass, validClass) {
+              $(element).parents('.form-group').addClass('has-error');
+          },
+          unhighlight: function(element, errorClass, validClass) {
+              $(element).parents('.form-group').removeClass('has-error');
+              $(element).parents('.form-group').addClass('has-success');
+          },
+          submitHandler: function(form,e) {
+              e.preventDefault();
+            //   console.log('Form submitted');
+              formsFilter.length = 0;
+              formsFilter = [];
+              var formData = $(form).serialize();
+              window.localStorage.removeItem('filters');
+              window.localStorage.setItem('filters', JSON.stringify(formData));
+          }
+    });
+});
+
+
+
+function populateDropdown(dropdownId, data, fieldName) {
+    const dropdown = document.getElementById(dropdownId);
+
+    data.forEach(item => {
+      const option = document.createElement('option');
+      option.value = item[fieldName + '_code'];
+      option.textContent = item[fieldName + '_name'];
+    //   dropdown.appendChild(option);
+    });
+  }
+
+
+function tblPreloaderEnable(tableName){
+      var processingDiv = document.getElementById(tableName+'_processing');
+      var displayStatus = window.getComputedStyle(processingDiv).display;
+      if (displayStatus === 'block') {
+      $('#'+tableName+'_processing').html(`<div id="preloader"></div>`);
+      } else {
+        $('#'+tableName+'_processing').text(`<div id="preloader"></div>`);
+      }
+}
+</script>
+</body>
+</html>

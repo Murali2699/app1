@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Payment Automation Dashboard</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <!-- Favicons -->
+    <link href="assets/img/tn_logo.png" rel="icon">
+    <link href="assets/img/tn_logo.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
+    <link rel="stylesheet" href="assets/vendor/sweetalert2/css/sweetalert.min.css" />
+    <link rel="stylesheet" href="assets/vendor/sweetalert2/css/sweetalert2.min.css" />
+    <!-- <link rel="stylesheet" href="assets/vendor/toggle/bootstrap-toggle.min.css" /> -->
+    <!-- CSS File --> 
+    <link href="assets/css/style.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"> -->
+    <script src="assets/components/official_header.js" type="text/javascript" defer></script>
+  </head>
+  <body>
+
+    <style>
+        span#pending_approval_processing {
+        position: absolute;
+        top: 4.5rem;
+        left: 15rem;
+        width: auto;
+        }
+        span#progress_strat {
+        position: absolute;
+        top: 4.5rem;
+        left: 15rem;
+        width: auto;
+        }
+        .text-danger {
+        font-size: 13px;
+        font-weight: bold;
+        }
+        div.pamentDateGroup {
+        position: absolute;
+        right: 19rem;
+        margin-top: -19px;
+        font-weight: bold;
+        font-size: smaller;
+        width: 244px;
+        }
+      span#paymentDate_error {
+        position: absolute;
+        bottom: -22px;
+        }
+        ul#myTab .nav-link{
+          margin-top: 0.7rem;
+        }
+        div.pamentDateGroup {
+        position: absolute;
+        right: 19rem;
+        margin-top: -19px;
+        font-weight: bold;
+        font-size: smaller;
+        width: 244px;
+        }
+        span#paymentDate_error {
+          position: absolute;
+          bottom: -22px;
+          }
+      .bi-check-lg::before,.bi-x-lg::before {
+        font-size: 2rem;
+      }
+      .function_1_td,.function_2_td,.function_3_td{
+        vertical-align: middle;
+        text-align: center;
+      }
+      .fs-custom-dummy{
+          font-size: medium;
+          font-weight: bold;
+      }
+      .cursor-auto{
+        cursor: auto!important;
+      }
+      lable.failure_reason_lable {
+        width: 220px!important;
+        position: absolute;
+        margin-top: 3.7rem;
+        margin-left: 6rem;
+        font-size: 14px;
+        color: #6b6765;
+        font-weight: 400;
+      }
+
+    #tblPaymentFailedList_wrapper>.dt-buttons.btn-group.flex-wrap {
+      position: absolute;
+      right: 0;
+      margin-top: -3rem;
+      margin-right: 2rem;
+    }
+    table{
+      margin-top: 4rem;
+    }
+
+  div#tblPaymentFailedList_filter {
+    position: absolute;
+    margin-top: -4rem;
+}
+
+.left-vr-line {
+    border-left: 0.1rem solid #cececf;
+}
+.font-custom-lable{
+        font-size: 12px!important;
+      }
+      .font-custom-text{
+        font-size: 12px!important;
+        color:brown;
+      }
+      #checkTaluk_lable {
+        float: right;
+        background: #2a275d;
+        color: #fff;
+        padding-right: 0.6rem;
+        padding-left: 1rem;
+        border-radius: 3px;
+      }
+      .card-lg-blue-text {
+        background-color: #2c93b4 !important;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .card-lg-orange-text {
+        background: #c09012 !important;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+      }
+    .accordion-item, .accordion-button:not(.collapsed){
+        border: none!important;
+    }
+    </style>
+    <!-- ======= Header & sidemenu ======= -->
+    <official-header-component></official-header-component>
+    <div id="preloader"></div> 
+    <!-- End Sidebar-->
+    <main id="main" class="main">
+      <!-- Dashboard view starts -->
+      <section>
+        <div class="container-fluid">
+          <div class="card mb-1">
+            <!-- <form id="formFilters" method="post">
+              <div class="card-body pb-0 pt-2">
+                <div class="row mb-2 boxflex">
+                  <h5 class="card-title pb- mb-0"><i class="bi bi-funnel"></i>  Apply Filter </h5>
+                  <div class="col-md">
+                    <label for="ddl_scheme_cate" class="form-label fw-bold">Scheme Category</label>
+                    <select class="form-select" id="ddl_scheme_cate" name="ddl_scheme_cate">
+                      <option value="1">--ALL--</option>
+                      <option value="1">Scheme category 1</option>
+                      <option value="1">Scheme category 2</option>
+                    </select>
+                  </div>
+                  <div class="col-md">
+                    <label for="ddl_scheme_code" class="form-label fw-bold">Scheme Code</label>
+                    <select class="form-select" id="ddl_scheme_code" name="ddl_scheme_code">
+                      <option value="">--ALL--</option>
+                    </select>
+                  </div>
+                  <div class="col-md">
+                    <label for="ddl_scheme_name" class="form-label fw-bold">Scheme Name</label>
+                    <select class="form-select" id="ddl_scheme_name" name="ddl_scheme_name">
+                      <option value="1">--ALL--</option>
+                    </select>
+                  </div> 
+                  <div class="col-md"> 
+                    <label for="ddl_sub_scheme" class="form-label fw-bold">Sub Scheme Name</label>
+                    <select class="form-select" id="ddl_sub_scheme" name="ddl_sub_scheme">
+                    </select>
+                  </div>
+                  <div class="col-md">
+                    <label for="ddl_department" class="form-label fw-bold">Department</label>
+                    <select class="form-select" id="ddl_department" name="ddl_department">
+                      <option value="1">--ALL--</option>
+                    </select>
+                  </div>
+                  <div class="col-md">
+                    <label for="ddl_sub_department" class="form-label fw-bold">Sub Department</label>
+                    <select class="form-select" id="ddl_sub_department" name="ddl_sub_department">
+                      <option value="1">--ALL--</option>
+                    </select>
+                  </div>
+                </div>
+                <hr>
+                <div class="row mb-2 boxflex">
+                  <div class="col-md-4">
+                    <label class="form-label fw-bold" for="dayWeekMonthFilter">Payment Period</label>
+                    <select name="dayWeekMonthFilter" id="dayWeekMonthFilter" class="form-select">
+                      <option value="" disabled selected>Select Payment Period</option>
+                      <option value="1">Today</option>
+                      <option value="2">This Week</option>
+                      <option value="3" selected>This Month</option>
+                      <option value="4">Custom Year Month</option>
+                      <option value="0">Custom Date</option>
+                    </select>
+                  </div>
+                  <div class="col-md" id="from_date_col">
+                    <label for="from_date" class="form-label fw-bold">From Date</label>
+                    <input type="date" name="from_date" id="from_date" class="form-control form-control-sm">
+                  </div>
+                  <div class="col-md" id="to_date_col">
+                    <label for="to_date" class="form-label fw-bold">To Date</label>
+                    <input type="date" name="to_date" id="to_date" class="form-control form-control-sm">
+                  </div>
+
+                  <div class="col-md" id="ddl_month_col">
+                    <label for="from_date" class="form-label fw-bold">Select Month</label>
+                    <select name="ddl_month" id="ddl_month" class="form-select">
+                      <option value="" disabled selected>Select Month</option>
+                      <option value="01">January</option>
+                      <option value="02">February</option>
+                      <option value="03">March</option>
+                      <option value="04">April</option>
+                      <option value="05">May</option>
+                      <option value="06">June</option>
+                      <option value="07">July</option>
+                      <option value="08">August</option>
+                      <option value="09">September</option>
+                      <option value="10">October</option>
+                      <option value="11">November</option>
+                      <option value="12">December</option>
+                    </select>
+                  </div>
+                  <div class="col-md" id="ddl_year_col">
+                    <label for="to_date" class="form-label fw-bold">Select Year</label>
+                    <select name="ddl_year" id="ddl_year" class="form-select">
+                      <option value="" disabled selected>Select Year</option>
+                      <option value="2022">2022</option>
+                      <option value="2023">2023</option>
+                      <option value="2024">2024</option>
+                    </select>
+                  </div>
+
+
+                </div>
+
+                <hr>
+                <div class="row boxflex mb-3">
+                  <div class="col">
+                    <label for="ddl_district" class="form-label fw-bold">District</label>
+                    <select class="form-select" id="ddl_district" name="ddl_district">
+                      <option value="">--ALL--</option>
+                    </select>
+                  </div>
+                  <div class="col">
+                    <label for="ddl_taluk" class="form-label fw-bold">Taluk</label>
+                    <select class="form-select" id="ddl_taluk" name="ddl_taluk">
+                      <option value="">--ALL--</option>
+                    </select>
+                  </div>
+                  
+                  <div class="col left-vr-line">
+                    <label for="ddl_aadharno" class="form-label fw-bold">Beneficiary ID</label>
+                    <input type="text" class="form-control" name="ddl_aadharno" id="ddl_aadharno" placeholder="Enter the Beneficiary ID">
+                  </div>
+                </div>
+                <div class="row mb-2 boxflex">
+                  <button class="btn btn-success float-end cbtn col-md-2" type="submit"><i class="bi bi-pencil-square"></i> Submit</button>
+                </div>
+              </div>
+            </form> -->
+            <form id="formFilters" method="post">
+                <div class="card-body pb-0 pt-2">
+                   <div class="accordion" id="accordionExample">
+                      <div class="accordion-item">
+                         <h2 class="accordion-header">
+                            <button id="btnfilter" style="    background: linear-gradient(to right, rgb(44 43 88), rgb(34 25 111)) !important;
+                               color: #fff !important;" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <i class="bi bi-funnel"></i>  <span class="px-2">Tranfer File-wise Filter</span>
+                            </button>
+                         </h2>
+                         <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                            <div class="accordion-body w-100">
+                               <div class="row mb-2 boxflex">
+                                  <!-- <h5 class="card-title pb- mb-0"><i class="bi bi-funnel"></i>  Report Filter </h5> -->
+                                  <div class="col-md-3">
+                                     <label for="ddl_scheme_cate" class="form-label fw-bold">Scheme category</label>
+                                     <select class="form-select" id="ddl_scheme_cate" name="ddl_scheme_cate">
+                                        <option value="">--All--</option>
+                                     </select>
+                                  </div>
+                                  <div class="col-md-3">
+                                     <label for="ddl_scheme_code" class="form-label fw-bold">Scheme Code</label>
+                                     <select class="form-select" id="ddl_scheme_code" name="ddl_scheme_code"><option value="">--All--</option></select>
+                                  </div>
+                                  <div class="col-md-3">
+                                     <label for="ddl_scheme_name" class="form-label fw-bold">Scheme Name</label>
+                                     <select class="form-select" id="ddl_scheme_name" name="ddl_scheme_name">
+                                        <option value="">--Select--</option>
+                                     </select>
+                                  </div>
+                                  <div class="col-md-3">
+                                     <label for="ddl_sub_scheme" class="form-label fw-bold">Sub Scheme Name</label>
+                                     <select class="form-select" id="ddl_sub_scheme" name="ddl_sub_scheme">
+                                        <option value="">--Select--</option>
+                                     </select>
+                                  </div>
+                                  <div class="col-md-3">
+                                     <label for="ddl_department" class="form-label fw-bold">Department</label>
+                                     <select class="form-select" id="ddl_department" name="ddl_department">
+                                        <option value="">--Select--</option>
+                                     </select>
+                                  </div>
+                                  <div class="col-md-3">
+                                     <label for="ddl_sub_department" class="form-label fw-bold">Sub Department</label>
+                                     <select class="form-select" id="ddl_sub_department" name="ddl_sub_department">
+                                        <option value="">--Select--</option>
+                                     </select>
+                                  </div>
+                               </div>
+                               <hr>
+                              <div class="row mb-2 boxflex">
+                                  <div class="col-md-4">
+                                    <label class="form-label fw-bold" for="dayWeekMonthFilter">Payment Period</label>
+                                    <select name="dayWeekMonthFilter" id="dayWeekMonthFilter" class="form-select">
+                                      <option value="" disabled selected>Select Payment Period</option>
+                                      <option value="1">Today</option>
+                                      <option value="2">This Week</option>
+                                      <option value="3" selected>This Month</option>
+                                      <option value="4">Custom Year Month</option>
+                                      <!-- <option value="5">Custom Year</option> -->
+                                      <!-- <option value="0">Date Wise</option> -->
+                                    </select>
+                                  </div>
+                                  <div class="col-md" id="from_date_col">
+                                    <label for="from_date" class="form-label fw-bold">From Date</label>
+                                    <input type="date" name="from_date" id="from_date" class="form-control form-control-sm">
+                                  </div>
+                                  <div class="col-md" id="to_date_col">
+                                    <label for="to_date" class="form-label fw-bold">To Date</label>
+                                    <input type="date" name="to_date" id="to_date" class="form-control form-control-sm">
+                                  </div>
+                
+                                  <div class="col-md" id="ddl_month_col">
+                                    <label for="from_date" class="form-label fw-bold">Select Month</label>
+                                    <select name="ddl_month" id="ddl_month" class="form-select">
+                                      <option value="" disabled selected>Select Month</option>
+                                      <option value="01">January</option>
+                                      <option value="02">February</option>
+                                      <option value="03">March</option>
+                                      <option value="04">April</option>
+                                      <option value="05">May</option>
+                                      <option value="06">June</option>
+                                      <option value="07">July</option>
+                                      <option value="08">August</option>
+                                      <option value="09">September</option>
+                                      <option value="10">October</option>
+                                      <option value="11">November</option>
+                                      <option value="12">December</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md" id="ddl_year_col">
+                                    <label for="to_date" class="form-label fw-bold">Select Year</label>
+                                    <select name="ddl_year" id="ddl_year" class="form-select">
+                                      <option value="" disabled selected>Select Year</option>
+                                      <option value="2022">2022</option>
+                                      <option value="2023">2023</option>
+                                      <option value="2024">2024</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                 <hr>
+                              <div class="row mb-3 boxflex">
+                                <div class="col-md" id="payment_schedule_from_date_col">
+                                    <label for="from_date" class="form-label fw-bold">Payment Transferred From Date</label>
+                                    <input type="date" name="payment_schedule_from_date" id="payment_schedule_from_date" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-md" id="payment_schedule_to_date_col">
+                                    <label for="to_date" class="form-label fw-bold">Payment Transferred To Date</label>
+                                    <input type="date" name="payment_schedule_to_date" id="payment_schedule_to_date" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                                 
+                              <div class="row mb-2 boxflex">
+                                <button class="btn btn-success float-end cbtn col-md-2" type="submit"><i class="bi bi-pencil-square"></i> Submit</button>
+                              </div>
+                            </div>
+                            <input type="hidden" name="approvelpayment" id="approvelpayment">
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <input type="hidden" name="current_tab_value" id="current_tab_value" value="0">
+                <input type="hidden" name="approvelpayment" id="approvelpayment">
+             </form>
+          </div>
+          <!-- END: Dropdown card end here -->
+          <div class="card mb-1 mt-2" id="filter_based_info_card_div" style="display: none;">
+            <div class="card-body pb-0 pt-2 bg-info-light">
+              <div class="row">
+                <div class="col">
+                  <label class="form-label fw-bold font-custom-lable">Scheme Category</label>
+                  <p id="lable_text_scheme_cate" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col">
+                  <label class="form-label fw-bold font-custom-lable">Scheme Code</label>
+                  <p id="lable_text_scheme_code" class="text-left font-custom-text"></p>
+                </div>
+                
+                <div class="col">
+                  <label class="form-label fw-bold font-custom-lable">Scheme Name</label>
+                  <p id="lable_text_scheme" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col">
+                  <label class="form-label fw-bold font-custom-lable">Sub Scheme Name</label>
+                  <p id="lable_text_sub_scheme" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col">
+                  <label class="form-label fw-bold font-custom-lable">Department</label>
+                  <p id="lable_text_Department" class="text-left font-custom-text"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label class="form-label fw-bold font-custom-lable">Sub Department</label>
+                  <p id="lable_text_sub_department" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col">
+                  <label class="form-label fw-bold font-custom-lable">Year Month</label>
+                  <p id="lable_text_yearMonth" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col">
+                  <label class="form-label fw-bold font-custom-lable">Payment Period</label>
+                  <p id="lable_text_payment_period" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col" id="from_date_div">
+                  <label class="form-label fw-bold font-custom-lable">From Date</label>
+                  <p id="lable_text_from_date" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col" id="to_date_div">
+                  <label class="form-label fw-bold font-custom-lable">To Date</label>
+                  <p id="lable_text_to_date" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col" id="payment_schedule_from_date_div">
+                    <label class="form-label fw-bold font-custom-lable">Payment Schedule From Date</label>
+                    <p id="lable_text_payment_schedule_from_date" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col" id="payment_schedule_to_date_div">
+                    <label class="form-label fw-bold font-custom-lable">Payment Schedule To Date</label>
+                    <p id="lable_text_payment_schedule_to_date" class="text-left font-custom-text"></p>
+                </div>
+              </div>                   
+            </div>
+          </div>
+
+          <div class="card mb-2 mt-3" id="tblCard">
+            <div class="card-body">
+              <ul class="nav nav-tabs my-3" id="myTab" role="tablist">
+                <li class="nav-item mx-2" role="presentation">
+                  <button class="nav-link active" id="disabled-tab1" data-bs-toggle="tab" data-bs-target="#transfer-file-wise-tab-pane" type="button" role="tab" aria-controls="transfer-file-wise-tab-pane" aria-selected="false" value="3" onclick="tabClickValue(0)">Transfer File wise Summary</button>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <!-- payment response success -->
+                <div class="tab-pane fade show active" id="transfer-file-wise-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                  <div class="col-lg-12">
+                    <div class="card1">
+                      <div class="card-body1">
+                        <h5 class="card-title mt-3 mb-0"><i class="bi bi-check2-circle"></i>  Transfer File wise Summary
+                        </h5>
+                        <div class="clear-both"></div>
+                        <div class="col-lg-12 mt-2 clear-both" style="    clear: both;">
+                          <div class="table-responsive">
+                            
+                            <table class="table" class="table table-striped w-100 no-footer dataTable mt-3" id="tblTransferFileWiseSummary" aria-describedby="tblTransferFileWiseSummary_info">
+                              <thead>
+                                <tr>
+                                  <!-- <th scope="col"><input class="form-check-input" type="checkbox" value="" ></th> -->
+                                  <th scope="col"  class="sorting sorting_asc" tabindex="0" aria-controls="tblTransferFileWiseSummary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">S.No</th>
+                                  <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblTransferFileWiseSummary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">File Name</th>
+                                  <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblTransferFileWiseSummary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">File Submit Date</th>
+                                  <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblTransferFileWiseSummary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">File Payment Date</th>
+                                  <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblTransferFileWiseSummary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">Success Count</th>
+                                  <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblTransferFileWiseSummary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">Failure Count</th>
+                                  <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblTransferFileWiseSummary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">EMO Count</th>
+                                  <th scope="col" class="sorting sorting_asc" tabindex="0" aria-controls="tblTransferFileWiseSummary" rowspan="1" colspan="1" aria-label="S.No: activate to sort column descending" style="width: 37px;" aria-sort="ascending">Total Count</th>
+                                </tr>
+                              </thead>
+                              <tbody></tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- payment response success -->
+
+
+              </div>
+            </div>
+          </div>
+          <!-- END: list card end here -->
+          <!-- START: modal popup -->
+          <!-- Button trigger modal -->
+        </div>
+      </section>
+    </main>
+    <!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="copyright">
+        &copy; Copyright <strong><span>TNeGA</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed & Developed by <a href="https://tngis.tn.gov.in/" target="_blank">TNeGA</a>
+      </div>
+    </footer>
+    <!-- End Footer -->
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <!-- Delete modal starts -->
+
+
+
+    <!-- view crop info ends -->
+    <!-- Vendor JS Files -->
+    
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script type="text/javascript" src="assets/vendor/jquery-validate/js/jquery.validate.min.js"></script>
+
+
+    <!-- data table -->
+    <script src="assets/vendor/datatable/jquery.dataTables.min.js"></script>
+    <script src="assets/vendor/datatable/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="assets/vendor/datatable/js/dataTables.js"></script>
+    <script type="text/javascript" src="assets/vendor/datatable/js/dataTables.bootstrap4.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/jszip.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/pdfmake.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/vfs_fonts.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="assets/vendor/sweetalert2/js/sweetalert.min.js"></script>
+    <script src="assets/vendor/sweetalert2/js/sweetalert2.all.min.js"></script>
+    <script src="assets/vendor/toggle/bootstrap-toggle.min.js"></script>
+    <script src="assets/js/global.js"></script>
+    <script src="assets/js/alpinejs_3_10_2.min.js" defer></script>
+    <script src="assets/lang/reports.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js'></script>
+    <script src="assets/scripts/xlsx.full.min.js"></script>
+    <!-- data table -->
+
+
+
+    
+    <!-- Main JS File -->
+    
+    <script src="assets/js/global.js"></script>
+    <script src="assets/js/base64tojson.js"></script>
+    <script src="assets/js/crypto-js.js"></script>
+    <script src="assets/js/aes.js"></script>
+  
+
+    <script type="text/javascript" src="assets/vendor/toastr/toastr.min.js"></script>
+    
+    <!-- Crypto js -->
+    <script src="assets/vendor/encryption/crypto-js.min.js"></script>
+    <!-- Encryption js -->
+    <script src="assets/vendor/encryption/Encryption.js"></script>
+    <script src="assets/vendor/sweetalert2/js/sweetalert2.all.min.js"></script>
+    
+    
+ 
+<script type="text/javascript">
+  var url = window.location.href;
+  var page_url = url.split('/');
+  var page = page_url[4];
+
+  var userDataString = getCookie('payment_official');
+  userDataString = JSON.parse(userDataString);
+  $(document).ready(function () {
+    $(document).on({
+          //  ajaxStart: function () {
+          //    $('#preloader').show();
+          //   //  console.log('preloader is show');
+          //  },
+          ajaxStop: function () {
+            $('#preloader').hide();
+            //  console.log('preloader is show');
+          }
+        });
+
+    $('.official').each(function (i, obj) {
+      var href = obj.getAttribute("href");
+      if (href == page) {
+        obj.classList.add('active');
+      } else {
+        obj.classList.remove('active');
+      }
+    });
+    // $('#preloader').hide();
+  
+    var userDataString = getCookie('payment_official');
+    if (!userDataString) {
+      $('#preloader').show();
+      window.location.href = "login.html";
+    }
+
+    userDataString = JSON.parse(userDataString);
+    $('#official_username').text(userDataString['first_name']);
+    $('#UserID').val(userDataString['user_id']);
+    window.loginUser_id = userDataString['user_id'];
+    reloID = userDataString['role_id'];
+      roleBasedPageAllow(loginUser_id,reloID);
+
+    
+    getSchemeCategory();
+    // getDistricts();
+
+    $('#ddl_sub_scheme').on('change',function(){
+    $('#ddl_department').empty();
+    $('#ddl_sub_department').empty();
+
+    $('#ddl_department').append($('<option>', {value: "",text: "--ALL--"}));
+    $('#ddl_sub_department').append($('<option>', {value: "",text: "--ALL--"}));
+      $('#preloader').show();
+      $.ajax({
+        url: APIURL +'schem_filter',
+        type: "POST",
+        headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+        data: {case: "get_department",scheme_code:$('#ddl_scheme_code').val(),scheme_name:$('#ddl_scheme_name').val(),sub_scheme_name:$('#ddl_sub_scheme').val(),user_id:loginUser_id},
+        success: function(response) {
+          $('#preloader').hide();
+            //  console.log("department:", response);
+            var department_code = response.data[0];
+            // console.log(department_code.department);
+            getDepartment(department_code.department);
+        },
+        error: function(xhr, status, error) {
+          $('#preloader').hide();
+            console.log("Error:", error);
+        }
+      });
+    });
+
+    $('#ddl_district').on('change', function () {
+      var district_code = $('#ddl_district').val();
+      $('#ddl_taluk').empty();
+      $('#ddl_taluk').append('<option value="">--ALL--</option>');
+      getTaluk(district_code);
+    });
+
+});
+
+function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  }
+
+/* filters */
+function getSchemeCategory(){
+    
+    $('#ddl_scheme_name').empty();
+    $('#ddl_sub_scheme').empty();
+    $('#ddl_department').empty();
+    $('#ddl_sub_department').empty();
+ 
+    $('#ddl_scheme_name').append($('<option>', {value: "", text: "--All--"}));
+    $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--All--"}));
+    $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
+    $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
+ 
+  $.ajax({
+    url: APIURL +'schem_filter',
+    type: "POST",
+    headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+    data: {case: "get_scheme_category",get_column:"scheme_code",groupbycolumn:"scheme_code",user_id:loginUser_id},
+    success: function(response) {
+       //  console.log("Success:", response);
+        var schemeCode = response.data;
+       //  console.log('scheme code >>> ',schemeCode);
+ 
+        $('#ddl_scheme_cate').empty();
+        $('#ddl_scheme_cate').append($('<option>', {
+              value: "",
+              text: "--All--"
+          }));
+
+        $.each(schemeCode, function (index, scheme) {
+            // console.log('scheem code lenthg >>> ', schemeCode.length);
+            if(schemeCode.length >1){
+              $('#ddl_scheme_cate').append($('<option>', {
+                value: scheme.scheme_category,
+                text: scheme.scheme_category
+            }));
+            }else{
+              $('#ddl_scheme_cate').append($('<option>', {
+                value: scheme.scheme_category,
+                text: scheme.scheme_category
+            }).prop('selected', true));
+            $('#ddl_scheme_cate').trigger('change');
+            }
+         });
+    },
+    error: function(xhr, status, error) {
+        console.log("Error:", error);
+    }
+  });
+}
+
+
+$('#ddl_scheme_cate').on('change',function(){
+  
+    $('#ddl_scheme_code').empty();
+    $('#ddl_scheme_name').empty();
+    $('#ddl_sub_scheme').empty();
+    $('#ddl_department').empty();
+    $('#ddl_sub_department').empty();
+
+    $('#ddl_scheme_code').append($('<option>', {value: "", text: "--All--"}));
+    $('#ddl_scheme_name').append($('<option>', {value: "", text: "--All--"}));
+    $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--All--"}));
+    $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
+    $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
+  
+   $.ajax({
+     url: APIURL +'schem_filter',
+     type: "POST",
+     headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+     data: {case: "get_scheme_code",get_column:"scheme_code",groupbycolumn:"scheme_code",whereColumn:$('#ddl_scheme_cate').val(),user_id:loginUser_id},
+     success: function(response) {
+        //  console.log("Success:", response);
+         var schemeCode = response.data;
+        //  console.log('scheme code >>> ',schemeCode);
+  
+         $('#ddl_scheme_code').empty();
+         $('#ddl_scheme_code').append($('<option>', {
+               value: "",
+               text: "--All--"
+           }));  
+
+        $.each(schemeCode, function (index, scheme) {
+            // console.log('scheem code lenthg >>> ', schemeCode.length);
+            if(schemeCode.length >1){
+              $('#ddl_scheme_code').append($('<option>', {
+                value: scheme.scheme_code,
+                text: scheme.scheme_code
+            }));
+            }else{
+              $('#ddl_scheme_code').append($('<option>', {
+                value: scheme.scheme_code,
+                text: scheme.scheme_code
+            }).prop('selected', true));
+            $('#ddl_scheme_code').trigger('change');
+            }
+         });
+     },
+     error: function(xhr, status, error) {
+         console.log("Error:", error);
+     }
+   });
+})
+
+
+
+$('#ddl_scheme_code').on('change',function(){
+
+     $('#ddl_sub_scheme').empty();
+     $('#ddl_scheme_name').empty();
+     $('#ddl_sub_scheme').empty();
+     $('#ddl_department').empty();
+     $('#ddl_sub_department').empty();
+
+     $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--ALL--"}));
+     $('#ddl_scheme_name').append($('<option>', {value: "", text: "--ALL--"}));
+     $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--ALL--"}));
+     $('#ddl_department').append($('<option>', {value: "",text: "--ALL--"}));
+     $('#ddl_sub_department').append($('<option>', {value: "",text: "--ALL--"}));
+
+      $('#preloader').show();
+   $.ajax({
+   url: APIURL +'schem_filter',
+   type: "POST",
+   headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+   data: {case: "get_scheme",scheme_code:$('#ddl_scheme_code').val(),user_id:loginUser_id},
+   success: function(response) {
+    $('#preloader').hide();
+      //  console.log("Success:", response);
+       var schemeCode = response.data;
+      //  console.log(schemeCode.scheme_code);
+       $('#ddl_scheme_name').empty();
+       $('#ddl_scheme_name').append($('<option>', {
+             value: "",
+             text: "--ALL--"
+         }));
+       // Iterate over the JSON object and append options
+       $.each(schemeCode, function (index, scheme) {
+        // console.log('scheem code lenthg >>> ', schemeCode.length);
+        if(schemeCode.length >1){
+          $('#ddl_scheme_name').append($('<option>', {
+             value: scheme.scheme_name,
+             text: scheme.scheme_name
+         }));
+        }else{
+          $('#ddl_scheme_name').append($('<option>', {
+             value: scheme.scheme_name,
+             text: scheme.scheme_name
+         }).prop('selected', true));
+         $('#ddl_scheme_name').trigger('change');
+        }
+         
+
+       });
+   },
+   error: function(xhr, status, error) {
+    $('#preloader').hide();
+       console.log("Error:", error);
+   }
+ });
+
+});
+
+$('#ddl_scheme_name').on('change',function(){
+
+   
+   // $('#ddl_scheme_name').empty();
+   $('#ddl_sub_scheme').empty();
+   $('#ddl_department').empty();
+   $('#ddl_sub_department').empty();
+
+   
+   // $('#ddl_scheme_name').append($('<option>', {value: "", text: "--ALL--"}));
+   $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--ALL--"}));
+   $('#ddl_department').append($('<option>', {value: "",text: "--ALL--"}));
+   $('#ddl_sub_department').append($('<option>', {value: "",text: "--ALL--"}));
+
+
+$('#preloader').show();
+   $.ajax({
+   url: APIURL +'schem_filter',
+   type: "POST",
+   headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+   data: {case: "get_sub_scheme",scheme_code:$('#ddl_scheme_code').val(),scheme_name:$('#ddl_scheme_name').val(),user_id:loginUser_id},
+   success: function(response) {
+    $('#preloader').hide();
+      //  console.log("Success:", response);
+       var schemeCode = response.data;
+      //  console.log(schemeCode.scheme_code);
+       $('#ddl_sub_scheme').empty();
+       $('#ddl_sub_scheme').append($('<option>', {
+             value: "",
+             text: "--ALL--"
+         }));
+       // Iterate over the JSON object and append options
+       $.each(schemeCode, function (index, scheme) {
+        if(schemeCode.length > 1){
+          $('#ddl_sub_scheme').append($('<option>', {
+             value: scheme.subscheme_name,
+             text: scheme.subscheme_name
+         }));
+        }else{
+          $('#ddl_sub_scheme').append($('<option>', {
+             value: scheme.subscheme_name,
+             text: scheme.subscheme_name
+         }).prop('selected', true));
+        }
+        $('#ddl_sub_scheme').trigger('change');
+       });
+   },
+   error: function(xhr, status, error) {
+    $('#preloader').hide();
+       console.log("Error:", error);
+   }
+ });
+
+});
+
+// get_scheme
+
+
+/* filters */
+function getDepartment(depID){
+   $('#ddl_department').empty();
+   $('#ddl_sub_department').empty();
+
+   $('#ddl_department').append($('<option>', {value: "",text: "--ALL--"}));
+   $('#ddl_sub_department').append($('<option>', {value: "",text: "--ALL--"}));
+    $('#preloader').show();
+$.ajax({
+   url: APIURL +'get_department',
+   type: "POST",
+   headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+   data: {type: "department"},
+   success: function(response) {
+       // console.log("Success:",JSON.parse(response)[0].data );
+       var department = response[0].data;
+       // Handle the successful response here
+       $('#ddl_department').empty();
+       $('#ddl_department').append($('<option>', {
+             value: "",
+             text: "--ALL--"
+         }));
+       // Iterate over the JSON object and append options
+       $.each(department, function (index, dep) {
+         if(dep.department_code==depID){
+           $('#ddl_department').append($('<option>', {
+             value: dep.department_code,
+             text: dep.department_name
+           }).attr('selected', 'selected'));
+           // $('#ddl_department').trigger('change');
+
+           $.ajax({
+                 url: APIURL +'schem_filter',
+                 type: "POST",
+                 headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+                 data: {case: "get_sub_department",scheme_code:$('#ddl_scheme_code').val(),scheme_name:$('#ddl_scheme_name').val(),sub_scheme_name:$('#ddl_sub_scheme').val(),department:$('#ddl_department').val(),user_id:loginUser_id},
+                 success: function(response) {
+                  $('#preloader').hide();
+                    //  console.log("department:", response);
+                     var subdepartment_code = response.data[0];
+                    //  console.log(subdepartment_code.department);
+                     get_sub_department(dep.department_code,subdepartment_code.subdepartment);
+                 },
+                 error: function(xhr, status, error) {
+                  $('#preloader').hide();
+                     console.log("Error:", error);
+                 }
+             });
+           
+         }
+       });
+   },
+   error: function(xhr, status, error) {
+       console.log("Error:", error);
+       // Handle the error here
+   }
+ });
+}
+
+
+// $('#ddl_department').on('change',function(){
+ function get_sub_department(depID,subDepID){
+   $('#ddl_sub_department').empty();
+   $('#ddl_sub_department').append($('<option>', {value: "",text: "--ALL--"}));
+    $('#preloader').show();
+     // var department = $('#ddl_department').val();
+     $.ajax({
+     url: APIURL +'get_department',
+     type: "POST",
+     headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+     data: {type: "sub_department",department_code:depID},
+     success: function(response) {
+      $('#preloader').hide();
+         // console.log("Success:",JSON.parse(response)[0].data );
+         var department = response[0].data;
+         // Handle the successful response here
+         $('#ddl_sub_department').empty();
+         $('#ddl_sub_department').append($('<option>', {
+               value: "",
+               text: "--ALL--"
+           }));
+         // Iterate over the JSON object and append options
+         $.each(department, function (index, sub_dep) {
+           if(sub_dep.sub_department_code==subDepID){
+             $('#ddl_sub_department').append($('<option>', {
+               value: sub_dep.sub_department_code,
+               text: sub_dep.sub_department_name
+           }).attr('selected', 'selected'));
+           }
+         });
+        //  $("#formFilters").submit();
+     },
+     error: function(xhr, status, error) {
+      $('#preloader').hide();
+         console.log("Error:", error);
+         // Handle the error here
+     }
+   });
+ }
+
+//   function getDistricts(){
+//       const userDataString = getCookie("payment_official");
+//       const userData = JSON.parse(userDataString);
+
+//       var districtID=0;
+//       var data=[];
+//       if(userData['district_code']!=0){
+//       districtID=userData['district_code'];
+//       data={ case: 'district',district_code: districtID,user_id:userData['user_id']};
+//       } else {
+//       data={ case: 'district',user_id:userData['user_id']};
+//       }
+
+//       $('#ddl_taluk').empty();
+//       $('#ddl_taluk').append('<option value="">--ALL--</option>');
+//       $('#preloader').show();
+//     $.ajax({
+//       url: userMasterAPIURL+'userMaster',
+//       method: 'POST',
+//       headers: {'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+//       data: data,
+//       dataType: 'json',
+//       success: function (response) {
+//         $('#preloader').hide();
+//         //console.log(response);
+//         var district = response.district;
+//         var districtDropdown = $("#ddl_district");
+//         $('#ddl_district').empty();
+//         $('#ddl_district').append($('<option>', {value: "",text: "--ALL--"}));
+          
+//         if(districtID==0 || districtID ==undefined){
+//         populateDropdown('ddl_district', response.districts, 'district');              
+//         } else {
+//         districtDropdown.html('<option value="'+district['district_code']+'">'+district['district_name']+'</option>');
+//         $('#ddl_district').trigger('change');
+//         var district_code= district['district_code'];
+//           getTaluk(district_code);
+//         } 
+//       },
+//       error: function () {
+//         $('#preloader').hide();
+//         console.error('Error fetching district data');
+//       }
+//     });
+//   }
+
+
+  
+
+  /*START : Get Taluk list*/
+  function getTaluk(districtID){
+    $('#ddl_taluk').empty();
+    $('#ddl_taluk').append('<option value="">--ALL--</option>');
+    // var district=$("#ddl_district").val();
+      const userDataString = getCookie("payment_official");
+      const userData = JSON.parse(userDataString);
+
+      // var district=district_code;
+      var talukID=0;
+      var data=[];
+      if(userData['taluk_code']!=0){
+      // districtID=userData['district_code'];
+      talukID=userData['taluk_code'];
+      data={ case: 'taluk',district_code: districtID,taluk_code: talukID,user_id:userData['user_id']};
+      } else {
+      data={ case: 'taluk',district_code: districtID,user_id:userData['user_id']};
+      }
+      $('#preloader').show();
+    
+    $.ajax({
+      url: userMasterAPIURL+'userMaster', // Replace with your API endpoint
+      method: 'POST',
+      headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+      data: data,
+      dataType: 'json',
+      success: function (response) {
+        $('#preloader').hide();
+        /*$('#ddl_taluk').empty();
+        $.each(response.taluk, function (index, value) 
+        {
+            $('#ddl_taluk').append('<option value="' + value.taluk_code + '">' + value.taluk_name + ' </option>');
+        });*/
+        var taluk = response.taluk
+        var talukDropdown = $("#ddl_taluk");
+       populateDropdown('ddl_taluk', response.taluk, 'taluk');
+        if(talukID==0){
+          populateDropdown('ddl_taluk', response.taluk, 'taluk');             
+        } else {
+          
+          talukDropdown.html('<option value="'+taluk['taluk_code']+'">'+taluk['taluk_name']+'</option>');
+        $('#ddl_taluk').trigger('change');
+        }
+
+      },
+      error: function () {
+        $('#preloader').hide();
+        Swal.fire({
+          icon: "error",
+          title: "Service Error!",
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+    });
+  }
+
+    $("#from_date").prop("disabled", true);
+    $("#to_date").prop("disabled", true);
+
+    // selectbox
+    $("#ddl_month_col").hide();
+    $("#ddl_year_col").hide();
+    
+    $("#ddl_month_col").prop("disabled", true);
+    $("#ddl_year_col").prop("disabled", true);
+
+
+
+
+    $(document).ready(function() {
+    // console.log('Script executed');
+    $('#dayWeekMonthFilter').trigger('change');
+    });
+
+    $('#dayWeekMonthFilter').on('change',function(){
+        propDisableEnable(false);
+        $('#from_date').val('');
+        $('#to_date').val('');
+        $('#payment_schedule_from_date').val('');
+        $('#payment_schedule_to_date').val('');
+
+        var payment_period = $('#dayWeekMonthFilter').val();
+        if(payment_period == 0){
+        $("#from_date_col").show();
+        $("#to_date_col").show();
+        $("#from_date").prop("disabled", false);
+        $("#to_date").prop("disabled", false);
+
+        $("#ddl_month_col").hide();
+        $("#ddl_year_col").hide();
+        $("#ddl_month").prop("disabled", true);
+        $("#ddl_year").prop("disabled", true);
+
+        }else if(payment_period == 1){
+        var currentDate = new Date();
+        var formattedCurrentDate = currentDate.toISOString().split('T')[0];
+        $("#from_date").val(formattedCurrentDate);
+        $("#to_date").val(formattedCurrentDate);
+        $("#from_date").prop("disabled", true);
+        $("#to_date").prop("disabled", true);
+
+            $("#from_date_col").show();
+            $("#to_date_col").show();
+            $("#ddl_month_col").hide();
+            $("#ddl_year_col").hide();
+            $("#ddl_month").prop("disabled", true);
+            $("#ddl_year").prop("disabled", true);
+        }else if(payment_period == 2){
+        var currentDate = new Date();
+        var previousSunday = new Date(currentDate);
+        previousSunday.setDate(currentDate.getDate() - currentDate.getDay());
+        var formattedPreviousSunday = previousSunday.toISOString().split('T')[0];
+        var formattedCurrentDate = currentDate.toISOString().split('T')[0];
+
+        
+        $("#from_date").val(formattedPreviousSunday);
+        $("#to_date").val(formattedCurrentDate);
+        $("#from_date").prop("disabled", true);
+        $("#to_date").prop("disabled", true);
+
+        $("#from_date_col").show();
+        $("#to_date_col").show();
+        $("#ddl_month_col").hide();
+        $("#ddl_year_col").hide();
+        $("#ddl_month").prop("disabled", true);
+        $("#ddl_year").prop("disabled", true);
+        }else if(payment_period == 3){
+            var currentDate = new Date();
+            var firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 2);
+            var formattedFirstDayOfMonth = firstDayOfMonth.toISOString().split('T')[0];
+            var formattedCurrentDate = currentDate.toISOString().split('T')[0];
+            $("#from_date").val(formattedFirstDayOfMonth);
+            $("#to_date").val(formattedCurrentDate);
+            $("#from_date").prop("disabled", true);
+            $("#to_date").prop("disabled", true);
+
+            $("#from_date_col").show();
+            $("#to_date_col").show();
+            $("#ddl_month_col").hide();
+            $("#ddl_year_col").hide();
+            $("#ddl_month").prop("disabled", true);
+            $("#ddl_year").prop("disabled", true);
+        }
+        else if(payment_period == 4){
+        $("#from_date_col").hide();
+        $("#to_date_col").hide();
+        $("#from_date").prop("disabled", false);
+        $("#to_date").prop("disabled", false);
+
+        $("#ddl_month_col").show();
+        $("#ddl_year_col").show();
+        $("#ddl_month").prop("disabled", false);
+        $("#ddl_year").prop("disabled", false);
+
+        }else if(payment_period == 5){
+
+        $("#from_date_col").hide();
+        $("#to_date_col").hide();
+        $("#from_date").prop("disabled", false);
+        $("#to_date").prop("disabled", false);
+        $("#ddl_month_col").prop("disabled", false);
+        $("#ddl_month_col").hide();
+        $("#ddl_year_col").show();
+        $("#ddl_month").prop("disabled", false);
+        $("#ddl_year").prop("disabled", false);
+
+        } else{
+        $("#from_date").val('');
+        $("#from_date").prop("disabled", true);
+        $("#to_date").val('');
+        $("#to_date").prop("disabled", true);
+
+        $("#from_date_col").show();
+        $("#to_date_col").show();
+        $("#from_date").prop("disabled", true);
+        $("#to_date").prop("disabled", true);
+
+        $("#ddl_month_col").hide();
+        $("#ddl_year_col").hide();
+        $("#ddl_month").prop("disabled", true);
+        $("#ddl_year").prop("disabled", true);
+        }
+    });
+
+    $('#from_date').on('change', function() {
+    var selectedDate = new Date($(this).val());
+    var currentDate = new Date();
+    if (selectedDate > currentDate) {
+        alert('Please select a date in the past or today.');
+        $(this).val('');
+        return;
+    }
+    $('#today').prop('checked', false);
+    $('#thisweek').prop('checked', false);
+    $('#thismonth').prop('checked', false);
+    });
+
+
+
+    $('#to_date').on('change', function() {
+    // Clear checkbox selections
+    $('#today').prop('checked', false);
+    $('#thisweek').prop('checked', false);
+    $('#thismonth').prop('checked', false);
+
+    // Get the values of from_date and to_date
+    var fromDate = $('#from_date').val();
+    var toDate = $(this).val();
+
+    // Create Date objects for current date and selected date
+    var currentDate = new Date();
+    var selectedDate = new Date($(this).val());
+
+    // Check if from_date is selected
+    if (fromDate !== '') {
+        // Check if to_date is earlier than from_date or in the future
+        if (fromDate > toDate && selectedDate > currentDate) {
+            alert('To Date should not be earlier than From Date or in the future.');
+            // Reset the to_date value
+            $(this).val('');
+        }else if(fromDate > toDate){
+            alert('To Date should not be earlier than From Date or in the future.');
+            // Reset the to_date value
+            $(this).val('');
+        }else if(selectedDate > currentDate){
+                alert('Please select a date in the past or today.');
+                $(this).val('');
+                return;
+        }
+    } else {
+        // Alert user to select from_date if it's not selected
+        alert('Please Select from Date');
+        // Reset the to_date value
+        $(this).val('');
+    }
+    });
+
+    $('#payment_schedule_from_date').on('change',function(){
+        let dayWeekMonthFilter =  $('#dayWeekMonthFilter').val();
+
+        if((dayWeekMonthFilter=='4' )|| (dayWeekMonthFilter=='5')){
+            if(($('#ddl_month').val() ==null && $('#ddl_year').val() ==null) || $('#ddl_month').val() ==null || $('#ddl_year').val() ==null){
+                propDisableEnable(true);
+                $("#formFilters").submit();
+                $(this).val('');
+            }else{
+                propDisableEnable(false);
+                // selected year and month based select date
+                // alert($('#ddl_month').val());
+                // alert($('#ddl_year').val());
+
+                let selectMonth = parseInt($('#ddl_month').val(), 10);
+                let selectYear = parseInt($('#ddl_year').val());
+
+                // console.log(typeof selectMonth);
+                // console.log( selectMonth);
+                // console.log(typeof selectYear);
+                // console.log( selectYear);
+
+                const { startDate, endDate } = getStartAndEndDate(selectYear, selectMonth);
+                console.log('startDate ', startDate);
+                console.log('endDate ', endDate);
+            }
+        }else{
+            if($('#from_date').val() <= $(this).val() && $('#to_date').val() >= $(this).val()){
+                // alert(true);
+            }else{
+                alert(false);
+                $(this).val('');
+            }
+        }
+    });
+
+    $('#payment_schedule_to_date').on('change',function(){
+        if($('#payment_schedule_from_date').val()!= null && $('#payment_schedule_from_date').val()!= ''){
+            if($('#payment_schedule_from_date').val() <= $(this).val() && $('#to_date').val() >= $(this).val()){
+                // alert(true);
+            }else{
+                alert(false);
+                $(this).val('');
+            }
+        }else{
+            alert('Please Select Payment Schedule From Date');
+            $(this).val('');
+        }
+    });
+
+    $('#ddl_year').on('change',function(){
+        propDisableEnable(false);
+    });
+    
+
+    function propDisableEnable(boolean){
+            $('#ddl_scheme_cate').prop('disabled', boolean);
+            $('#ddl_scheme_code').prop('disabled', boolean);
+            $('#ddl_scheme_name').prop('disabled', boolean);
+            $('#ddl_sub_scheme').prop('disabled', boolean);
+            $('#ddl_department').prop('disabled', boolean);
+            $('#ddl_sub_department').prop('disabled', boolean);
+    }
+
+  
+    
+
+
+  $('#paymentDate').on('change', function() {
+    var todayDate = new Date(); 
+    todayDate.setDate(todayDate.getDate() - 1);
+    var toDate = new Date($(this).val());
+    if (toDate < todayDate) {
+        alert('To Date should be a future date.');
+        $(this).val('');
+    }
+    $('#paymentDate_error').hide();
+  });
+
+
+  $('#reinitiatePaymentDate').on('change', function() {
+    var todayDate = new Date(); 
+    todayDate.setDate(todayDate.getDate() - 1);
+    var toDate = new Date($(this).val());
+    if (toDate < todayDate) {
+        alert('To Date should be a future date.');
+        $(this).val('');
+    }
+    $('#reinitiatePaymentDate_error').hide();
+  });
+  
+
+$('#filter_based_info_card_div').hide();
+$('#tblCard').hide();
+
+
+  /*END : Get Taluk list*/
+// });
+
+var formsFilter = [];
+window.localStorage.removeItem('filters');
+/*from submit*/
+$(document).ready(function() {
+  $("#formFilters").validate({
+          rules: {
+            ddl_scheme_cate: {required: true},
+            ddl_scheme_code: {required: true},
+            ddl_scheme_name: {required: true},
+            ddl_sub_scheme: {required: true},
+            ddl_department: {required: true},
+            ddl_sub_department: {required: true},
+            // ddl_district: {required: true},
+            // ddl_taluk: {required: true},
+            // ddl_jurisdiction: {required: true},
+            dayWeekMonthFilter : {required: true},
+            from_date : {required: true},
+            to_date : {required: true},
+            ddl_month:{required: true},
+            ddl_year :{required: true},
+          },
+          messages: {
+            ddl_scheme_cate: {required: "Select the Scheme Category"},
+            ddl_scheme_code: {required: "Select the Scheme Code"},
+            ddl_scheme_name: {required: "Select the scheme Name"},
+            ddl_sub_scheme: {required: "Select the Sub Scheme Name"},
+            ddl_department: {required: "Select the Deparment"},
+            ddl_sub_department: {required: "Select the Sub Deparment"},
+            // ddl_district: {required: "Select the District"},
+            // ddl_taluk: {required: "Select the Taluk"},
+            // ddl_jurisdiction: {required: "Select the jurisdiction"},
+            dayWeekMonthFilter :{required: "Select the Payment Period"},
+            from_date : {required: "Select the From Date"},
+            to_date : {required: "Select the To Date"},
+          ddl_month : {required: "Select the Month"},
+          ddl_year : {required: "Select the year"},
+          },
+          errorClass: "help-inline text-danger",
+          errorElement: "span",
+          highlight: function(element, errorClass, validClass) {
+              $(element).parents('.form-group').addClass('has-error');
+          },
+          unhighlight: function(element, errorClass, validClass) {
+              $(element).parents('.form-group').removeClass('has-error');
+              $(element).parents('.form-group').addClass('has-success');
+          },
+          submitHandler: function(form,e) {
+              e.preventDefault();
+            //   console.log('Form submitted');
+              formsFilter.length = 0;
+              formsFilter = [];
+              var formData = $(form).serialize();
+              window.localStorage.removeItem('filters');
+              window.localStorage.setItem('filters', JSON.stringify(formData));
+              // window.localStorage.setItem('filters', formData);
+
+              $('#lable_text_scheme_cate').text($('#ddl_scheme_cate').val());
+              $('#lable_text_scheme_code').text($('#ddl_scheme_code').val());
+              $('#lable_text_scheme').text($('#ddl_scheme_name').val());
+              $('#lable_text_sub_scheme').text($('#ddl_sub_scheme').val());
+              $('#lable_text_Department').text($("#ddl_department option:selected").text());
+              $('#lable_text_sub_department').text($("#ddl_sub_department option:selected").text());
+              
+              
+              let paymentPrioedVal = $('#dayWeekMonthFilter').val();
+              let yyyymm = '';
+              
+              if(paymentPrioedVal == 0){
+                let from_date = $('#from_date').val();
+                let to_date = $('#to_date').val();
+                  
+                  $('#from_date_div').show();
+                  $('#to_date_div').show();
+                  $('#lable_text_from_date').text(from_date);
+                  $('#lable_text_to_date').text(to_date);
+
+                  let yearandMonth = processDates(from_date, to_date);
+
+                  if((yearandMonth.from.year == yearandMonth.to.year) && (yearandMonth.from.month == yearandMonth.to.month)){
+                    
+                    yyyymm = `${yearandMonth.from.year}`+`${yearandMonth.from.month}`;
+                  }else{
+                     yyyymm = `${yearandMonth.from.year}`+`${yearandMonth.from.month}`+'-'+`${yearandMonth.to.year}`+`${yearandMonth.to.month}`;
+                  }
+
+              }else if(paymentPrioedVal == 1){
+                    let currentDate = new Date();
+                    let currentDateYearMonth = processDates(currentDate,'');
+                    yyyymm = `${currentDateYearMonth.from.year}`+`${currentDateYearMonth.from.month}`;
+                    $('#from_date_div').hide();
+                    $('#to_date_div').hide();
+              }else if(paymentPrioedVal == 2){
+                    let currentDate = new Date();
+                    let currentDateYearMonth = processDates(currentDate,'');
+                    yyyymm = `${currentDateYearMonth.from.year}`+`${currentDateYearMonth.from.month}`;
+                    $('#from_date_div').hide();
+                    $('#to_date_div').hide();
+              }else if(paymentPrioedVal == 3){
+                let currentDate = new Date();
+                    let currentDateYearMonth = processDates(currentDate,'');
+                    yyyymm = `${currentDateYearMonth.from.year}`+`${currentDateYearMonth.from.month}`;
+                    $('#from_date_div').hide();
+                    $('#to_date_div').hide();
+              }else if(paymentPrioedVal == 4){
+                    let selectMonth = $('#ddl_month').val();
+                    let selectYear = $('#ddl_year').val();
+                    yyyymm = `${selectYear}`+`${selectMonth}`;
+                    $('#from_date_div').hide();
+                    $('#to_date_div').hide();
+              }else{
+                    $('#from_date_div').hide();
+                    $('#to_date_div').hide();
+              }
+
+              if($('#payment_schedule_from_date').val() !='' && $('#payment_schedule_to_date').val() !=''){
+                $('#payment_schedule_from_date_div').show();
+                $('#payment_schedule_to_date_div').show();
+                $('#lable_text_payment_schedule_from_date').text($('#payment_schedule_from_date').val());
+                $('#lable_text_payment_schedule_to_date').text($('#payment_schedule_to_date').val());
+              }else{
+                $('#payment_schedule_from_date_div').hide();
+                $('#payment_schedule_to_date_div').hide();
+                $('#lable_text_payment_schedule_from_date').text();
+                $('#lable_text_payment_schedule_to_date').text();
+              }
+
+              if($('#dayWeekMonthFilter').val()!=null){
+                $('#YYYYMM_div').show();
+                $('#payment_period_div').show();
+                  $('#lable_text_payment_period').text($("#dayWeekMonthFilter option:selected").text());
+                  $('#lable_text_yearMonth').text(yyyymm);
+              }else{
+                $('#YYYYMM_div').hide();
+                $('#payment_period_div').hide();
+              }
+              
+            //   $('#lable_text_payment_period').text($("#dayWeekMonthFilter option:selected").text());
+            //   $('#lable_text_yearMonth').text(yyyymm);
+              
+            
+              $('#filter_based_info_card_div').show();
+              $('#tblCard').show();
+              $('#btnfilter').click();
+
+
+              var tabId = $('#approvelpayment').val();
+              if(tabId==''){tabId = 0;}
+
+                tabClickValue(tabId);
+                $("#formFilters")[0].reset();
+              // $("#tblCard").show();
+              /*scroll function*/
+              $('html, body').animate({
+                scrollTop: $("#tblCard").offset().top
+              }, 2000);
+
+              return false;
+          }
+    });
+});
+
+window.getCurrentTabId = -1;
+// tabClickValue(0);
+
+$('#tblPaymentReportsList_taluk').hide();
+
+function tabClickValue(tabID){
+  var input_schemCode = $('#ddl_scheme_code').val();
+  var input_schemName = $('#ddl_scheme_name').val();
+  var input_subScheme = $('#ddl_sub_scheme').val();
+  var input_dep = $('#ddl_department').val();
+  var input_subDep = $('#ddl_sub_department').val();
+  var input_dateMonthYear = $('#dayWeekMonthFilter').val();
+
+  /* get value to inputs*/
+  getCurrentTabId = tabID;
+  if(tabID==0){
+    $('#approvelpayment').val(0);
+      if (input_schemCode !== '' && input_schemName !== '' && input_subScheme !== null && input_dep !== '' && input_subDep !== '' && input_dateMonthYear !== '') {
+        get_tranfer_file_wise_summary_list();
+        $('#profile-tab-pane').show();
+      } else {
+        $('#profile-tab-pane').hide();
+      }
+  }
+}
+
+
+
+let tableRecordCount = 0;
+
+
+function get_tranfer_file_wise_summary_list(){
+    var dataFilters = window.localStorage.getItem('filters');
+    $('#tblTransferFileWiseSummary').DataTable().clear().destroy();
+    $('#tblTransferFileWiseSummary').DataTable({
+        "LengthChange": true,
+        "LengthMenu": [[10, 20, 30, -1], [10, 20, 30, "All"]],
+        "pageLength": -1,
+        "footer": true,
+        "dom": 'Bfrtip',
+        "buttons": [
+              {
+                    extend: 'csv',
+                    text: 'CSV',
+                    filename: 'Payment Lists',
+                    exportOptions: {
+                        rows: ':visible', // Export visible rows
+                        modifier: {
+                            selected: null // Export all rows, not just selected
+                        }
+                    }
+                },
+                {
+                    extend: 'excel',
+                    text: 'Excel',
+                    filename: 'Payment Lists' // Set custom filename for Excel
+                }
+        ],
+        "searching": true,
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+            "url": APIURL + 'transfer_file_summary',
+            "type": "POST",
+            "headers": { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+            "dataType": "JSON",
+            data: {
+              fileters:dataFilters,
+              user_id:loginUser_id
+            },
+          "beforeSend": function () {
+            // $('#preloader').show();
+            tblPreloaderEnable('tblTransferFileWiseSummary');
+          },
+          "error": function (xhr, error, thrown) {
+                Swal.fire({
+                    icon: "error",
+                    title: 'Service Error !',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            },
+            "dataSrc": 'data',
+          },
+        "columns": [
+            { "data": "S.No", render: function (data, type, row, meta) {
+                return meta.row + meta.settings._iDisplayStart + 1;
+                }
+            },
+            { "data": "reason" },
+            { "data": "apb_beneficiaries_count" },
+            { "data": "apb_beneficiaries_value"},
+            { "data": "ach_beneficiaries_count"},
+            { "data": "ach_beneficiaries_value"},
+            { "data": "total_beneficiaries_count"},
+            { "data": "total_beneficiaries_value"}            
+            
+        ],
+        "drawCallback": function (settings) {
+        },
+        "initComplete": function (settings, json) {
+                $('#preloader').hide();
+                totalgetReportRecords = json.recordsTotal;
+                $('#accordionExample .accordion-collapse').collapse('hide');
+        }
+    }); 
+}
+
+function populateDropdown(dropdownId, data, fieldName) {
+    const dropdown = document.getElementById(dropdownId);
+
+    // Clear existing options
+    //dropdown.innerHTML = '<option value="">--ALL--</option>';
+
+    // Populate options from data
+    data.forEach(item => {
+      const option = document.createElement('option');
+      option.value = item[fieldName + '_code'];
+      option.textContent = item[fieldName + '_name'];
+      dropdown.appendChild(option);
+    });
+  }
+
+
+
+  $('#selectAllCheckbox').on('change', function () {
+    // console.log($(this).prop('checked'));
+      $('tbody :checkbox').prop('checked', $(this).prop('checked'));
+  });
+
+  
+  $('#selectAllCheckbox2').on('change', function () {
+    // console.log($(this).prop('checked'));
+      $('tbody :checkbox').prop('checked', $(this).prop('checked'));
+  });
+
+  $('#selectAllCheckbox3').on('change', function () {
+    // console.log($(this).prop('checked'));
+      $('tbody :checkbox').prop('checked', $(this).prop('checked'));
+  });
+
+
+
+
+
+function tblPreloaderEnable(tableName){
+      var processingDiv = document.getElementById(tableName+'_processing');
+      var displayStatus = window.getComputedStyle(processingDiv).display;
+      if (displayStatus === 'block') {
+      $('#'+tableName+'_processing').html(`<div id="preloader"></div>`);
+      } else {
+        $('#'+tableName+'_processing').text(`<div id="preloader"></div>`);
+      }
+}
+
+function downloadFileDuplicates(district_code,taluk_code){
+  var userDataString = getCookie('payment_official');
+    userDataString = JSON.parse(userDataString);
+    window.loginUser_id = userDataString['user_id'];
+  $('#preloader').show();
+  var dataFilters = window.localStorage.getItem('filters');
+  $.ajax({
+      url: APIURL + 'transferToPaymentProcessDownload',
+      method: 'POST',
+      headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+      data: {fileters:dataFilters,district_code:district_code,taluk_code:taluk_code,user_id:loginUser_id},
+      dataType: 'json',
+      success: function (response) {
+        if(response.data!=null){
+          exportJsonToExcel(response.data,'Duplicate Beneficiary');
+        }else{
+          Swal.fire({
+          icon: "error",
+          title: 'Summary is Empty !',
+          showConfirmButton: false,
+          timer: 2000
+          });
+        }
+      },
+      error: function (xhr, status, error) {
+        console.log("Error:", error);
+      }
+    });
+}
+
+
+
+function tblPreloaderEnable(tableName){
+      var processingDiv = document.getElementById(tableName+'_processing');
+      var displayStatus = window.getComputedStyle(processingDiv).display;
+      if (displayStatus === 'block') {
+      $('#'+tableName+'_processing').html(`<div id="preloader"></div>`);
+      } else {
+        $('#'+tableName+'_processing').text(`<div id="preloader"></div>`);
+      }
+}
+
+
+function generateUniqueId() {
+    const timestamp = new Date().getTime();
+    return `${timestamp}`;
+}
+
+
+
+function exportJsonToExcel(jsonData, file_name) {
+  var data = jsonData.map(obj => Object.values(obj));
+  var ws = XLSX.utils.aoa_to_sheet([Object.keys(jsonData[0])].concat(data));
+  var wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  var binaryData = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
+  var blob = new Blob([s2ab(binaryData)], { type: 'application/octet-stream' });
+  saveAs(blob, file_name + '.xlsx');
+  $('#preloader').hide();
+}
+
+function s2ab(s) {
+  var buf = new ArrayBuffer(s.length);
+  var view = new Uint8Array(buf);
+  for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+  return buf;
+}
+
+function convertJsonToCsv(jsonData,filename) {
+    // Extract column headers from the first object
+    let columns = Object.keys(jsonData[0]);
+
+    // Create CSV content
+    let csvContent = [
+        columns.join(','), // Header row
+        ...jsonData.map(obj => columns.map(col => obj[col]).join(',')) // Data rows
+    ].join('\n');
+
+    // return csvContent;
+
+    let blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    let link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', filename+'.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+
+function witchModalisActiveCheck(){
+  $('.modal').each(function() {
+    if ($(this).is(':visible')) {
+        console.log('Modal is currently visible.');
+        // console.log(this);
+    } else {
+        console.log('Modal is currently hidden.');
+        // console.log(this);
+    }
+  });
+}
+
+
+
+function _fnGetHeaders() {
+    var dt = $('#uploadDataList').DataTable();
+    var thRows = $('#uploadDataList thead tr');
+    var numRows = thRows.length;
+    var matrix = [];
+
+    for (var rowIdx = 0; rowIdx < numRows; rowIdx++) {
+        var $row = $(thRows[rowIdx]);
+
+        var $ths = $row.find("th");
+        var aRow = [];
+
+        for (var colIdx = 0; colIdx < $ths.length; colIdx++) {
+            var $th = $($ths.get(colIdx));
+            aRow.push($th.text().trim());
+        }
+
+        matrix.push(aRow);
+    }
+
+    return matrix;
+}
+
+function htmlDecode(input) {
+    var doc = new DOMParser().parseFromString(input, "text/html");
+    return doc.documentElement.textContent;
+}
+
+
+function getYearMonth(dateStr) {
+    var dateObj = new Date(dateStr);
+    var year = dateObj.getFullYear();
+    var month = dateObj.getMonth() + 1;
+    var monthStr = month < 10 ? '0' + month : month.toString();
+
+    return { year: year, month: monthStr };
+}
+
+function processDates(fromDateStr, toDateStr) {
+    var fromDate = getYearMonth(fromDateStr);
+    var toDate = getYearMonth(toDateStr);
+
+    return {
+        from: fromDate,
+        to: toDate
+    };
+}
+
+function getStartAndEndDate(year, month) {
+  if (isNaN(year) || isNaN(month) || month < 1 || month > 12) {
+    return "Invalid input";
+  }
+  const startDate = new Date(year, month - 1, 1);
+  const endDate = new Date(year, month, 0);
+  return { startDate, endDate };
+  
+}
+
+</script>
+</body>
+</html>

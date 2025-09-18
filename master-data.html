@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      <title>Payment Automation Dashboard</title>
+      <meta content="" name="description">
+      <meta content="" name="keywords">
+      <!-- Favicons -->
+      <link href="assets/img/tn_logo.png" rel="icon">
+      <link href="assets/img/tn_logo.png" rel="apple-touch-icon">
+      <!-- Google Fonts -->
+      <link href="https://fonts.gstatic.com" rel="preconnect">
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+      <!-- Vendor CSS Files -->
+      <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+      <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
+      <link rel="stylesheet" href="assets/vendor/sweetalert2/css/sweetalert.min.css" />
+      <link rel="stylesheet" href="assets/vendor/sweetalert2/css/sweetalert2.min.css" />
+      <!-- <link rel="stylesheet" href="assets/vendor/toggle/bootstrap-toggle.min.css" /> -->
+      <!-- CSS File --> 
+      <link href="assets/css/style.css" rel="stylesheet">
+      <script src="assets/components/official_header.js" type="text/javascript" defer></script>
+      <!-- <link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"> -->
+      <style type="text/css">
+         .card-green-text {
+         /* background-color: #008000; */
+         background-color: #6eba6e !important;
+         color: #fff;
+         font-size: 14px;
+         font-weight: bold;
+         }
+         .card-green-blue
+         {
+         /*  background-color: #5f14d3;*/
+         background-color: #8e63d0 !important;
+         color: #fff;
+         font-size: 14px;
+         font-weight: bold;
+         }
+         .cus-grid th {
+         vertical-align: middle;
+         } 
+         .bg-card-blue {
+         /* background-color: #008000; */
+         background-color: #2c41b4 !important;
+         color: #fff;
+         font-size: 14px;
+         font-weight: bold;
+         } 
+         #accordionExample .accordion-button:not(.collapsed)::after, .accordion-button::after {
+         filter: invert(1) grayscale(100%) brightness(200%) !important;
+         }
+        input.form-control.form-control-sm {
+        margin-bottom: 1rem;
+        }
+        .dt-buttons.btn-group.flex-wrap {
+        position: absolute;
+        right: 2rem;
+        }
+      .card-lg-blue-text {
+        background-color: #2c93b4 !important;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .card-lg-orange-text {
+        background: #c09012 !important;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      th {
+        text-align: center;
+      }
+      a#xlsx_btn {
+      position: absolute;
+      right: 8rem;
+      top: 1rem;
+      }
+      a#csv_btn {
+      position: absolute;
+      right: 2rem;
+      top: 1rem;
+      }
+        input[type="date"] {
+            padding: 0.4rem;
+        }
+
+    span#ddl_search_by-error {
+        position: absolute;
+        margin-top: 1.8rem;
+    }
+    
+    span#search_code-error {
+    position: absolute;
+    margin-top: 2.8rem;
+}
+      </style>
+   </head>
+   <body>
+      <!-- ======= Header & sidemenu ======= -->
+      <official-header-component></official-header-component>
+      <div id="preloader"></div>
+      <!-- End Sidebar-->
+      <main id="main" class="main">
+         <!-- Dashboard view starts -->
+         <section>
+            <div class="container-fluid">
+               <div class="card mb-1">
+                <div class="row p-3">
+                  <div class="col">
+                    <button class="btn btn-success" onclick="bankIfscDetailsDownload();" type="button"><i class="bi bi-bank"></i> Download Bank IFSC Details</button>
+                  </div>
+                  <div class="col">
+                    <button class="btn btn-success" onclick="bankIinDetailsDownload();" type="button"><i class="bi bi-bank"></i> Download Bank IIN Details</button>
+                  </div>
+                  <div class="col">
+                    <button class="btn btn-success w-100" onclick="failureReasonMasterListDownload();" type="button"><i class="bi bi-bank"></i> Failure Error Code List Details</button>
+                  </div>
+                  <div class="col">
+                    <button class="btn btn-success w-100" onclick="districtTalukMasterListDownload();" type="button"><i class="bi bi-file-earmark-spreadsheet"></i> District And Taluk List Details</button>
+                  </div>
+                </div>
+               </div>
+               
+               <!-- START: modal popup -->
+               <!-- Button trigger modal -->
+            </div>
+         </section>
+      </main>
+      <!-- End #main -->
+      <!-- ======= Footer ======= -->
+      <footer id="footer" class="footer">
+         <div class="copyright">
+            &copy; Copyright <strong><span>TNeGA</span></strong>. All Rights Reserved
+         </div>
+         <div class="credits">
+            Designed & Developed by <a href="https://tngis.tn.gov.in/" target="_blank">TNeGA</a>
+         </div>
+      </footer>
+      <!-- End Footer -->
+      <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+      <!-- Delete modal starts -->
+      <!-- view crop info ends -->
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script type="text/javascript" src="assets/vendor/jquery-validate/js/jquery.validate.min.js"></script>
+
+
+    <!-- data table -->
+    <script src="assets/vendor/datatable/jquery.dataTables.min.js"></script>
+    <script src="assets/vendor/datatable/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="assets/vendor/datatable/js/dataTables.js"></script>
+    <script type="text/javascript" src="assets/vendor/datatable/js/dataTables.bootstrap4.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/jszip.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/pdfmake.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/vfs_fonts.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="assets/vendor/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="assets/vendor/sweetalert2/js/sweetalert.min.js"></script>
+    <script src="assets/vendor/sweetalert2/js/sweetalert2.all.min.js"></script>
+    <script src="assets/vendor/toggle/bootstrap-toggle.min.js"></script>
+    <script src="assets/js/global.js"></script>
+    <script src="assets/js/alpinejs_3_10_2.min.js" defer></script>
+    <script src="assets/lang/reports.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js'></script>
+    <script src="assets/scripts/xlsx.full.min.js"></script>
+    <script src="assets/scripts/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
+    <!-- <script src="assets/scripts/jspdf.debug.js"></script> -->
+    <!-- data table -->
+
+
+
+
+
+    
+    <!-- Main JS File -->
+    
+    <script src="assets/js/global.js"></script>
+    <script src="assets/js/base64tojson.js"></script>
+    <script src="assets/js/crypto-js.js"></script>
+    <script src="assets/js/aes.js"></script>
+  
+
+    <script type="text/javascript" src="assets/vendor/toastr/toastr.min.js"></script>
+    
+    <!-- Crypto js -->
+    <script src="assets/vendor/encryption/crypto-js.min.js"></script>
+    <!-- Encryption js -->
+    <script src="assets/vendor/encryption/Encryption.js"></script>
+    <script src="assets/vendor/sweetalert2/js/sweetalert2.all.min.js"></script>
+    
+    
+ 
+ <script type="text/javascript">
+  
+var url = window.location.href;
+var page_url = url.split('/');
+var page = page_url[4];
+
+var userDataString = getCookie('payment_official');
+userDataString = JSON.parse(userDataString);
+$(document).ready(function () {
+  $(document).on({
+        //  ajaxStart: function () {
+        //    $('#preloader').show();
+        //   //  console.log('preloader is show');
+        //  },
+         ajaxStop: function () {
+           $('#preloader').hide();
+          //  console.log('preloader is show');
+         }
+       });
+
+  $('.official').each(function (i, obj) {
+    var href = obj.getAttribute("href");
+    if (href == page) {
+      obj.classList.add('active');
+    } else {
+      obj.classList.remove('active');
+    }
+  });
+  // $('#preloader').hide();
+ 
+  var userDataString = getCookie('payment_official');
+  if (!userDataString) {
+    $('#preloader').show();
+    window.location.href = "login.html";
+  }
+
+  userDataString = JSON.parse(userDataString);
+  $('#official_username').text(userDataString['first_name']);
+  $('#UserID').val(userDataString['user_id']);
+  window.loginUser_id = userDataString['user_id'];
+  reloID = userDataString['role_id'];
+    roleBasedPageAllow(loginUser_id,reloID);
+
+
+});
+
+
+
+$(document).ready(function() {
+    // Initialize tooltips
+    $('[data-toggle="tooltip"]').tooltip({
+        html: true, // Enable HTML content in the tooltip
+        // Show dynamic content when the tooltip is shown
+        title: function() {
+            return $(this).data('content');
+        }
+    });
+});
+
+
+
+
+function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  }
+
+
+function exportJsonToExcel(jsonData, file_name) {
+  var data = jsonData.map(obj => Object.values(obj));
+  var ws = XLSX.utils.aoa_to_sheet([Object.keys(jsonData[0])].concat(data));
+  var wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  var binaryData = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
+  var blob = new Blob([s2ab(binaryData)], { type: 'application/octet-stream' });
+  saveAs(blob, file_name + '.xlsx');
+  $('#preloader').hide();
+}
+
+function s2ab(s) {
+  var buf = new ArrayBuffer(s.length);
+  var view = new Uint8Array(buf);
+  for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+  return buf;
+}
+
+function convertJsonToCsv(jsonData,filename) {
+    // Extract column headers from the first object
+    let columns = Object.keys(jsonData[0]);
+
+    // Create CSV content
+    let csvContent = [
+        columns.join(','), // Header row
+        ...jsonData.map(obj => columns.map(col => obj[col]).join(',')) // Data rows
+    ].join('\n');
+
+    // return csvContent;
+
+    let blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    let link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', filename+'.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function bankIfscDetailsDownload() {
+    $('#preloader').show();
+    $.ajax({
+        url: APIURL + 'bankdetailsDownload',
+        type: "POST",
+        headers: {
+            'X-APP-KEY': config.app_key,
+            'X-APP-NAME': config.app_name
+        },
+        data: {
+            filename: 'Export_Bank_IFSC_Details'
+        },
+        xhrFields: {
+            responseType: 'blob' // Treat response as binary data
+        },
+        success: function(response) {
+            $('#preloader').hide();
+            // Create a blob object from the response data
+            var blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            // Create a URL for the blob
+            var url = window.URL.createObjectURL(blob);
+            // Create a hidden link with the URL and trigger a click on it
+            var downloadLink = document.createElement('a');
+            downloadLink.href = url;
+            downloadLink.download = 'Export_Bank_IFSC_Details.xlsx';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            // Clean up
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(downloadLink);
+        },
+        error: function(xhr, status, error) {
+            $('#preloader').hide();
+            console.log("Error:", error);
+        }
+    });
+}
+
+function bankIinDetailsDownload(){
+  $('#preloader').show();
+    $.ajax({
+        url: APIURL + 'bankdetailsDownload',
+        type: "POST",
+        headers: {
+            'X-APP-KEY': config.app_key,
+            'X-APP-NAME': config.app_name
+        },
+        data: {
+            filename: 'Export_Bank_IIN_Details'
+        },
+        xhrFields: {
+            responseType: 'blob' // Treat response as binary data
+        },
+        success: function(response) {
+            $('#preloader').hide();
+            var blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            var url = window.URL.createObjectURL(blob);
+            var downloadLink = document.createElement('a');
+            downloadLink.href = url;
+            downloadLink.download = 'Export_Bank_IIN_Details.xlsx';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(downloadLink);
+        },
+        error: function(xhr, status, error) {
+            $('#preloader').hide();
+            console.log("Error:", error);
+        }
+    });
+}
+
+function bankIinDetailsDownload(){
+  $('#preloader').show();
+    $.ajax({
+        url: APIURL + 'bankdetailsDownload',
+        type: "POST",
+        headers: {
+            'X-APP-KEY': config.app_key,
+            'X-APP-NAME': config.app_name
+        },
+        data: {
+            filename: 'Export_Bank_IIN_Details'
+        },
+        xhrFields: {
+            responseType: 'blob' // Treat response as binary data
+        },
+        success: function(response) {
+            $('#preloader').hide();
+            var blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            var url = window.URL.createObjectURL(blob);
+            var downloadLink = document.createElement('a');
+            downloadLink.href = url;
+            downloadLink.download = 'Export_Bank_IIN_Details.xlsx';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(downloadLink);
+        },
+        error: function(xhr, status, error) {
+            $('#preloader').hide();
+            console.log("Error:", error);
+        }
+    });
+}
+
+
+function districtTalukMasterListDownload(){
+  $('#preloader').show();
+    $.ajax({
+        url: APIURL + 'bankdetailsDownload',
+        type: "POST",
+        headers: {
+            'X-APP-KEY': config.app_key,
+            'X-APP-NAME': config.app_name
+        },
+        data: {
+            filename: 'districts_taluks_master_data'
+        },
+        xhrFields: {
+            responseType: 'blob' // Treat response as binary data
+        },
+        success: function(response) {
+            $('#preloader').hide();
+            var blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            var url = window.URL.createObjectURL(blob);
+            var downloadLink = document.createElement('a');
+            downloadLink.href = url;
+            downloadLink.download = 'Districts_Taluks_Master_data.xlsx';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(downloadLink);
+        },
+        error: function(xhr, status, error) {
+            $('#preloader').hide();
+            console.log("Error:", error);
+        }
+    });
+}
+
+
+function failureReasonMasterListDownload(){
+  $('#preloader').show();
+    $.ajax({
+        url: APIURL + 'bankdetailsDownload',
+        type: "POST",
+        headers: {
+            'X-APP-KEY': config.app_key,
+            'X-APP-NAME': config.app_name
+        },
+        data: {
+            filename: 'Bank_Rejected_Reason_Code'
+        },
+        xhrFields: {
+            responseType: 'blob' // Treat response as binary data
+        },
+        success: function(response) {
+            $('#preloader').hide();
+            var blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            var url = window.URL.createObjectURL(blob);
+            var downloadLink = document.createElement('a');
+            downloadLink.href = url;
+            downloadLink.download = 'Bank_Rejected_Reason_Code.xlsx';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(downloadLink);
+        },
+        error: function(xhr, status, error) {
+            $('#preloader').hide();
+            console.log("Error:", error);
+        }
+    });
+}
+</script>
+</body>
+</html>

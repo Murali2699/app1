@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Payment Automation Dashboard</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <!-- Favicons -->
+    <link href="assets/img/tn_logo.png" rel="icon">
+    <link href="assets/img/tn_logo.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
+    <link rel="stylesheet" href="assets/vendor/sweetalert2/css/sweetalert.min.css" />
+    <link rel="stylesheet" href="assets/vendor/sweetalert2/css/sweetalert2.min.css" />
+    <!-- <link rel="stylesheet" href="assets/vendor/toggle/bootstrap-toggle.min.css" /> -->
+    <!-- CSS File --> 
+    <link href="assets/css/style.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"> -->
+    <script src="assets/components/official_header.js" type="text/javascript" defer></script>
+  </head>
+  <body>
+    <style>
+      .show_column h3{
+        font-size:1rem;
+      }
+      .accordion-item, .accordion-button:not(.collapsed) {
+        border: none!important;
+      }
+      .customers-card-orange{
+        border-left: 0.25rem solid #fe8402;
+      }
+      .customers-card-green-light{
+        border-left: 0.25rem solid #6eba6e;
+      }
+      .customers-card-lavander{
+        border-left: 0.25rem solid #8e63d0;
+      }
+      .customers-card-primary{
+        border-left: 0.25rem solid #0d6efd;
+      }
+      .customers-card-red{
+        border-left: 0.25rem solid #fd0d19;
+      }
+      .bg-blue{
+        background: #194787;
+      }
+
+    </style>
+    <!-- ======= Header & sidemenu ======= -->
+    <official-header-component></official-header-component>
+    <div id="preloader"></div>  
+    <!-- End Sidebar-->
+    <main id="main" class="main">
+      <!-- Dashboard view starts -->
+      <section>
+        <div class="container-fluid">
+          <div class="card mb-1">
+            <form id="formFilters" method="post">
+              <div class="card-body pb-0 pt-2">
+
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                          <button id="btnfilter" style="    background: linear-gradient(to right, rgb(44 43 88), rgb(34 25 111)) !important;
+                            color: #fff !important;" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          <i class="bi bi-funnel"></i>  <span class="px-2">Apply Filter</span>
+                          </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                          <div class="accordion-body w-100">
+                            <div class="row mb-2 boxflex">
+                              <div class="col-md">
+                                <label for="ddl_scheme_cate" class="form-label fw-bold">Scheme category</label>
+                                <select class="form-select" id="ddl_scheme_cate" name="ddl_scheme_cate">
+                                  <option value="">--All--</option>
+                                </select>
+                              </div>
+                              <div class="col-md">
+                                <label for="ddl_scheme_code" class="form-label fw-bold">Scheme Code</label>
+                                <select class="form-select" id="ddl_scheme_code" name="ddl_scheme_code">
+                                  <option value="">--All--</option>
+                                </select>
+                              </div>
+                              <div class="col-md">
+                                <label for="ddl_scheme_name" class="form-label fw-bold">Scheme Name</label>
+                                <select class="form-select" id="ddl_scheme_name" name="ddl_scheme_name">
+                                  <option value="1">--All--</option>
+                                </select>
+                              </div> 
+                              <div class="col-md"> 
+                                <label for="ddl_sub_scheme" class="form-label fw-bold">Sub Scheme Name</label>
+                                <select class="form-select" id="ddl_sub_scheme" name="ddl_sub_scheme">
+                                </select>
+                              </div>
+                              <div class="col-md">
+                                <label for="ddl_department" class="form-label fw-bold">Department</label>
+                                <select class="form-select" id="ddl_department" name="ddl_department">
+                                  <option value="1">--All--</option>
+                                </select>
+                              </div>
+                              <div class="col-md">
+                                <label for="ddl_sub_department" class="form-label fw-bold">Sub Department</label>
+                                <select class="form-select" id="ddl_sub_department" name="ddl_sub_department">
+                                  <option value="1">--All--</option>
+                                </select>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row mb-2 boxflex">
+                              <div class="col-md-3">
+                                <label class="form-label fw-bold" for="dayWeekMonthFilter">Payment Period</label>
+                                <select name="dayWeekMonthFilter" id="dayWeekMonthFilter" class="form-select">
+                                  <option value="" disabled selected>Select Payment Period</option>
+                                  <option value="1">Today</option>
+                                  <option value="2">This Week</option>
+                                  <option value="3">This Month</option>
+                                  <option value="0">Custom Date</option>
+                                </select>
+                              </div>
+                              <div class="col-md" id="from_date_col">
+                                <label for="from_date" class="form-label fw-bold">From Date</label>
+                                <input type="date" name="from_date" id="from_date" class="form-control form-control-sm">
+                              </div>
+                              <div class="col-md" id="to_date_col">
+                                <label for="to_date" class="form-label fw-bold">To Date</label>
+                                <input type="date" name="to_date" id="to_date" class="form-control form-control-sm">
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row mb-2 boxflex">
+                              <div class="col-md-6">
+                                <label for="ddl_district" class="form-label fw-bold">District</label>
+                                <select class="form-select" id="ddl_district" name="ddl_district">
+                                  <option value="">--All--</option>
+                                </select>
+                              </div>
+                              <div class="col-md-6">
+                                <label for="ddl_taluk" class="form-label fw-bold">Taluk</label>
+                                <select class="form-select" id="ddl_taluk" name="ddl_taluk">
+                                  <option value="">--All--</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="row mb-2 boxflex">
+                              <!-- <a class="btn btn-success float-end cbtn col-md-1" id="get_filter"><i class="bi bi-check2-circle"></i> Submit</a> -->
+                              <button class="btn btn-success float-end cbtn col-md-2" type="submit"><i class="bi bi-pencil-square" id="btnGetFilter"></i> Submit</button>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+              <input type="hidden" name="approvelpayment" id="approvelpayment">
+            </form>
+          </div>
+          <!-- END: Dropdown card end here -->
+
+          <div class="card mb-1 mt-2" id="filter_based_info_card_div">
+            <div class="card-body pb-0 pt-2 bg-info-light">
+              <div class="row">
+                <div class="col">
+                  <label class="form-label fw-bold font-custom-lable">Scheme Category</label>
+                  <p id="lable_text_scheme_cate" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col">
+                  <label class="form-label fw-bold font-custom-lable">Scheme Code</label>
+                  <p id="lable_text_scheme_code" class="text-left font-custom-text"></p>
+                </div>
+                
+                <div class="col">
+                  <label class="form-label fw-bold font-custom-lable">Scheme Name</label>
+                  <p id="lable_text_scheme" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col">
+                  <label class="form-label fw-bold font-custom-lable">Sub Scheme Name</label>
+                  <p id="lable_text_sub_scheme" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col">
+                  <label class="form-label fw-bold font-custom-lable">Department</label>
+                  <p id="lable_text_Department" class="text-left font-custom-text"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label class="form-label fw-bold font-custom-lable">Sub Department</label>
+                  <p id="lable_text_sub_department" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col" id="YYYYMM_div">
+                  <label class="form-label fw-bold font-custom-lable">YearMonth</label>
+                  <p id="lable_text_yearMonth" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col" id="payment_period_div">
+                  <label class="form-label fw-bold font-custom-lable">Payment Period</label>
+                  <p id="lable_text_payment_period" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col" id="from_date_div">
+                  <label class="form-label fw-bold font-custom-lable">From Date</label>
+                  <p id="lable_text_from_date" class="text-left font-custom-text"></p>
+                </div>
+                <div class="col" id="to_date_div">
+                  <label class="form-label fw-bold font-custom-lable">To Date</label>
+                  <p id="lable_text_to_date" class="text-left font-custom-text"></p>
+                </div>
+              </div>                   
+            </div>
+          </div>
+
+          <div class="card mb-2 mt-3">
+            <div class="card-body">
+              <div class="row mb-2">
+                <label for="received_date" class="form-label fw-bold">Received Date</label>
+                <br>
+                <select name="Received_date" id="received_date" class="form-select">
+                  <option value="">All</option>
+                  <option value=""></option>
+                  <option value=""></option>
+                  <option value=""></option>
+                </select>
+              </div>
+              <div class="row mb-2">
+                <h5 class="card-title pb- mb-0"><i class="bi bi-check2-circle"></i> Pre-validation Information </h5> 
+                <div class="col">
+                  <div class="d-flex show_column">
+
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-primary h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_data_received_count" class="fw-bold"></h3>
+                          <span class="badge bg-primary"><i class="bi bi-card-checklist"></i>  Data Received </span>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_processed_count" class="fw-bold"></h3>
+                            <span class="badge bg-success"><i class="bi bi-card-checklist"></i>  Processed</span>
+                          </div>
+                          <div class="col-md">
+                            <h3 id="card_no_proccessed_count" class="fw-bold"></h3>
+                            <span class="badge bg-warning"><i class="bi bi-card-checklist"></i>  Yet to Processed</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-primary h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_valid_invalid_total_count" class="fw-bold"></h3>
+                          <span class="badge bg-success"><i class="bi bi-card-checklist"></i> Processed</span>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_valid_count" class="fw-bold"></h3>
+                            <span class="badge bg-blue"><i class="bi bi-card-checklist"></i>  Valid</span>
+                          </div>
+                          <div class="col-md">
+                            <h3 id="card_invalid_count" class="fw-bold"></h3>
+                            <span class="badge card-green-megenta"><i class="bi bi-card-checklist"></i>  In-valid</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-primary h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_pending_tranfered_total_count" class="fw-bold"></h3>
+                          <span class="badge bg-blue"><i class="bi bi-card-checklist"></i> Valid</span>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_Transferred_count" class="fw-bold"></h3>
+                            <span class="badge bg-success"><i class="bi bi-card-checklist"></i>  Transferred</span>
+                          </div>
+                          <div class="col-md" >
+                            <h3 id="card_pending_count" class="fw-bold"></h3>
+                            <span class="badge bg-warning"><i class="bi bi-card-checklist"></i>  Pending</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="row mb-2">
+                <div class="col">
+                  <div class="d-flex show_column">
+
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-orange h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_total_invalid_count" class="fw-bold"></h3>
+                          <span class="badge card-green-orange"><i class="bi bi-card-checklist"></i>  In-valid</span>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_aadhar_invalid_count" class="fw-bold"></h3>
+                            <span class="badge card-green-orange"><i class="bi bi-card-checklist"></i>  Aadhar In-valid</span>
+                          </div>
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_ac_invalid_count" class="fw-bold"></h3>
+                            <span class="badge card-green-orange"><i class="bi bi-card-checklist"></i>  Account In-valid</span>
+                          </div>
+                          <div class="col-md">
+                            <h3 id="card_iin_invalid_count" class="fw-bold"></h3>
+                            <span class="badge card-green-orange"><i class="bi bi-card-checklist"></i>  Iin In-valid</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-orange h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_total_duplicate_count" class="fw-bold"></h3>
+                          <span class="badge card-green-orange"><i class="bi bi-card-checklist"></i>  Duplicate</span>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_aadhar_duplicate_count" class="fw-bold"></h3>
+                            <span class="badge card-green-orange"><i class="bi bi-card-checklist"></i>  Duplicate Aadhar</span>
+                          </div>
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_ac_duplicate_count" class="fw-bold"></h3>
+                            <span class="badge card-green-orange"><i class="bi bi-card-checklist"></i>  Duplicate Account</span>
+                          </div>
+                          <div class="col-md">
+                            <h3 id="card_duplicate_beneficiary_count" class="fw-bold"></h3>
+                            <span class="badge card-green-orange"><i class="bi bi-card-checklist"></i>  Duplicate Beneficiary</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+
+              <div class="row mb-2">
+                <div class="col">
+                  <div class="d-flex show_column">
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-megenta h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_total_invalid_count" class="fw-bold"></h3>
+                          <span class="badge card-green-megenta"><i class="bi bi-card-checklist"></i>  In-valid</span>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_aadhar_invalid_count" class="fw-bold"></h3>
+                            <span class="badge card-green-megenta"><i class="bi bi-card-checklist"></i>  Aadhar</span>
+                          </div>
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_ac_invalid_count" class="fw-bold"></h3>
+                            <span class="badge card-green-megenta"><i class="bi bi-card-checklist"></i>  Account</span>
+                          </div>
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_iin_ifsc_invalid_count" class="fw-bold"></h3>
+                            <span class="badge card-green-megenta"><i class="bi bi-card-checklist"></i>  IIN & IFSC</span>
+                          </div>
+                          <div class="col-md">
+                            <h3 id="card_in_valid_total_duplicate_count" class="fw-bold"></h3>
+                            <span class="badge bg-danger"><i class="bi bi-card-checklist"></i>  Duplicate</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-red h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_total_duplicate_count" class="fw-bold"></h3>
+                          <span class="badge bg-danger"><i class="bi bi-card-checklist"></i>  Duplicate</span>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_aadhar_duplicate_count" class="fw-bold"></h3>
+                            <span class="badge bg-danger"><i class="bi bi-card-checklist"></i>  Aadhar</span>
+                          </div>
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_ac_duplicate_count" class="fw-bold"></h3>
+                            <span class="badge bg-danger"><i class="bi bi-card-checklist"></i>  Account</span>
+                          </div>
+                          <div class="col-md">
+                            <h3 id="card_duplicate_beneficiary_count" class="fw-bold"></h3>
+                            <span class="badge bg-danger"><i class="bi bi-card-checklist"></i>  Payment</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+          
+
+          <div class="card mb-2 mt-3">
+            <div class="card-body">
+              <div class="row mb-2">
+                <h5 class="card-title pb- mb-0"><i class="bi bi-check2-circle"></i> Distinct Beneficiary Information</h5>
+                <div class="col">
+                  <div class="d-flex show_column">
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-lavander h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_beneficiaries_total_count" class="fw-bold">0</h3>
+                          <span class="badge text-bg-primary"><i class="bi bi-card-checklist"></i>  Total</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-orange h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_beneficiaries_inprogress_count" class="fw-bold">0</h3>
+                          <span class="badge card-green-orange"><i class="bi bi-card-checklist"></i>  In-progress</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-green-light h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_beneficiaries_success_count" class="fw-bold">0</h3>
+                          <span class="badge card-green-text"><i class="bi bi-card-checklist"></i>  Success</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-megenta h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_beneficiaries_failure_count" class="fw-bold">0</h3>
+                          <span class="badge card-green-megenta"><i class="bi bi-card-checklist"></i>  Failure</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-primary h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_beneficiaries_emo_count" class="fw-bold">0</h3>
+                          <span class="badge card-green-blue"><i class="bi bi-card-checklist"></i>  EMO</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="card mb-2 mt-3">
+            <div class="card-body">
+              <div class="row mb-2">
+                <h5 class="card-title pb- mb-0"><i class="bi bi-check2-circle"></i> Transaction Count Information</h5>
+                <div class="col">
+                  <div class="d-flex show_column">
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-lavander h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_total_count" class="fw-bold"></h3>
+                          <span class="badge bg-primary"><i class="bi bi-card-checklist"></i>  Total </span>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_total_abp_count" class="fw-bold"></h3>
+                            <span class="badge card-green-blue"><i class="bi bi-card-checklist"></i>  APB</span>
+                          </div>
+                          <div class="col-md">
+                            <h3 id="card_total_ach_count" class="fw-bold"></h3>
+                            <span class="badge card-green-blue"><i class="bi bi-card-checklist"></i>  ACH</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-green h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_total_success_count" class="fw-bold"></h3>
+                          <span class="badge card-green-text"><i class="bi bi-card-checklist"></i>  Success</span>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_abp_success_count" class="fw-bold"></h3>
+                            <span class="badge card-green-text"><i class="bi bi-card-checklist"></i>  APB</span>
+                          </div>
+                          <div class="col-md">
+                            <h3 id="card_ach_success_count" class="fw-bold"></h3>
+                            <span class="badge card-green-text"><i class="bi bi-card-checklist"></i>  ACH</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-orange h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_total_inprogress_count" class="fw-bold"></h3>
+                          <span class="badge card-green-orange"><i class="bi bi-card-checklist"></i>  In-Progress</span>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_abp_inprogress_count" class="fw-bold"></h3>
+                            <span class="badge card-green-orange"><i class="bi bi-card-checklist"></i>  APB</span>
+                          </div>
+                          <div class="col-md">
+                            <h3 id="card_ach_inprogress_count" class="fw-bold"></h3>
+                            <span class="badge card-green-orange"><i class="bi bi-card-checklist"></i>  ACH</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-megenta">
+                        <div class="card-body pt-3">
+                          <h3 id="card_total_failure_count" class="fw-bold"></h3>
+                          <span class="badge card-green-megenta"> <i class="bi bi-people-fill"></i> Failure</span>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_abp_failure_count" class="fw-bold"></h3>
+                            <span class="badge card-green-megenta"><i class="bi bi-card-checklist"></i>  APB</span>
+                          </div>
+                          <div class="col-md">
+                            <h3 id="card_ach_failure_count" class="fw-bold"></h3>
+                            <span class="badge card-green-megenta"><i class="bi bi-card-checklist"></i> ACH</span> 
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-2 mt-3">
+            <div class="card-body">
+              <div class="row mb-2">
+                <h5 class="card-title pb- mb-0"><i class="bi bi-check2-circle"></i> Transaction  Amount Information (Lakhs)</h5>
+                <div class="col">
+                  <div class="d-flex show_column">
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-lavander h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_total_amount" class="fw-bold"></h3>
+                          <span class="badge bg-primary"><i class="bi bi-card-checklist"></i>  Total</span>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_total_abp_amount" class="fw-bold"></h3>
+                            <span class="badge card-green-blue"><i class="bi bi-card-checklist"></i>  APB</span>
+                          </div>
+                          <div class="col-md">
+                            <h3 id="card_total_ach_amount" class="fw-bold"></h3>
+                            <span class="badge card-green-blue"><i class="bi bi-card-checklist"></i>  ACH</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-green h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_total_success_amount" class="fw-bold"></h3>
+                          <span class="badge card-green-text"><i class="bi bi-card-checklist"></i>  Success</span>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_abp_success_amount" class="fw-bold"></h3>
+                            <span class="badge card-green-text"><i class="bi bi-card-checklist"></i>  APB</span>
+                          </div>
+                          <div class="col-md">
+                            <h3 id="card_ach_success_amount" class="fw-bold"></h3>
+                            <span class="badge card-green-text"><i class="bi bi-card-checklist"></i>  ACH</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-orange h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_total_inprogress_amount" class="fw-bold"></h3>
+                          <span class="badge card-green-orange"><i class="bi bi-card-checklist"></i>  In-Progress</span>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_abp_inprogress_amount" class="fw-bold"></h3>
+                            <span class="badge card-green-orange"><i class="bi bi-card-checklist"></i>  APB</span>
+                          </div>
+                          <div class="col-md">
+                            <h3 id="card_ach_inprogress_amount" class="fw-bold"></h3>
+                            <span class="badge card-green-orange"><i class="bi bi-card-checklist"></i>  ACH</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-megenta">
+                        <div class="card-body pt-3">
+                          <h3 id="card_total_failure_amount" class="fw-bold"></h3>
+                          <span class="badge card-green-megenta"> <i class="bi bi-people-fill"></i> Failure</span>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-md" style="border-right: 2px solid #0d6efd !important;">
+                            <h3 id="card_abp_failure_amount" class="fw-bold"></h3>
+                            <span class="badge card-green-megenta"><i class="bi bi-card-checklist"></i>  APB</span>
+                          </div>
+                          <div class="col-md">
+                            <h3 id="card_ach_failure_amount" class="fw-bold"></h3>
+                            <span class="badge card-green-megenta"><i class="bi bi-card-checklist"></i> ACH</span> 
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="card mb-2 mt-3">
+            <div class="card-body">
+              <div class="row mb-2">
+                <h5 class="card-title pb- mb-0"><i class="bi bi-check2-circle"></i> Transfer EMO Information</h5>
+                <div class="col">
+                  <div class="d-flex show_column">
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-green h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_emo_count_amount" class="fw-bold">0</h3>
+                          <span class="badge text-bg-primary"><i class="bi bi-card-checklist"></i>  Count</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col mx-2 text-center mb-2 align-items-stretch">
+                      <div class="card info-card customers-card-green h-100">
+                        <div class="card-body pt-3">
+                          <h3 id="card_emo_amount_amount" class="fw-bold">0</h3>
+                          <span class="badge text-bg-primary"><i class="bi bi-card-checklist"></i>  Amount</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="row mb-3">
+
+            <div class="col-lg-6 mb-2">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title"><i class="bi bi-check2-circle"></i>  ACH/APB No of Count</h5>
+              <div id="chart1"></div>
+              </div>
+            </div>
+            </div>
+            <div class="col-lg-6 mb-2">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title"><i class="bi bi-check2-circle"></i>  ACH/APB No of Amount</h5>
+              <div id="chart2"></div>
+              </div>
+            </div>
+            </div>
+            </div>
+          </div>
+
+          <!-- END: list card end here -->
+          <!-- START: modal popup -->
+          <!-- Button trigger modal -->
+        </div>
+      </section>
+    </main>
+    <!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="copyright">
+        &copy; Copyright <strong><span>TNeGA</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed & Developed by <a href="https://tngis.tn.gov.in/" target="_blank">TNeGA</a>
+      </div>
+    </footer>
+    <!-- End Footer -->
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <!-- Delete modal starts -->
+    <!-- view crop info ends -->
+    <!-- Vendor JS Files -->
+    
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script type="text/javascript" src="assets/vendor/jquery-validate/js/jquery.validate.min.js"></script>
+    
+    <!-- Main JS File -->
+    
+    <script src="assets/js/global.js"></script>
+    <script src="assets/js/base64tojson.js"></script>
+    <script src="assets/js/crypto-js.js"></script>
+    <script src="assets/js/aes.js"></script>
+  
+
+    <script type="text/javascript" src="assets/vendor/toastr/toastr.min.js"></script>
+    
+    <!-- Crypto js -->
+    <script src="assets/vendor/encryption/crypto-js.min.js"></script>
+    <!-- Encryption js -->
+    <script src="assets/vendor/encryption/Encryption.js"></script>
+    <script src="assets/vendor/sweetalert2/js/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script type="text/javascript">
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+    
+ 
+ <script type="text/javascript">
+  var url = window.location.href;
+  var page_url = url.split('/');
+  var page = page_url[4];
+  
+  var userDataString = getCookie('payment_official');
+  userDataString = JSON.parse(userDataString);
+  $(document).ready(function () {
+  
+    $(document).on({
+           ajaxStart: function () {
+             $('#preloader').show();
+            //  console.log('preloader is show');
+           },
+           ajaxStop: function () {
+             $('#preloader').hide();
+            //  console.log('preloader is show');
+           }
+         });
+  
+    $('.official').each(function (i, obj) {
+      var href = obj.getAttribute("href");
+      if (href == page) {
+        obj.classList.add('active');
+      } else {
+        obj.classList.remove('active');
+      }
+    });
+    // $('#preloader').hide();
+    
+    var userDataString = getCookie('payment_official');
+    if (!userDataString) {
+      $('#preloader').show();
+      window.location.href = "login.html";
+    }
+  
+    userDataString = JSON.parse(userDataString);
+    $('#official_username').text(userDataString['first_name']);
+    $('#UserID').val(userDataString['user_id']);
+    window.loginUser_id = userDataString['user_id'];
+
+
+    reloID = userDataString['role_id'];
+    roleBasedPageAllow(loginUser_id,reloID);
+    
+    getSchemeCategory();
+    // getSchemeCode();
+    getDistricts();
+  
+    $('#ddl_sub_scheme').on('change',function(){      
+     $('#ddl_department').empty();
+     $('#ddl_sub_department').empty();
+  
+     $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
+     $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
+  
+       $.ajax({
+         url: APIURL +'schem_filter',
+         type: "POST",
+         headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+         data: {case: "get_department",scheme_code:$('#ddl_scheme_code').val(),scheme_name:$('#ddl_scheme_name').val(),sub_scheme_name:$('#ddl_sub_scheme').val(),user_id:loginUser_id},
+         success: function(response) {
+            //  console.log("department:", response);
+             var department_code = response.data[0];
+            //  console.log(department_code.department);
+             getDepartment(department_code.department);
+         },
+         error: function(xhr, status, error) {
+             console.log("Error:", error);
+         }
+       });
+    });
+  
+    $('#ddl_district').on('change', function () {
+      var district_code = $('#ddl_district').val();
+      $('#ddl_taluk').empty();
+      $('#ddl_taluk').append('<option value="">--All--</option>');
+      getTaluk(district_code);
+    });
+
+  });
+  
+  function getCookie(name) {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(name + '=')) {
+          return cookie.substring(name.length + 1);
+        }
+      }
+      return null;
+    }
+  
+  /* filters */
+
+function getSchemeCategory(){
+    
+    $('#ddl_scheme_name').empty();
+    $('#ddl_sub_scheme').empty();
+    $('#ddl_department').empty();
+    $('#ddl_sub_department').empty();
+ 
+    $('#ddl_scheme_name').append($('<option>', {value: "", text: "--All--"}));
+    $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--All--"}));
+    $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
+    $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
+ 
+  $.ajax({
+    url: APIURL +'schem_filter',
+    type: "POST",
+    headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+    data: {case: "get_scheme_category",get_column:"scheme_code",groupbycolumn:"scheme_code",user_id:loginUser_id},
+    success: function(response) {
+       //  console.log("Success:", response);
+        var schemeCode = response.data;
+       //  console.log('scheme code >>> ',schemeCode);
+ 
+        $('#ddl_scheme_cate').empty();
+        $('#ddl_scheme_cate').append($('<option>', {
+              value: "",
+              text: "--All--"
+          }));
+
+        $.each(schemeCode, function (index, scheme) {
+            // console.log('scheem code lenthg >>> ', schemeCode.length);
+            if(schemeCode.length >1){
+              $('#ddl_scheme_cate').append($('<option>', {
+                value: scheme.scheme_category,
+                text: scheme.scheme_category
+            }));
+            }else{
+              $('#ddl_scheme_cate').append($('<option>', {
+                value: scheme.scheme_category,
+                text: scheme.scheme_category
+            }).prop('selected', true));
+            $('#ddl_scheme_cate').trigger('change');
+            }
+         });
+    },
+    error: function(xhr, status, error) {
+        console.log("Error:", error);
+    }
+  });
+}
+
+let booleanSet = false;
+
+$('#ddl_scheme_cate').on('change',function(){
+
+
+  
+
+    let select_scheme_cate = $(this).val();
+      if(select_scheme_cate!='' && select_scheme_cate!=null){
+        // alert('enable');
+        booleanSet = true;
+      }else{
+        // alert('disable')
+       booleanSet = false;
+      }
+  
+    $('#ddl_scheme_code').empty();
+    $('#ddl_scheme_name').empty();
+    $('#ddl_sub_scheme').empty();
+    $('#ddl_department').empty();
+    $('#ddl_sub_department').empty();
+
+    $('#ddl_scheme_code').append($('<option>', {value: "", text: "--All--"}));
+    $('#ddl_scheme_name').append($('<option>', {value: "", text: "--All--"}));
+    $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--All--"}));
+    $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
+    $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
+  
+   $.ajax({
+     url: APIURL +'schem_filter',
+     type: "POST",
+     headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+     data: {case: "get_scheme_code",get_column:"scheme_code",groupbycolumn:"scheme_code",whereColumn:$('#ddl_scheme_cate').val(),user_id:loginUser_id},
+     success: function(response) {
+        //  console.log("Success:", response);
+         var schemeCode = response.data;
+        //  console.log('scheme code >>> ',schemeCode);
+  
+         $('#ddl_scheme_code').empty();
+         $('#ddl_scheme_code').append($('<option>', {
+               value: "",
+               text: "--All--"
+           }));  
+
+        $.each(schemeCode, function (index, scheme) {
+            // console.log('scheem code lenthg >>> ', schemeCode.length);
+            if(schemeCode.length >1){
+              $('#ddl_scheme_code').append($('<option>', {
+                value: scheme.scheme_code,
+                text: scheme.scheme_code
+            }));
+            }else{
+              $('#ddl_scheme_code').append($('<option>', {
+                value: scheme.scheme_code,
+                text: scheme.scheme_code
+            }).prop('selected', true));
+            $('#ddl_scheme_code').trigger('change');
+            }
+         });
+     },
+     error: function(xhr, status, error) {
+         console.log("Error:", error);
+     }
+   });
+})
+
+
+  $('#ddl_scheme_code').on('change',function(){
+  
+       $('#ddl_sub_scheme').empty();
+       $('#ddl_scheme_name').empty();
+       $('#ddl_sub_scheme').empty();
+       $('#ddl_department').empty();
+       $('#ddl_sub_department').empty();
+  
+       $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--All--"}));
+       $('#ddl_scheme_name').append($('<option>', {value: "", text: "--All--"}));
+       $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--All--"}));
+       $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
+       $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
+  
+  
+     $.ajax({
+     url: APIURL +'schem_filter',
+     type: "POST",
+     headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+     data: {case: "get_scheme",scheme_code:$('#ddl_scheme_code').val(),user_id:loginUser_id},
+     success: function(response) {
+        //  console.log("Success:", response);
+         var schemeCode = response.data;
+        //  console.log(schemeCode.scheme_code);
+         $('#ddl_scheme_name').empty();
+         $('#ddl_scheme_name').append($('<option>', {
+               value: "",
+               text: "--All--"
+           }));
+         // Iterate over the JSON object and append options
+         $.each(schemeCode, function (index, scheme) {
+          // console.log('scheem code lenthg >>> ', schemeCode.length);
+          if(schemeCode.length >1){
+            $('#ddl_scheme_name').append($('<option>', {
+               value: scheme.scheme_name,
+               text: scheme.scheme_name
+           }));
+          }else{
+            $('#ddl_scheme_name').append($('<option>', {
+               value: scheme.scheme_name,
+               text: scheme.scheme_name
+           }).prop('selected', true));
+           $('#ddl_scheme_name').trigger('change');
+          }
+           
+  
+         });
+     },
+     error: function(xhr, status, error) {
+         console.log("Error:", error);
+     }
+   });
+  
+  });
+  
+  $('#ddl_scheme_name').on('change',function(){
+  
+     
+     // $('#ddl_scheme_name').empty();
+     $('#ddl_sub_scheme').empty();
+     $('#ddl_department').empty();
+     $('#ddl_sub_department').empty();
+  
+     
+     // $('#ddl_scheme_name').append($('<option>', {value: "", text: "--All--"}));
+     $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--All--"}));
+     $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
+     $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
+  
+  
+  
+     $.ajax({
+     url: APIURL +'schem_filter',
+     type: "POST",
+     headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+     data: {case: "get_sub_scheme",scheme_code:$('#ddl_scheme_code').val(),scheme_name:$('#ddl_scheme_name').val(),user_id:loginUser_id},
+     success: function(response) {
+        //  console.log("Success:", response);
+         var schemeCode = response.data;
+        //  console.log(schemeCode.scheme_code);
+         $('#ddl_sub_scheme').empty();
+         $('#ddl_sub_scheme').append($('<option>', {
+               value: "",
+               text: "--All--"
+           }));
+         // Iterate over the JSON object and append options
+         $.each(schemeCode, function (index, scheme) {
+          if(schemeCode.length > 1){
+            $('#ddl_sub_scheme').append($('<option>', {
+               value: scheme.subscheme_name,
+               text: scheme.subscheme_name
+           }));
+          }else{
+            $('#ddl_sub_scheme').append($('<option>', {
+               value: scheme.subscheme_name,
+               text: scheme.subscheme_name
+           }).prop('selected', true));
+          }
+          $('#ddl_sub_scheme').trigger('change');
+         });
+     },
+     error: function(xhr, status, error) {
+         console.log("Error:", error);
+     }
+   });
+  
+  });
+  
+  // get_scheme
+  
+  
+  /* filters */
+  function getDepartment(depID){
+     $('#ddl_department').empty();
+     $('#ddl_sub_department').empty();
+  
+     $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
+     $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
+       
+  $.ajax({
+     url: APIURL +'get_department',
+     type: "POST",
+     headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+     data: {type: "department"},
+     success: function(response) {
+         // console.log("Success:",JSON.parse(response)[0].data );
+         var department = response[0].data;
+         // Handle the successful response here
+         $('#ddl_department').empty();
+         $('#ddl_department').append($('<option>', {
+               value: "",
+               text: "--All--"
+           }));
+         // Iterate over the JSON object and append options
+         $.each(department, function (index, dep) {
+           if(dep.department_code==depID){
+             $('#ddl_department').append($('<option>', {
+               value: dep.department_code,
+               text: dep.department_name
+             }).attr('selected', 'selected'));
+             // $('#ddl_department').trigger('change');
+  
+             $.ajax({
+                   url: APIURL +'schem_filter',
+                   type: "POST",
+                   headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+                   data: {case: "get_sub_department",scheme_code:$('#ddl_scheme_code').val(),scheme_name:$('#ddl_scheme_name').val(),sub_scheme_name:$('#ddl_sub_scheme').val(),department:$('#ddl_department').val(),user_id:loginUser_id},
+                   success: function(response) {
+                      //  console.log("department:", response);
+                       var subdepartment_code = response.data[0];
+                      //  console.log(subdepartment_code.department);
+                       get_sub_department(dep.department_code,subdepartment_code.subdepartment);
+                   },
+                   error: function(xhr, status, error) {
+                       console.log("Error:", error);
+                   }
+               });
+             
+           }
+         });
+     },
+     error: function(xhr, status, error) {
+         console.log("Error:", error);
+         // Handle the error here
+     }
+   });
+  }
+  
+  
+  // $('#ddl_department').on('change',function(){
+   function get_sub_department(depID,subDepID){
+     $('#ddl_sub_department').empty();
+     $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
+  
+       // var department = $('#ddl_department').val();
+       $.ajax({
+       url: APIURL +'get_department',
+       type: "POST",
+       headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+       data: {type: "sub_department",department_code:depID},
+       success: function(response) {
+           // console.log("Success:",JSON.parse(response)[0].data );
+           var department = response[0].data;
+           // Handle the successful response here
+           $('#ddl_sub_department').empty();
+           $('#ddl_sub_department').append($('<option>', {
+                 value: "",
+                 text: "--All--"
+             }));
+           // Iterate over the JSON object and append options
+           $.each(department, function (index, sub_dep) {
+             if(sub_dep.sub_department_code==subDepID){
+               $('#ddl_sub_department').append($('<option>', {
+                 value: sub_dep.sub_department_code,
+                 text: sub_dep.sub_department_name
+             }).attr('selected', 'selected'));
+             }
+           });
+       },
+       error: function(xhr, status, error) {
+           console.log("Error:", error);
+           // Handle the error here
+       }
+     });
+   }
+  
+    function getDistricts(){
+        const userDataString = getCookie("payment_official");
+        const userData = JSON.parse(userDataString);
+  
+        var districtID=0;
+        var data=[];
+        if(userData['district_code']!=0){
+        districtID=userData['district_code'];
+        data={ case: 'district',district_code: districtID,user_id:userData['user_id']};
+        } else {
+        data={ case: 'district',user_id:userData['user_id']};
+        }
+  
+        $('#ddl_taluk').empty();
+        $('#ddl_taluk').append('<option value="">--All--</option>');
+      
+      $.ajax({
+        url: userMasterAPIURL+'userMaster',
+        method: 'POST',
+        headers: {'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+        data: data,
+        dataType: 'json',
+        success: function (response) {
+          
+          //console.log(response);
+          var district = response.district;
+          var districtDropdown = $("#ddl_district");
+          $('#ddl_district').empty();
+          $('#ddl_district').append($('<option>', {value: "",text: "--All--"}));
+            
+          if(districtID==0 || districtID ==undefined){
+          populateDropdown('ddl_district', response.districts, 'district');              
+          } else {
+          districtDropdown.html('<option value="'+district['district_code']+'">'+district['district_name']+'</option>');
+          $('#ddl_district').trigger('change');
+          var district_code= district['district_code'];
+            getTaluk(district_code);
+          } 
+        },
+        error: function () {
+          console.error('Error fetching district data');
+        }
+      });
+    }
+  
+  
+    
+  
+    /*START : Get Taluk list*/
+    function getTaluk(districtID){
+      $('#ddl_taluk').empty();
+      $('#ddl_taluk').append('<option value="">--All--</option>');
+      // var district=$("#ddl_district").val();
+        const userDataString = getCookie("payment_official");
+        const userData = JSON.parse(userDataString);
+  
+        // var district=district_code;
+        var talukID=0;
+        var data=[];
+        if(userData['taluk_code']!=0){
+        // districtID=userData['district_code'];
+        talukID=userData['taluk_code'];
+        data={ case: 'taluk',district_code: districtID,taluk_code: talukID,user_id:userData['user_id']};
+        } else {
+        data={ case: 'taluk',district_code: districtID,user_id:userData['user_id']};
+        }
+      
+      
+      $.ajax({
+        url: userMasterAPIURL+'userMaster', // Replace with your API endpoint
+        method: 'POST',
+        headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+        data: data,
+        dataType: 'json',
+        success: function (response) {
+          var taluk = response.taluk
+          var talukDropdown = $("#ddl_taluk");
+        //  populateDropdown('ddl_taluk', response.taluk, 'taluk'); 
+          if(talukID==0){
+            populateDropdown('ddl_taluk', response.taluk, 'taluk');             
+          } else {
+            
+            talukDropdown.html('<option value="'+taluk['taluk_code']+'">'+taluk['taluk_name']+'</option>');
+          $('#ddl_taluk').trigger('change');
+          }
+  
+        },
+        error: function () {
+          Swal.fire({
+            icon: "error",
+            title: "Service Error!",
+            showConfirmButton: false,
+            timer: 2000
+          })
+        }
+      });
+    }
+  
+      $("#from_date").prop("disabled", true);
+      $("#to_date").prop("disabled", true);
+  
+    $('#dayWeekMonthFilter').on('change',function(){
+        var payment_period = $('#dayWeekMonthFilter').val();
+        if(payment_period == 0){
+          console.log(payment_period);
+          $("#from_date").prop("disabled", false);
+          $("#to_date").prop("disabled", false);
+        }else{
+          $("#from_date").val('');
+          $("#from_date").prop("disabled", true);
+          $("#to_date").val('');
+          $("#to_date").prop("disabled", true);
+        }
+    });
+  
+    $('#to_date').on('change', function() {
+        $('#today').prop('checked', false);
+        $('#thisweek').prop('checked', false);
+        $('#thismonth').prop('checked', false);
+        var fromDate = $('#from_date').val();
+        var toDate = $(this).val();
+        // Check if "to_date" is earlier than "from_date"
+        if (fromDate && toDate && fromDate > toDate) {
+          alert('To Date should not be earlier than From Date.');
+          // You can reset the "to_date" value or take other actions here
+          $(this).val('');
+        }
+    });
+  
+  
+    /*END : Get Taluk list*/
+  // });
+  var formsFilter = [];
+  window.localStorage.removeItem('filters');
+  /*from submit*/
+  $(document).ready(function() {
+    
+
+    // $('#ddl_scheme_cate').on('change',function(){
+      
+    // })
+
+    // console.log('boolean value', booleanSet);
+
+    $("#formFilters").validate({
+            rules: {
+              ddl_scheme_code: {required: booleanSet},
+              ddl_scheme_name: {required: booleanSet},
+              ddl_sub_scheme: {required: booleanSet},
+              ddl_department: {required: booleanSet},
+              ddl_sub_department: {required: booleanSet},
+              ddl_district: {required: booleanSet},
+              ddl_taluk: {required: booleanSet},
+              ddl_jurisdiction: {required: booleanSet},
+              dayWeekMonthFilter : {required: booleanSet},
+              from_date : {required: true},
+              to_date : {required: true},
+            },
+            messages: {
+              ddl_scheme_code: {required: "Select the Scheme Code"},
+              ddl_scheme_name: {required: "Select the scheme Name"},
+              ddl_sub_scheme: {required: "Select the Deparment"},
+              ddl_department: {required: "Select the sub Deparment"},
+              ddl_sub_department: {required: "Select the Payment Cycle"},
+              ddl_district: {required: "Select the District"},
+              ddl_taluk: {required: "Select the Taluk"},
+              ddl_jurisdiction: {required: "Select the jurisdiction"},
+              dayWeekMonthFilter :{required: "Select the Payment Period"},
+              from_date : {required: "Select the From Date"},
+              to_date : {required: "Select the To Date"},
+            },
+            errorClass: "help-inline text-danger",
+            errorElement: "span",
+            highlight: function(element, errorClass, validClass) {
+                $(element).parents('.form-group').addClass('has-error');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).parents('.form-group').removeClass('has-error');
+                $(element).parents('.form-group').addClass('has-success');
+            },
+            submitHandler: function(form,e) {
+                e.preventDefault();
+                // console.log('Form submitted');
+                formsFilter.length = 0;
+                formsFilter = [];
+                var formData = $(form).serialize();
+                window.localStorage.removeItem('filters');
+                window.localStorage.setItem('filters', JSON.stringify(formData));
+                getDashboard();
+                getDashboardDistinctBeneficiary();
+                getDashboardBeneficiarySummary();
+                $('#lable_text_scheme_cate').text($('#ddl_scheme_cate').val());
+                $('#lable_text_scheme_code').text($('#ddl_scheme_code').val());
+                $('#lable_text_scheme').text($('#ddl_scheme_name').val());
+                $('#lable_text_sub_scheme').text($('#ddl_sub_scheme').val());
+                $('#lable_text_Department').text($("#ddl_department option:selected").text());
+                $('#lable_text_sub_department').text($("#ddl_sub_department option:selected").text());
+              
+              
+              let paymentPrioedVal = $('#dayWeekMonthFilter').val();
+              let yyyymm = '';
+              
+              if(paymentPrioedVal == 0){
+                let from_date = $('#from_date').val();
+                let to_date = $('#to_date').val();
+                  
+                  $('#from_date_div').show();
+                  $('#to_date_div').show();
+                  $('#lable_text_from_date').text(from_date);
+                  $('#lable_text_to_date').text(to_date);
+
+                  let yearandMonth = processDates(from_date, to_date);
+
+                  if((yearandMonth.from.year == yearandMonth.to.year) && (yearandMonth.from.month == yearandMonth.to.month)){
+                    
+                    yyyymm = `${yearandMonth.from.year}`+`${yearandMonth.from.month}`;
+                  }else{
+                     yyyymm = `${yearandMonth.from.year}`+`${yearandMonth.from.month}`+'-'+`${yearandMonth.to.year}`+`${yearandMonth.to.month}`;
+                  }
+
+              }else if(paymentPrioedVal == 1){
+                    let currentDate = new Date();
+                    let currentDateYearMonth = processDates(currentDate,'');
+                    yyyymm = `${currentDateYearMonth.from.year}`+`${currentDateYearMonth.from.month}`;
+                    $('#from_date_div').hide();
+                    $('#to_date_div').hide();
+              }else if(paymentPrioedVal == 2){
+                    let currentDate = new Date();
+                    let currentDateYearMonth = processDates(currentDate,'');
+                    yyyymm = `${currentDateYearMonth.from.year}`+`${currentDateYearMonth.from.month}`;
+                    $('#from_date_div').hide();
+                    $('#to_date_div').hide();
+              }else if(paymentPrioedVal == 3){
+                let currentDate = new Date();
+                    let currentDateYearMonth = processDates(currentDate,'');
+                    yyyymm = `${currentDateYearMonth.from.year}`+`${currentDateYearMonth.from.month}`;
+                    $('#from_date_div').hide();
+                    $('#to_date_div').hide();
+              }else if(paymentPrioedVal == 4){
+                    let selectMonth = $('#ddl_month').val();
+                    let selectYear = $('#ddl_year').val();
+                    yyyymm = `${selectYear}`+`${selectMonth}`;
+                    $('#from_date_div').hide();
+                    $('#to_date_div').hide();
+              }else{
+                    $('#from_date_div').hide();
+                    $('#to_date_div').hide();
+              }
+
+              if($('#dayWeekMonthFilter').val()!=null){
+                $('#YYYYMM_div').show();
+                $('#payment_period_div').show();
+                  $('#lable_text_payment_period').text($("#dayWeekMonthFilter option:selected").text());
+                  $('#lable_text_yearMonth').text(yyyymm);
+              }else{
+                $('#YYYYMM_div').hide();
+                $('#payment_period_div').hide();
+              }
+              
+
+              if ($('#ddl_scheme_code').val() !== '' && $('#ddl_scheme_name').val() !== '' && $('#ddl_sub_scheme').val() !== '' && $('#ddl_department').val() !== '' && $('#ddl_sub_department').val() !== '') {
+                  $('#filter_based_info_card_div').show();
+                  $('#btnfilter').click();
+                  // $('#accordionExample .accordion-collapse').collapse('hide');
+              }else{
+                $('#filter_based_info_card_div').hide();
+              }
+                
+
+          
+                return false;
+
+            }
+            
+            
+      });
+
+            
+  });
+
+  
+
+  $(document).ready(function() {
+    $('#filter_based_info_card_div').hide();
+    setTimeout(() => {
+    $("#formFilters").submit();
+    }, 1);    
+  });
+
+  
+  
+  
+  function populateDropdown(dropdownId, data, fieldName) {
+      const dropdown = document.getElementById(dropdownId);
+  
+      // Populate options from data
+      data.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item[fieldName + '_code'];
+        option.textContent = item[fieldName + '_name'];
+        dropdown.appendChild(option);
+      });
+    }
+  
+  
+  function getDashboard(){
+    var userDataString = getCookie('payment_official');
+    userDataString = JSON.parse(userDataString)
+    var loginUser_id = userDataString['user_id'];
+
+    var dataFilters = window.localStorage.getItem('filters');
+    $.ajax({
+      url: APIURL + 'getdashboard', // Replace with your API endpoint
+      method: 'POST', // Change the method to GET
+      headers: {
+          'X-APP-KEY': config.app_key,
+          'X-APP-NAME': config.app_name
+      },
+      data: {
+        fileters:dataFilters,
+        user_id:loginUser_id
+      },
+      dataType: 'json',
+      success: function (response) {
+              let outputObject = [];
+              if (response.success == 1) {
+              response.data.forEach((item) => {
+                for (const key in item) {
+                  if (item.hasOwnProperty(key)) {
+                    outputObject[key] = Number(item[key]);
+                  }
+                }
+              });
+              output = outputObject;//response.data[0];
+              // console.log('data dashboard data binding');
+              // console.log(output);
+            /*row 1 three columns card datas*/
+      let card_no_of_file_processed =  output.ach_files_processed+output.apb_files_processed;
+      let card_no_of_records = output.apb_total_beneficiaries_count+output.ach_total_beneficiaries_count;
+      let card_no_of_banks = output.ach_banks_count+output.apb_banks_count;
+      let card_total_success_count = output.ach_success_beneficiaries_count+output.apb_success_beneficiaries_count;
+      let card_abp_success_count= output.apb_success_beneficiaries_count;
+      let card_ach_success_count = output.ach_success_beneficiaries_count;
+
+      let card_total_inprogress_count = output.apb_inprogress_count+output.ach_inprogress_beneficiaries_count
+      let card_total_failure_count=output.ach_failure_beneficiaries_count+output.apb_failure_beneficiaries_count;
+
+      let card_total_success_amount = parseFloat(output.ach_success_value)+parseFloat(output.apb_success_value);
+
+      let card_total_inprogress_amount = parseFloat(output.ach_inprogress_value)+parseFloat(output.apb_inprogress_beneficiaries_value);
+
+      let card_total_failure_amount = parseFloat(output.ach_failure_value)+parseFloat(output.apb_failure_value);
+      
+      /*--------total card count-----------*/
+      let total_count = parseInt(output.ach_failure_beneficiaries_count)+parseInt(output.ach_inprogress_beneficiaries_count)+parseInt(output.ach_success_beneficiaries_count)+parseInt(output.apb_failure_beneficiaries_count)+parseInt(output.apb_inprogress_count)+parseInt(output.apb_success_beneficiaries_count);
+      let total_apb_count = parseInt(output.ach_failure_beneficiaries_count)+parseInt(output.ach_inprogress_beneficiaries_count)+parseInt(output.ach_success_beneficiaries_count);
+
+      let total_ach_count = parseInt(output.apb_failure_beneficiaries_count)+parseInt(output.apb_inprogress_count)+parseInt(output.apb_success_beneficiaries_count);
+      /*----------total card count---------*/
+
+      /*---------total card Amount----------*/
+      let total_apb_amount =  parseFloat(output.apb_failure_value)+parseFloat(output.apb_inprogress_beneficiaries_value)+parseFloat(output.apb_success_value);
+
+      let total_ach_amount =  parseFloat(output.ach_failure_value)+parseFloat(output.ach_inprogress_value)+parseFloat(output.ach_success_value);
+
+      let total_amount = parseFloat(output.ach_failure_value)+parseFloat(output.ach_inprogress_value)+parseFloat(output.ach_success_value)
+      +parseFloat(output.apb_failure_value)+parseFloat(output.apb_inprogress_beneficiaries_value)+parseFloat(output.apb_success_value);
+      /*----------total card Amount---------*/
+      
+      $('#card_total_count').text(numberWithCommas(total_count));
+      $('#card_total_abp_count').text(numberWithCommas(total_apb_count));
+      $('#card_total_ach_count').text(numberWithCommas(total_ach_count));
+              
+      $("#card_total_amount").text(numberWithCurrency(total_amount));
+      $("#card_total_abp_amount").text(numberWithCurrency(total_apb_amount));
+      $("#card_total_ach_amount").text(numberWithCurrency(total_ach_amount));
+
+
+              $('#card_no_of_file_processed').text(numberWithCommas(card_no_of_file_processed));
+              $('#card_no_of_records').text(numberWithCommas(card_no_of_records));
+              $('#card_no_of_banks').text(numberWithCommas(card_no_of_banks));
+
+            /*row 2 count card 1 */
+              $('#card_total_success_count').text(numberWithCommas(card_total_success_count));
+              $('#card_abp_success_count').text(numberWithCommas(card_abp_success_count));
+              $('#card_ach_success_count').text(numberWithCommas(card_ach_success_count));
+
+            /*row 2 count card 2*/
+              $('#card_total_inprogress_count').text(numberWithCommas(card_total_inprogress_count));
+              $('#card_abp_inprogress_count').text(numberWithCommas(output.apb_inprogress_count));
+              $('#card_ach_inprogress_count').text(numberWithCommas(output.ach_inprogress_beneficiaries_count));
+
+            /*row 2 count card 3*/
+              $('#card_total_failure_count').text(numberWithCommas(card_total_failure_count));
+              $('#card_abp_failure_count').text(numberWithCommas(output.apb_failure_beneficiaries_count));
+              $('#card_ach_failure_count').text(numberWithCommas(output.ach_failure_beneficiaries_count));
+
+            /*row 3 count card 1*/
+              $('#card_total_success_amount').text(numberWithCurrency(card_total_success_amount));
+              $('#card_abp_success_amount').text(numberWithCurrency(parseFloat(output.apb_success_value)));
+              $('#card_ach_success_amount').text(numberWithCurrency(parseFloat(output.ach_success_value)));
+
+            /*row 3 count card 1*/
+              $('#card_total_inprogress_amount').text(numberWithCurrency(card_total_inprogress_amount));
+              $('#card_abp_inprogress_amount').text(numberWithCurrency(parseFloat(output.apb_inprogress_beneficiaries_value)));
+              $('#card_ach_inprogress_amount').text(numberWithCurrency(parseFloat(output.ach_inprogress_value)));
+
+            /*row 3 count card 1*/
+              $('#card_total_failure_amount').text(numberWithCurrency(card_total_failure_amount));
+              $('#card_abp_failure_amount').text(numberWithCurrency(parseFloat(output.apb_failure_value)));
+              $('#card_ach_failure_amount').text(numberWithCurrency(parseFloat(output.ach_failure_value)));
+
+             
+            /*chart 5*/
+            Total_ach_no_of_count = parseInt(output.ach_total_beneficiaries_count);
+            Total_apb_no_of_count = parseInt(output.apb_total_beneficiaries_count);
+            
+             /*chart 2*/
+             Total_ach_no_of_amount = parseInt(output.ach_failure_value)+parseInt(output.ach_inprogress_value)+parseInt(output.ach_success_value);
+             Total_apb_no_of_amount = parseInt(output.apb_failure_value)+parseInt(output.apb_inprogress_beneficiaries_value)+parseInt(output.apb_success_value);
+             
+             /*chart 3*/
+              let Total_ach_bank_transaction = '';
+              let Total_apb_bank_transaction= '';
+
+             /*chart 4*/
+              let Total_ach_no_of_users_bank = '';
+              let Total_apb_no_of_users_bank = '';
+
+              var apexchartsStucture = [
+                {
+                  chartDiv:"chart1",
+                  chartTypeArrived:['ACH', 'APB'],
+                  chartValue:[Total_ach_no_of_count,Total_apb_no_of_count],
+                },
+                {
+                  chartDiv:"chart2",
+                  chartTypeArrived:['ACH', 'APB'],
+                  chartValue:[Total_ach_no_of_amount,Total_apb_no_of_amount],
+                }
+              ]
+              apexcharts(apexchartsStucture);
+             setTimeout(() => {
+              apexcharts(apexchartsStucture);
+             }, 1000); 
+          } else if (response.success == 0) {
+              Swal.fire({
+                  icon: "error",
+                  title: response.message,
+                  showConfirmButton: false,
+                  timer: 2000
+              })
+          }
+      },
+      error: function () {
+        Swal.fire({
+            icon: "error",
+            title: "Service Error!",
+            showConfirmButton: false,
+            timer: 2000
+        })
+      }
+    });
+  }
+
+  // getDashboardEmo();
+
+  // function getDashboardEmo(){
+  //   var userDataString = getCookie('payment_official');
+  //   userDataString = JSON.parse(userDataString)
+  //   var loginUser_id = userDataString['user_id'];
+
+  //   var dataFilters = window.localStorage.getItem('filters');
+  //   $.ajax({
+  //     url: APIURL + 'getDashboardEmo', // Replace with your API endpoint
+  //     method: 'POST', // Change the method to GET
+  //     headers: {
+  //         'X-APP-KEY': config.app_key,
+  //         'X-APP-NAME': config.app_name
+  //     },
+  //     data: {
+  //       fileters:dataFilters,
+  //       user_id:loginUser_id
+  //     },
+  //     dataType: 'json',
+  //     success: function (response) {
+  //             let outputObject = [];
+  //             if (response.success == 1) {
+  //             response.data.forEach((item) => {
+  //               for (const key in item) {
+  //                 if (item.hasOwnProperty(key)) {
+  //                   outputObject[key] = Number(item[key]);
+  //                 }
+  //               }
+  //             });
+
+  //             output = outputObject;
+
+  //             $('#card_emo_count_amount').text(numberWithCommas(output.emo_count));
+  //             $('#card_emo_amount_amount').text(numberWithCurrency(output.emo_amount));
+
+  //         } else if (response.success == 0) {
+  //             Swal.fire({
+  //                 icon: "error",
+  //                 title: response.message,
+  //                 showConfirmButton: false,
+  //                 timer: 2000
+  //             })
+  //         }
+  //     },
+  //     error: function () {
+  //       Swal.fire({
+  //           icon: "error",
+  //           title: "Service Error!",
+  //           showConfirmButton: false,
+  //           timer: 2000
+  //       })
+  //     }
+  //   });
+  // }
+
+  function getDashboardDistinctBeneficiary(){
+    var userDataString = getCookie('payment_official');
+    userDataString = JSON.parse(userDataString)
+    var loginUser_id = userDataString['user_id'];
+
+    var dataFilters = window.localStorage.getItem('filters');
+    $.ajax({
+      url: APIURL + 'getDashboardDistinctBeneficiary', // Replace with your API endpoint
+      method: 'POST', // Change the method to GET
+      headers: {
+          'X-APP-KEY': config.app_key,
+          'X-APP-NAME': config.app_name
+      },
+      data: {
+        fileters:dataFilters,
+        user_id:loginUser_id
+      },
+      dataType: 'json',
+      success: function (response) {
+              let outputObject = [];
+              if (response.success == 1) {
+              response.data.forEach((item) => {
+                for (const key in item) {
+                  if (item.hasOwnProperty(key)) {
+                    outputObject[key] = Number(item[key]);
+                  }
+                }
+              });
+
+              output = outputObject;
+
+              $('#card_beneficiaries_total_count').text(numberWithCommas(output.distinct_beneficiary_count));
+              $('#card_beneficiaries_inprogress_count').text(numberWithCommas(output.distinct_inprogress_count));
+              $('#card_beneficiaries_success_count').text(numberWithCommas(output.distinct_success_count));
+              $('#card_beneficiaries_failure_count').text(numberWithCommas(output.distinct_failure_count));
+              $('#card_beneficiaries_emo_count').text(numberWithCommas(output.distinct_emo_count));
+
+          } else if (response.success == 0) {
+              Swal.fire({
+                  icon: "error",
+                  title: response.message,
+                  showConfirmButton: false,
+                  timer: 2000
+              })
+          }
+      },
+      error: function () {
+        Swal.fire({
+            icon: "error",
+            title: "Service Error!",
+            showConfirmButton: false,
+            timer: 2000
+        })
+      }
+    });
+  }
+
+
+  
+
+  function getDashboardBeneficiarySummary(){
+    var userDataString = getCookie('payment_official');
+    userDataString = JSON.parse(userDataString)
+    var loginUser_id = userDataString['user_id'];
+
+    var dataFilters = window.localStorage.getItem('filters');
+    $.ajax({
+      url: APIURL + 'getDashboardDistinctSummary', // Replace with your API endpoint
+      method: 'POST', // Change the method to GET
+      headers: {
+          'X-APP-KEY': config.app_key,
+          'X-APP-NAME': config.app_name
+      },
+      data: {
+        fileters:dataFilters,
+        user_id:loginUser_id
+      },
+      dataType: 'json',
+      success: function (response) {
+              let outputObject = [];
+              if (response.success == 1) {
+              response.data.forEach((item) => {
+                for (const key in item) {
+                  if (item.hasOwnProperty(key)) {
+                    outputObject[key] = Number(item[key]);
+                  }
+                }
+              });
+
+              output = outputObject;
+
+let card_valid_invalid_total_count = parseInt(output.valid_records)+parseInt(output.invalid_records);
+let card_pending_tranfered_total_count = parseInt(output.pending_records)+parseInt(output.transferred_records);
+
+
+let card_processed_count = parseInt(output.total_records) - parseInt(output.pending_records);
+let card_no_proccessed_count = parseInt(output.total_records) - parseInt(card_processed_count);
+
+$('#card_data_received_count').text(numberWithCommas(parseInt(output.total_records)));
+$('#card_processed_count').text(numberWithCommas(card_processed_count));
+$('#card_no_proccessed_count').text(numberWithCommas(card_no_proccessed_count));
+
+$('#card_valid_invalid_total_count').text(numberWithCommas(card_valid_invalid_total_count));
+$('#card_valid_count').text(numberWithCommas(parseInt(output.valid_records)));
+$('#card_invalid_count').text(numberWithCommas(parseInt(output.invalid_records)));
+
+$('#card_pending_tranfered_total_count').text(numberWithCommas(card_pending_tranfered_total_count));
+$('#card_pending_count').text(numberWithCommas(parseInt(output.pending_records)));
+$('#card_Transferred_count').text(numberWithCommas(parseInt(output.transferred_records)));
+
+
+$('#card_total_invalid_count').text(numberWithCommas(parseInt(output.invalid_records)));
+$('#card_aadhar_invalid_count').text(numberWithCommas(parseInt(output.invalid_aadhaar)));
+$('#card_ac_invalid_count').text(numberWithCommas(parseInt(output.invalid_account)));
+$('#card_iin_ifsc_invalid_count').text(numberWithCommas(parseInt(output.invalid_iin_or_ifsc)));
+
+
+
+let totalduplicatecount = parseInt(output.duplicate_aadhaar_present)+parseInt(output.duplicate_account_present)+parseInt(output.duplicate_benificiary);
+
+$('#card_in_valid_total_duplicate_count').text(numberWithCommas(totalduplicatecount));
+$('#card_total_duplicate_count').text(numberWithCommas(totalduplicatecount));
+$('#card_aadhar_duplicate_count').text(numberWithCommas(parseInt(output.duplicate_aadhaar_present)));
+$('#card_ac_duplicate_count').text(numberWithCommas(parseInt(output.duplicate_account_present)));
+$('#card_duplicate_beneficiary_count').text(numberWithCommas(parseInt(output.duplicate_benificiary)));
+
+
+          } else if (response.success == 0) {
+              Swal.fire({
+                  icon: "error",
+                  title: response.message,
+                  showConfirmButton: false,
+                  timer: 2000
+              })
+          }
+      },
+      error: function () {
+        Swal.fire({
+            icon: "error",
+            title: "Service Error!",
+            showConfirmButton: false,
+            timer: 2000
+        })
+      }
+    });
+  }
+
+  
+  let chart;
+  function apexcharts(chartsArr){
+    if (chart) {
+      chart.destroy();
+    }
+    chartsArr.forEach(chartsData => {
+      var options = {
+          series: chartsData.chartValue,
+          chart: {
+            width: 380,
+            type: 'pie',
+          },
+          labels: chartsData.chartTypeArrived,
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 250
+              },
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }]
+        };
+        var chart = new ApexCharts(document.querySelector("#"+chartsData.chartDiv), options);
+        chart.render();
+    });
+  }
+
+
+
+
+
+  $("#from_date").prop("disabled", true);
+    $("#to_date").prop("disabled", true);
+
+    // selectbox
+    $("#ddl_month_col").hide();
+    $("#ddl_year_col").hide();
+    
+    $("#ddl_month_col").prop("disabled", true);
+    $("#ddl_year_col").prop("disabled", true);
+
+
+
+$(document).ready(function() {
+    $('#dayWeekMonthFilter').trigger('change');
+});
+  $('#dayWeekMonthFilter').on('change',function(){
+      var payment_period = $('#dayWeekMonthFilter').val();
+      if(payment_period == 0){
+        $("#from_date_col").show();
+        $("#to_date_col").show();
+        $("#from_date").prop("disabled", false);
+        $("#to_date").prop("disabled", false);
+
+        $("#ddl_month_col").hide();
+        $("#ddl_year_col").hide();
+        $("#ddl_month").prop("disabled", true);
+        $("#ddl_year").prop("disabled", true);
+
+      }else if(payment_period == 1){
+        var currentDate = new Date();
+        var formattedCurrentDate = currentDate.toISOString().split('T')[0];
+        $("#from_date").val(formattedCurrentDate);
+        $("#to_date").val(formattedCurrentDate);
+        $("#from_date").prop("disabled", true);
+        $("#to_date").prop("disabled", true);
+
+          $("#from_date_col").show();
+          $("#to_date_col").show();
+          $("#ddl_month_col").hide();
+          $("#ddl_year_col").hide();
+          $("#ddl_month").prop("disabled", true);
+          $("#ddl_year").prop("disabled", true);
+      }else if(payment_period == 2){
+        var currentDate = new Date();
+        var previousSunday = new Date(currentDate);
+        previousSunday.setDate(currentDate.getDate() - currentDate.getDay());
+        var formattedPreviousSunday = previousSunday.toISOString().split('T')[0];
+        var formattedCurrentDate = currentDate.toISOString().split('T')[0];
+
+       
+        $("#from_date").val(formattedPreviousSunday);
+        $("#to_date").val(formattedCurrentDate);
+        $("#from_date").prop("disabled", true);
+        $("#to_date").prop("disabled", true);
+
+        $("#from_date_col").show();
+        $("#to_date_col").show();
+        $("#ddl_month_col").hide();
+        $("#ddl_year_col").hide();
+        $("#ddl_month").prop("disabled", true);
+        $("#ddl_year").prop("disabled", true);
+      }else if(payment_period == 3){
+          var currentDate = new Date();
+          var firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 2);
+          var formattedFirstDayOfMonth = firstDayOfMonth.toISOString().split('T')[0];
+          var formattedCurrentDate = currentDate.toISOString().split('T')[0];
+          $("#from_date").val(formattedFirstDayOfMonth);
+          $("#to_date").val(formattedCurrentDate);
+          $("#from_date").prop("disabled", true);
+          $("#to_date").prop("disabled", true);
+
+          $("#from_date_col").show();
+          $("#to_date_col").show();
+          $("#ddl_month_col").hide();
+          $("#ddl_year_col").hide();
+          $("#ddl_month").prop("disabled", true);
+          $("#ddl_year").prop("disabled", true);
+      }
+      else if(payment_period == 4){
+        $("#from_date_col").hide();
+        $("#to_date_col").hide();
+        $("#from_date").prop("disabled", false);
+        $("#to_date").prop("disabled", false);
+
+        $("#ddl_month_col").show();
+        $("#ddl_year_col").show();
+        $("#ddl_month").prop("disabled", false);
+        $("#ddl_year").prop("disabled", false);
+    
+      }else if(payment_period == 5){
+
+        $("#from_date_col").hide();
+        $("#to_date_col").hide();
+        $("#from_date").prop("disabled", false);
+        $("#to_date").prop("disabled", false);
+        $("#ddl_month_col").prop("disabled", false);
+        $("#ddl_month_col").hide();
+        $("#ddl_year_col").show();
+        $("#ddl_month").prop("disabled", false);
+        $("#ddl_year").prop("disabled", false);
+
+      } else{
+        $("#from_date").val('');
+        $("#from_date").prop("disabled", true);
+        $("#to_date").val('');
+        $("#to_date").prop("disabled", true);
+
+        $("#from_date_col").show();
+        $("#to_date_col").show();
+        $("#from_date").prop("disabled", true);
+        $("#to_date").prop("disabled", true);
+
+        $("#ddl_month_col").hide();
+        $("#ddl_year_col").hide();
+        $("#ddl_month").prop("disabled", true);
+        $("#ddl_year").prop("disabled", true);
+      }
+  });
+
+  $('#from_date').on('change', function() {
+    var selectedDate = new Date($(this).val());
+    var currentDate = new Date();
+    if (selectedDate > currentDate) {
+        alert('Please select a date in the past or today.');
+        $(this).val('');
+        return;
+    }
+    $('#today').prop('checked', false);
+    $('#thisweek').prop('checked', false);
+    $('#thismonth').prop('checked', false);
+});
+
+
+
+$('#to_date').on('change', function() {
+    // Clear checkbox selections
+    $('#today').prop('checked', false);
+    $('#thisweek').prop('checked', false);
+    $('#thismonth').prop('checked', false);
+
+    // Get the values of from_date and to_date
+    var fromDate = $('#from_date').val();
+    var toDate = $(this).val();
+
+    // Create Date objects for current date and selected date
+    var currentDate = new Date();
+    var selectedDate = new Date($(this).val());
+
+    // Check if from_date is selected
+    if (fromDate !== '') {
+        // Check if to_date is earlier than from_date or in the future
+        if (fromDate > toDate && selectedDate > currentDate) {
+            alert('To Date should not be earlier than From Date or in the future.');
+            // Reset the to_date value
+            $(this).val('');
+        }else if(fromDate > toDate){
+          alert('To Date should not be earlier than From Date or in the future.');
+            // Reset the to_date value
+            $(this).val('');
+        }else if(selectedDate > currentDate){
+              alert('Please select a date in the past or today.');
+              $(this).val('');
+              return;
+        }
+    } else {
+        // Alert user to select from_date if it's not selected
+        alert('Please Select from Date');
+        // Reset the to_date value
+        $(this).val('');
+    }
+});
+
+
+    function numberWithCommas(x) {
+            return x.toLocaleString('en-IN');
+    }
+
+    function numberWithCurrency(x){
+      var numString = x.toString();
+        
+            return '₹ '+x.toLocaleString('en-IN');
+       
+    }
+
+  function getYearMonth(dateStr) {
+      var dateObj = new Date(dateStr);
+      var year = dateObj.getFullYear();
+      var month = dateObj.getMonth() + 1;
+      var monthStr = month < 10 ? '0' + month : month.toString();
+      return { year: year, month: monthStr };
+  }
+
+  function processDates(fromDateStr, toDateStr) {
+      var fromDate = getYearMonth(fromDateStr);
+      var toDate = getYearMonth(toDateStr);
+      return {
+          from: fromDate,
+          to: toDate
+      };
+  }
+
+function sumArrayNumbers(arr) {
+  let total = 0;
+  for (let i = 0; i < arr.length; i++) {
+      total += arr[i];
+  }
+  return total.toFixed(2);//in laksh value
+}
+
+async function dropDownList(type) {
+  try {
+      var userDataString = getCookie('payment_official');
+      userDataString = JSON.parse(userDataString);
+      window.loginUser_id = userDataString['user_id'];
+
+      const response = await $.ajax({
+          url: APIURL + 'fn_general_getdropdownvalues',
+          type: "POST",
+          headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
+          data: { user_id: loginUser_id, dropdown_type: type }
+      });
+
+      // console.log(response.data);
+      return response.data;
+  } catch (error) {
+      console.error("Error:", error);
+      throw error;
+  }
+}
+
+async function fetchDropdownValues(type) {
+  try {
+      let getDropDown = await dropDownList(type);
+      // console.log(`type >>`, getDropDown);
+      return getDropDown;
+  } catch (error) {
+      console.error('Error occurred:', error);
+  }
+}
+
+
+  </script>
+  </body>
+  </html>
