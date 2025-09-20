@@ -85,6 +85,18 @@ EOF
         }
     }
 
+    stage('Security Scan (OWASP ZAP)') {
+    steps {
+        sh '''
+            # Run ZAP in daemon mode scanning your deployed app
+            docker run -t owasp/zap2docker-stable zap-baseline.py \
+                -t http://192.168.5.245/payment_automation_test \
+                -r zap_report.html
+        '''
+        archiveArtifacts artifacts: 'zap_report.html', fingerprint: true
+    }
+}
+
     post {
         success {
             echo '✅ Deployment succeeded'
