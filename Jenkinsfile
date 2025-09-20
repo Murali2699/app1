@@ -49,7 +49,7 @@ pipeline {
         stage('Fetch secrets from Vault') {
             steps {
                 withVault([configuration: [vaultUrl: env.VAULT_ADDR, vaultCredentialId: 'vault-jenkins-approle'],
-                           vaultSecrets: [[path: 'secret/data/app1/postgres', engineVersion: 2, secretValues: [
+                           vaultSecrets: [[path: 'secret/app1/postgres', engineVersion: 2, secretValues: [
                                [envVar: 'DB_USER', vaultKey: 'username'],
                                [envVar: 'DB_PASS', vaultKey: 'password'],
                                [envVar: 'DB_NAME', vaultKey: 'dbname'],
