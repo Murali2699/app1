@@ -7,52 +7,26 @@ pipeline {
         SONARQUBE_SCANNER = 'sonar-scanner'
     }
 
+    options {
+        skipDefaultCheckout() // We'll do explicit checkout
+        timestamps()
+    }
+
     stages {
-        stage('Checkout') {
+
+        stage('Clean Workspace before build') {
+            steps {
+                cleanWs()
+            }
+        }
+
+        stage('Checkout Code from SCM') {
             steps {
                 checkout scm
             }
         }
 
-        stage('Install dependencies') {
-            steps {
-                sh '''
-                    # Install Composer if not installed
-                    which composer || (
-                        php -r "copy('https://getcomposer.org/installer','composer-setup.php');" &&
-                        php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-                    ) || true
-                    
-                    # Install project dependencies
-                    composer install --no-interaction --prefer-dist || true
-                    
-                    # Install phpdotenv for environment variable handling
-                    composer require vlucas/phpdotenv --no-interaction || true
-                '''
-            }
-        }
-
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv("${env.SONARQUBE_SERVER}") {
-                    sh """
-                        ${tool(env.SONARQUBE_SCANNER)}/bin/sonar-scanner \
-                            -Dsonar.projectKey=app1 \
-                            -Dsonar.sources=.
-                    """
-                }
-            }
-        }
-
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 30, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: false
-                }
-            }
-        }
-
-        stage('Fetch secrets from Vault') {
+        stage('Fetch Secrets from Vault and Prepare Environment') {
             steps {
                 withVault([configuration: [vaultUrl: env.VAULT_ADDR, vaultCredentialId: 'vault-jenkins-approle'],
                            vaultSecrets: [[path: 'secret/app1/postgres', engineVersion: 2, secretValues: [
@@ -76,26 +50,94 @@ EOF
             }
         }
 
-        stage('Deploy to App Server') {
+        stage('Verify Files') {
+            steps {
+                sh '''
+                    echo "Listing all files in workspace..."
+                    ls -lah
+                '''
+            }
+        }
+
+        stage('Set Variables for Frontend and Backend') {
+            steps {
+                script {
+                    env.FRONTEND_DIR = "./frontend"
+                    env.BACKEND_DIR = "./backend"
+                }
+            }
+        }
+
+        stage('Archive Frontend Code') {
+            steps {
+                archiveArtifacts artifacts: "${env.FRONTEND_DIR}/**/*", fingerprint: true
+            }
+        }
+
+        stage('Archive Backend Code') {
+            steps {
+                archiveArtifacts artifacts: "${env.BACKEND_DIR}/**/*", fingerprint: true
+            }
+        }
+
+        stage('Build Frontend and Backend') {
+            steps {
+                sh '''
+                    # Example frontend build
+                    if [ -d "${FRONTEND_DIR}" ]; then
+                        cd ${FRONTEND_DIR}
+                        npm install
+                        npm run build
+                        cd -
+                    fi
+
+                    # Example backend build (Composer)
+                    if [ -d "${BACKEND_DIR}" ]; then
+                        cd ${BACKEND_DIR}
+                        composer install --no-interaction --prefer-dist
+                        cd -
+                    fi
+                '''
+            }
+        }
+
+        stage('Archive Artifact') {
+            steps {
+                archiveArtifacts artifacts: "**/build/**/*, **/vendor/**/*", fingerprint: true
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv("${env.SONARQUBE_SERVER}") {
+                    sh """
+                        ${tool(env.SONARQUBE_SCANNER)}/bin/sonar-scanner \
+                            -Dsonar.projectKey=app1 \
+                            -Dsonar.sources=.
+                    """
+                }
+            }
+        }
+
+        stage('Deploy to Environment') {
             steps {
                 sshagent(['jenkins-deploy-ssh']) {
                     sh "rsync -avz --delete --exclude '.git' ./ deploy@192.168.5.245:/var/www/html/payment_automation_test"
                 }
             }
         }
-    }
 
-    stage('Security Scan (OWASP ZAP)') {
-    steps {
-        sh '''
-            # Run ZAP in daemon mode scanning your deployed app
-            docker run -t owasp/zap2docker-stable zap-baseline.py \
-                -t http://192.168.5.245/payment_automation_test \
-                -r zap_report.html
-        '''
-        archiveArtifacts artifacts: 'zap_report.html', fingerprint: true
+        stage('Security Scan (OWASP ZAP)') {
+            steps {
+                sh '''
+                    docker run -t owasp/zap2docker-stable zap-baseline.py \
+                        -t http://192.168.5.245/payment_automation_test \
+                        -r zap_report.html
+                '''
+                archiveArtifacts artifacts: 'zap_report.html', fingerprint: true
+            }
+        }
     }
-}
 
     post {
         success {
