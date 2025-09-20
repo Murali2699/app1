@@ -36,44 +36,71 @@ class Header extends HTMLElement {
       <a class="nav-link official" href="scheme.html">
       <i class="bi bi-folder-plus"></i>
       <span>Scheme Registration</span>
+      </a>
+    </li>
     <li class="nav-item" id="schemeList">
       <a class="nav-link official" href="scheme-list.html">
       <i class="bi bi-card-checklist"></i>
       <span>Scheme Registration List</span>
+      </a>
+    </li>
     <li class="nav-item" id="paymentProcess">
       <a class="nav-link official" href="index.html">
       <i class="bi bi-list-columns"></i>
       <span>Payment Process</span>
+      </a>
+    </li>
     <li class="nav-item" id="paymentReport">
       <a class="nav-link official" href="all-report-new.html">
       <i class="bi bi-file-earmark-arrow-down"></i>
         <span>Payment Reports</span>
+      </a>
+    </li>
     <!-- <li class="nav-item" id="importFileExport">
       <a class="nav-link official" href="file-import.html">
       <i class="bi bi-file-ruled"></i>
         <span>Beneficiaries File Import</span>
+      </a>
     </li> -->
     <li class="nav-item" id="obsolete_beneficiary">
       <a class="nav-link official" href="obsolete-beneficiary.html">
         <i class="bi bi-grid"></i>
         <span>Obsolete Beneficiary</span>
+      </a>
+    </li>
     <li class="nav-item" id="payment_summary">
       <a class="nav-link official" href="payment-summary.html">
+        <i class="bi bi-grid"></i>
         <span>Payment Summary</span>
+      </a>
+    </li>
     <li class="nav-item" id="beneficiariesUpload">
       <a class="nav-link official" href="rejected-report.html">
+        <i class="bi bi-grid"></i>
         <span>Reinitiate / Reject Payment Files</span>
+      </a>
+    </li>
     <li class="nav-item" id="masterData">
       <a class="nav-link official" href="master-data.html">
       <i class="bi bi-bar-chart"></i>
         <span>Master Data</span>
+      </a>
+    </li>
+    <li class="nav-item" id="beneficiariesUpload">
       <a class="nav-link official" href="beneficiaries-search-ui.html">
       <i class="bi bi-cloud-upload"></i>
         <span>Beneficiaries Search - <small> 
+      </a>
+    </li>
+    <li class="nav-item" id="beneficiariesUpload">
       <a class="nav-link official" href="failureDataDownloads.html">
+        <i class="bi bi-grid"></i>
         <span>Downloads</span>
+      </a>
+    </li>
   </ul>
   </aside>`;
+    }
   }  
   customElements.define('official-header-component', Header);
-  
+ 

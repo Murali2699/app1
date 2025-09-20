@@ -1,13 +1,22 @@
+// the default locale
+// you can for example take it from the URL.
 
+// let locale = 'en';
 let locale = "ta";
 if (window.localStorage.getItem("language") != null) {
   locale = window.localStorage.getItem("language");
 }
+
 if (locale == "en") {
   $("body").addClass("en-font");
 } else {
   $("body").removeClass("en-font");
+}
+
 console.log(window.localStorage.getItem("language"));
+// the translation data
+// you can load/fetch these from files or keep them hardcoded.
+
 let messages = {
   en: {
     language: "தமிழ்",
@@ -57,6 +66,7 @@ let messages = {
     kmut_report42: 'Action',
     kmut_report43: 'Reviwer',
     kmut_report44: 'Verifier',
+
     kmut_rdo_review_pending:'Review Pending',
     kmut_rdo_review_completed:'Review Completed',
     kmut_vao_review_pending:'Verification Pending',
@@ -65,6 +75,7 @@ let messages = {
     kmut_rdo_recommendation_completed:'Recommendations Completed',
     kmut_sss_commissioner_pending:'Approver Pending',
     kmut_sss_commissioner_completed:'Approver Completed',
+
     kmut_dashboard : 'Dashboard',
     kmut_admin_search17: "Log Out",
     kmut_report: "Dashboard",
@@ -85,16 +96,21 @@ let messages = {
     kmut_download_report:'Download Reports',
     kmut_village:'Revenue village',
     kmut_village_only:'village',
+    // kmut_report7:'Total Appeal',
+    // kmut_report8:'Completed Appeal'
+
   
     kmut_download_appeals_status_report: "Download Appeals Status",
     kmut_download_vao_shop_mapping_report: "Download VAO Shop Mapping",
     kmut_downlosd_district_wise_rdo_recomendation_report: "Downlosd District Wise RDO Recomendation",
     kmut_download_reason_wise_eligible_applicants_from_field_verification_report: "Download Reason Wise Eligible Applicants From Field Verification",
     kmut_download_supercheck_completion_status_report: "Download Supercheck Completion Status",
+
     kmut__pending_report_popup1:'Reviwer',
     kmut_not_eligble:'Ineligible Reason',
    
     kmut_address:'Address',
+
     kmut3:'Name',
     kmut35:'Mobile Number',
     kmut45:'Address',
@@ -108,6 +124,7 @@ let messages = {
     kmut_review:'Review',
     kmut_date:'Date',
     kmut38:'Uploaded documents',
+
     kmut_rdo_rejection:'Recommended for Rejection',
     kmut_vao_rejection:'False Complaint',
     kmut_rdo_verified:'Recommended for Verification',
@@ -118,6 +135,7 @@ let messages = {
     kmut_submit:'Submit',
     kmut_appeal_vao_verification_status:'Download Reasonwise VAO Verification Status for Appeals',
     kmut_appeal_rdo_verification_status:'Download Reasonwise RDO Review Status for Appeals',
+
     kmut_total_beneficiaries:'Total Beneficiaries',
     kmut_aadhaar_beneficiaries:'Aadhaar beneficiaries',
     kmut_account_beneficiaries:'Account Beneficiaries',
@@ -132,6 +150,7 @@ let messages = {
     kmut_aadhaar_beneficiaries_amount:'Aadhaar Beneficiaries Amount',
     kmut_account_beneficiaries_amount:'Bank Beneficiaries Amount',
     kmut_other_beneficiaries_amount:'Other Beneficiaries amount',
+
     kmut_shop_wise_table_heading1:'S.No',
     kmut_shop_wise_table_heading2:'UFC No',
     kmut_shop_wise_table_heading3:'Aadhaar No',
@@ -142,6 +161,7 @@ let messages = {
     kmut_shop_wise_table_heading8:'Payment Transfer Status',
     kmut_issues_complaint_date:'complaint Date',
     kmut_appeal_rdo_recommandation_status:'Download RDO Recommendation',
+
     kmut_payment_proccess_report:'Payment Proccess',
   },
   ta: {
@@ -186,6 +206,7 @@ let messages = {
     kmut_report35: "பார்க்க",
     kmut_report36: 'புகார் தெரிவிப்பவர் பெயர்',
     kmut_report37: 'புகார் தெரிவிப்பவர்கைபேசி எண்',
+    // kmut_report38: 'ரேஷன் கடை குறியீடு',
     kmut_report38: 'பயனாளர் பெயர்',
     kmut_report39: 'புகார் எண்',
     kmut_report40: 'புகார் தேதி',
@@ -193,6 +214,8 @@ let messages = {
     kmut_report42: 'செயல்',
     kmut_report43: 'மதிப்பாய்வு',
     kmut_report44: 'களஆய்வு',
+    
+
     kmut_rdo_review_pending:'மதிப்பாய்வுகள் நிலுவையில் உள்ளவை',
     kmut_rdo_review_completed:'மதிப்பாய்வு முடிந்தது',
     kmut_vao_review_pending:'களஆய்வில் நிலுவையில் உள்ளவை',
@@ -201,6 +224,9 @@ let messages = {
     kmut_rdo_recommendation_completed:'பரிந்துரைகள் முடிக்கப்பட்டவை',
     kmut_sss_commissioner_pending:'அனுமதியளிப்பவர் நிலுவையிலுள்ளவை',
     kmut_sss_commissioner_completed:'அனுமதியளிப்பவர் முடிந்தது',
+
+    
+
     kmut_dashboard : 'தகவல் பலகை',
     kmut_admin_search17: "வெளியேறு",
     kmut_report: "தகவல் பலகை",
@@ -216,13 +242,20 @@ let messages = {
     kmut_approval_payment_report: "கட்டணத்தின் ஒப்புதல் விவரங்கள்",
     kmut_changepassword:'கடவுச்சொல் புதுப்பிப்பு',
     kmut_appeal_report: "மேல்முறையீட்டு அறிக்கை",
+    
+
     kmut_pending_complaint_report: "நிலுவை புகார்கள் அறிக்கை",
     kmut_download_report:'அறிக்கைகளின் பதிவிறக்கம்',  
+    
+    // kmut_report7:'மொத்த மேல்முறையீடு',
+    // kmut_report8:'முடிக்கப்பட்ட மேல்முறையீடு'
+
     kmut_download_appeals_status_report: "மேல்முறையீட்டு நிலையைப் பதிவிறக்கவும்",
     kmut_download_vao_shop_mapping_report: "விஎஓ கடை இணைப்பைப் பதிவிறக்கவும்",
     kmut_downlosd_district_wise_rdo_recomendation_report: "மாவட்ட வாரியாக ஆர்டிஓ பரிந்துரையைப்  பதிவிறக்கவும்",
     kmut_download_reason_wise_eligible_applicants_from_field_verification_report: "விஎஓ சரிபார்ப்பிலிருந்து காரணம் வாரியாக தகுதியான விண்ணப்பதாரர்கள்  பதிவிறக்கவும்",
     kmut_download_supercheck_completion_status_report: "மேலாய்வு அலுவலரின் பரிந்துரை நிலையைப் பதிவிறக்கவும்",
+
     kmut__pending_report_popup1:'மதிப்பாய்வு',
     kmut_not_eligble:'தகுதியின்மைக்கான காரணம்',
     kmut3:'பெயர்',
@@ -252,20 +285,25 @@ let messages = {
     kmut_village_only:'கிராமம்',
     kmut_appeal_vao_verification_status:'விஎஓ சரிபார்ப்பிலிருந்து காரணம் வாரியாக மேல்முறையீடுகளின் நிலையைப் பதிவிறக்கவும்',
     kmut_appeal_rdo_verification_status:'ஆர்டிஓ மதிப்பாய்விலிருந்து காரணம் வாரியாக மேல்முறையீடுகளின் நிலையைப் பதிவிறக்கவும்',
+
     kmut_total_beneficiaries:'மொத்த பயனர்',
     kmut_aadhaar_beneficiaries:'ஆதார் பயனர்',
     kmut_account_beneficiaries:'வங்கி பயனர்',
     kmut_other_beneficiaries:'இதர பயனர்',
     kmut_count:'எண்ணிக்கை',
     kmut_amount:'தொகை',
+
     kmut_payment_tab1:'பயனாளி கணக்கு வாரியாக கட்டண பரிமாற்ற நிலை',
     kmut_payment_tab2:'தொகை வாரியான கட்டண பரிமாற்ற நிலை',
     kmut_payment_pending:'நிலுவை',
     kmut_payment_completed:'முடிவுற்றது',
+
+
     kmut_total_beneficiaries_amount:'மொத்த பயனர் தொகை',
     kmut_aadhaar_beneficiaries_amount:'ஆதார் பயனர் தொகை',
     kmut_account_beneficiaries_amount:'வங்கி பயனர் தொகை',
     kmut_other_beneficiaries_amount:'இதர பயனர் தொகை',
+
     kmut_shop_wise_table_heading1:'வ.எண்',
     kmut_shop_wise_table_heading2:'ரேசன் எண்',
     kmut_shop_wise_table_heading3:'ஆதார் எண்',
@@ -274,10 +312,17 @@ let messages = {
     kmut_shop_wise_table_heading6:'வங்கி பெயர்',
     kmut_shop_wise_table_heading7:'வங்கி கணக்கு எண்',
     kmut_shop_wise_table_heading8:'கட்டண பரிமாற்ற நிலை',
+
     kmut_issues_complaint_date:'புகார் தேதி',
     kmut_appeal_rdo_recommandation_status:'ஆர்டிஓ பரிந்துரையைப்  பதிவிறக்கவும்',
+
     kmut_payment_proccess_report:'கட்டண செயல்முறை',
+
+    
+  },
 };
+
+// finally, pass them to AlpineI18n:
 document.addEventListener("alpine-i18n:ready", function () {
   window.AlpineI18n.create(locale, messages);
 });
