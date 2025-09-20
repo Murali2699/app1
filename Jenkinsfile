@@ -17,11 +17,17 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 sh '''
+                    # Install Composer if not installed
                     which composer || (
                         php -r "copy('https://getcomposer.org/installer','composer-setup.php');" &&
                         php composer-setup.php --install-dir=/usr/local/bin --filename=composer
                     ) || true
+                    
+                    # Install project dependencies
                     composer install --no-interaction --prefer-dist || true
+                    
+                    # Install phpdotenv for environment variable handling
+                    composer require vlucas/phpdotenv --no-interaction || true
                 '''
             }
         }
@@ -58,12 +64,12 @@ pipeline {
                            ]]]]) {
                     sh '''
                         cat > .env <<EOF
-                        DB_HOST=${DB_HOST}
-                        DB_DATABASE=${DB_NAME}
-                        DB_USERNAME=${DB_USER}
-                        DB_PASSWORD=${DB_PASS}
-                        DB_PORT=${DB_PORT}
-                        EOF
+DB_HOST=${DB_HOST}
+DB_DATABASE=${DB_NAME}
+DB_USERNAME=${DB_USER}
+DB_PASSWORD=${DB_PASS}
+DB_PORT=${DB_PORT}
+EOF
                         chmod 640 .env
                     '''
                 }
