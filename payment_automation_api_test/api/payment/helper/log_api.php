@@ -48,7 +48,7 @@ function log_api($userid,$response_status_code,$session_id,$payload,$db,$schema,
       $response_time_ms = round($response_time_ms * 10000);
     $log_sql = "CALL public.spsaveapiaccesslog(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     $log_sth = $db->prepare($log_sql);
-    if($log_sth->execute(array($userid,$userip,$session,$browser_name,$platform,$requestmethod,$operationtype,$payload,$request_dt,$response_dt,$response_status_code,$response_time_ms,$error_detail,'1')))
+    if($log_sth->execute(array($userid,$userip,$session,$browser_name,$platform,$requestmethod,$operationtype,$payload,$request_dt,$response_dt,$response_status_code,$response_time_ms,$error_detail,'1'))){
         
 }
 ?>

@@ -93,3 +93,4 @@ function maskPhoneNumber($phoneNumber) {
   } else {
       return $phoneNumber;
   }
+}

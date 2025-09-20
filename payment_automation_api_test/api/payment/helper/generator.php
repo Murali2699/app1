@@ -11,7 +11,7 @@ function generate_user_id($name, $db,$schema_name)
     }
     return $user_id;
 }
-function is_exists($type, $value, $db,$schema_name)
+function is_exists($type, $value, $db,$schema_name) {
     if ($type == 'user_id') {
         $col = 'user_id';
     } else if ($type == 'reference_id') {
