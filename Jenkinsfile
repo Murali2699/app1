@@ -74,7 +74,6 @@ pipeline {
             steps {
                 sshagent(['jenkins-deploy-ssh']) {
                     sh "rsync -avz --delete --exclude '.git' ./ deploy@192.168.5.245:/var/www/html/payment_automation_test"
-                    sh "ssh deploy@192.168.5.245 'sudo chown -R www-data:www-data /var/www/html/payment_automation_test && sudo chmod -R 750 /var/www/html/payment_automation_test'"
                 }
             }
         }
