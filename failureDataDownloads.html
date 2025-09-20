@@ -6,281 +6,19 @@
     <title>Payment Automation Dashboard</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
-    <!-- Favicons -->
+    
     <link href="assets/img/tn_logo.png" rel="icon">
     <link href="assets/img/tn_logo.png" rel="apple-touch-icon">
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-    <!-- Vendor CSS Files -->
+    <link href="https:
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css'>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-    <link rel="stylesheet" href="assets/vendor/sweetalert2/css/sweetalert.min.css" />
-    <link rel="stylesheet" href="assets/vendor/sweetalert2/css/sweetalert2.min.css" />
-    <!-- <link rel="stylesheet" href="assets/vendor/toggle/bootstrap-toggle.min.css" /> -->
-    <!-- CSS File --> 
+     
     <link href="assets/css/style.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"> -->
-    <script src="assets/components/official_header.js" type="text/javascript" defer></script>
-  </head>
-  <body>
-    <style>
-        .cbtn{
-            margin-left: 20px ;
-        }
-      .show_column h3{
-        font-size:1rem;
-      }
-      .accordion-item, .accordion-button:not(.collapsed) {
-        border: none!important;
-      }
-      .customers-card-orange{
-        border-left: 0.25rem solid #fe8402;
-      }
-      .customers-card-green-light{
-        border-left: 0.25rem solid #6eba6e;
-      }
-      .customers-card-lavander{
-        border-left: 0.25rem solid #8e63d0;
-      }
-      .customers-card-primary{
-        border-left: 0.25rem solid #0d6efd;
-      }
-      .customers-card-red{
-        border-left: 0.25rem solid #fd0d19;
-      }
-      span#received_on {
-          position: absolute;
-          right: 0;
-          min-width: 200px;
-      }
-      .bg-blue{
-        background-color: #2d5083;
-      }
-      .ml-2{
-        margin-left: 3px;
-      }
-      #set_amount_convertion {
-        color: #1a466a;
-        font-weight: bolder;
-        font-size: 1rem;
-      }
-      .font-custom-lable{
-        font-size: 12px!important;
-      }
-      .font-custom-text{
-        font-size: 12px!important;
-        color:brown;
-      }
-      p#ddl_payment_cycle {
-        border: 1px solid #d0d6dc;
-        padding: 0.6rem;
-        margin-top: rem;
-        border-radius: 5px;
-        font-size: 1rem;
-      }
-      .accordion-item, .accordion-button:not(.collapsed){
-        border: none!important;
-    }
-    p#ddl_payment_cycle {
-        border: 1px solid #d0d6dc;
-        padding: 0.6rem;
-        margin-top: rem;
-        border-radius: 5px;
-        font-size: 1rem;
-      }
-      #label_payment_date{
-        width: 300px;
-      }
-          div#tblPaymentFailedList_filter {
-          position: absolute;
-          margin-top: -4rem;
-          }
-
-        .bootstrap-select:not(.input-group-btn), .bootstrap-select[class*=col-] {
-        float: none;
-        display: block;
-        }
-        .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
-        width: 100%;
-        padding: 0.2rem;
-        }
-        button.btn.dropdown-toggle.btn-light {
-        padding: 1px !important;
-        font-size: 15px;
-        color: #000;
-        }
-      .filter-option-inner-inner:focus-visible {
-          border:none;
-      }
-      #accordionExample .accordion-body{
-        overflow: visible!important;
-      }
-      .btn-light:focus, .btn-light:focus-visible,.btn-light:hover{
-          outline: none !important; 
-          box-shadow: none !important; 
-      }
-      span#pending_approval_processing {
-        position: absolute;
-        top: 4.5rem;
-        left: 15rem;
-        width: auto;
-        }
-        span#progress_strat {
-        position: absolute;
-        top: 4.5rem;
-        left: 15rem;
-        width: auto;
-        }
-        .text-danger {
-        font-size: 13px;
-        font-weight: bold;
-        }
-        div.pamentDateGroup {
-        position: absolute;
-        right: 19rem;
-        margin-top: -19px;
-        font-weight: bold;
-        font-size: smaller;
-        width: 244px;
-        }
-      span#paymentDate_error {
-        position: absolute;
-        bottom: -22px;
-        }
-        ul#myTab .nav-link{
-          margin-top: 0.7rem;
-        }
-        div.pamentDateGroup {
-        position: absolute;
-        right: 19rem;
-        margin-top: -19px;
-        font-weight: bold;
-        font-size: smaller;
-        width: 244px;
-        }
-        span#paymentDate_error {
-          position: absolute;
-          bottom: -22px;
-          }
-      .bi-check-lg::before,.bi-x-lg::before {
-        font-size: 2rem;
-      }
-      .function_1_td,.function_2_td,.function_3_td{
-        vertical-align: middle;
-        text-align: center;
-      }
-      .fs-custom-dummy{
-          font-size: medium;
-          font-weight: bold;
-      }
-      .cursor-auto{
-        cursor: auto!important;
-      }
-      lable.failure_reason_lable {
-          width: 219px!important;
-          position: absolute;
-          margin-top: 2.7rem;
-          margin-left: 5rem;
-          font-size: 14px;
-          color: #6b6765;
-          font-weight: 400;
-      }
-
-    #tblPaymentFailedList_wrapper>.dt-buttons.btn-group.flex-wrap {
-      position: absolute;
-      right: 0;
-      margin-top: -3rem;
-      margin-right: 2rem;
-    }
-    table{
-      margin-top: 4rem;
-    }
-
-  div#tblPaymentFailedList_filter {
-    position: absolute;
-    margin-top: -4rem;
-}
-
-.left-vr-line {
-    border-left: 0.1rem solid #cececf;
-}
-.font-custom-lable{
-        font-size: 12px!important;
-      }
-      .font-custom-text{
-        font-size: 12px!important;
-        color:brown;
-      }
-      #checkTaluk_lable {
-        float: right;
-        background: #2a275d;
-        color: #fff;
-        padding-right: 0.6rem;
-        padding-left: 1rem;
-        border-radius: 3px;
-      }
-      .card-lg-blue-text {
-        background-color: #2c93b4 !important;
-        color: #fff;
-        font-size: 14px;
-        font-weight: bold;
-      }
-      .card-lg-orange-text {
-        background: #c09012 !important;
-        color: #fff;
-        font-size: 14px;
-        font-weight: bold;
-      }
-    .accordion-item, .accordion-button:not(.collapsed){
-        border: none!important;
-    }
-    p#ddl_payment_cycle {
-        border: 1px solid #d0d6dc;
-        padding: 0.6rem;
-        margin-top: rem;
-        border-radius: 5px;
-        font-size: 1rem;
-      }
-
-      .bootstrap-select:not(.input-group-btn), .bootstrap-select[class*=col-] {
-        float: none;
-        display: block;
-        }
-        .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
-        width: 100%;
-        padding: 0.2rem;
-        }
-        button.btn.dropdown-toggle.btn-light {
-        padding: 1px !important;
-        font-size: 15px;
-        color: #000;
-        }
-      .filter-option-inner-inner:focus-visible {
-          border:none;
-      }
-      #accordionExample .accordion-body{
-        overflow: visible!important;
-      }
-      .btn-light:focus, .btn-light:focus-visible,.btn-light:hover{
-          outline: none !important; 
-          box-shadow: none !important; 
-      }
-      span.badge {
-        white-space: nowrap;
-      }
-
-    </style>
-    <!-- ======= Header & sidemenu ======= -->
     <official-header-component></official-header-component>
     <div id="preloader"></div>  
-    <!-- End Sidebar-->
     <main id="main" class="main">
-      <!-- Dashboard view starts -->
+      
       <section>
         <div class="container-fluid">
           <div class="card mb-1">
@@ -303,89 +41,45 @@
                                       <option value="">--All--</option>
                                    </select>
                                 </div>
-                                <div class="col-md-3">
                                    <label for="ddl_scheme_code" class="form-label fw-bold">Scheme Code</label>
                                    <select class="form-select" id="ddl_scheme_code" name="ddl_scheme_code"><option value="">--All--</option></select>
-                                </div>
-                                <div class="col-md-3">
                                    <label for="ddl_scheme_name" class="form-label fw-bold">Scheme Name</label>
                                    <select class="form-select" id="ddl_scheme_name" name="ddl_scheme_name">
-                                      <option value="">--All--</option>
-                                   </select>
-                                </div>
-                                <div class="col-md-3">
                                    <label for="ddl_sub_scheme" class="form-label fw-bold">Sub Scheme Name</label>
                                    <select class="form-select" id="ddl_sub_scheme" name="ddl_sub_scheme">
-                                      <option value="">--All--</option>
-                                   </select>
-                                </div>
-                                <div class="col-md-3">
                                    <label for="ddl_department" class="form-label fw-bold mt-3">Department</label>
                                    <select class="form-select" id="ddl_department" name="ddl_department">
-                                      <option value="">--All--</option>
-                                   </select>
-                                </div>
-                                <div class="col-md-3">
                                    <label for="ddl_sub_department" class="form-label fw-bold mt-3">Sub Department</label>
                                    <select class="form-select" id="ddl_sub_department" name="ddl_sub_department">
-                                      <option value="">--All--</option>
-                                   </select>
-                                </div>
                              </div>
                              <hr>
                               <div class="row mb-2 boxflex">
 
                                 <div class="col-md" id="ddl_payment_cycle_col">
                                   <label for="from_date" class="form-label fw-bold mt-3">Payment Cycle</label>
-
                                   <p id="ddl_payment_cycle">Scheme Based Payment Period</p>
-                                </div>
-
                                 <div class="col-md" id="ddl_payment_period_col">
                                   <label for="from_date" class="form-label fw-bold">Select Payment Period</label>
                                   <select name="ddl_payment_period" id="ddl_payment_period" class="form-select">
                                     <option value="" disabled selected>Select Payment Period</option>
                                   </select>
-                                </div>
-
                                 <div class="col-md" id="ddl_payment_installment_col">
                                   <label for="from_date" class="form-label fw-bold">Select Installment</label>
                                   <select name="ddl_payment_installment" id="ddl_payment_installment" class="form-select">
                                     <option value="" disabled selected>Select Installment</option>
-                                  </select>
-                                </div>
-
                                 <div class="col-md" id="ddl_year_col">
                                   <label for="to_date" class="form-label fw-bold">Select Year - Month</label>
                                   <select name="ddl_year" id="ddl_year" class="form-select" data-live-search="true">
                                     <option value="" disabled selected>Select Year and month</option>
-                                  </select>
-                                </div>
                               </div>
                               <div class="col">
                                 <label for="label_payment_date" class="form-label fw-bold">Select Payment Date</label>
-                                <!-- <input type="date" name="label_payment_date" id="label_payment_date" class="form-control form-control-sm"> -->
+                                
                                 <select name="label_payment_date" id="label_payment_date" class="form-select  mb-2">
                                   <option value="">--All--</option>
                                 </select>
-                              </div>
                                 <input type="hidden" name="approvelpayment" id="approvelpayment">
-                             </div>
-                             <hr>
-                            <!-- <div class="row mb-2 boxflex">
-                              <div class="col-md-6">
-                                <label for="ddl_scheme_cate" class="form-label fw-bold">District</label>
-                                <select class="form-select" id="ddl_scheme_cate" name="ddl_scheme_cate" data-live-search="true">
-                                  <option value="">--All--</option>
-                                </select>
-                              </div>
-                              <div class="col-md-6">
-                                <label for="ddl_scheme_code" class="form-label fw-bold">Taluk</label>
-                                <select class="form-select" id="ddl_scheme_code" name="ddl_scheme_code" data-live-search="true">
-                                  <option value="">--All--</option>
-                                </select>
-                              </div>
-                            </div> -->
+                            
                             <div class="row mb-2 boxflex">
                               <button class="btn btn-success float-end cbtn col-md-4" style="max-width: 280px;" id="emoDownloadBtn" type="button"><i class="bi bi-download"></i>&nbsp;EMO Download</button>
                                 <button class="btn btn-success float-end cbtn col-md-4" style="max-width: 280px;" id="paymentFailureReportBtn" type="button"><i class="bi bi-download"></i>&nbsp;Payment Failed Details Download</button>
@@ -405,42 +99,23 @@
               
            </form>
           </div>
-
-
-          <!-- END: Dropdown card end here -->
-
+          
         
-          <!-- END: list card end here -->
-          <!-- START: modal popup -->
-          <!-- Button trigger modal -->
         </div>
-
       </div>
       </section>
     </main>
-    <!-- End #main -->
-    <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
       <div class="copyright">
         &copy; Copyright <strong><span>TNeGA</span></strong>. All Rights Reserved
-      </div>
       <div class="credits">
-        Designed & Developed by <a href="https://tngis.tn.gov.in/" target="_blank">TNeGA</a>
-      </div>
+        Designed & Developed by <a href="https:
     </footer>
-    <!-- End Footer -->
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    <!-- Delete modal starts -->
-    <!-- view crop info ends -->
-    <!-- Vendor JS Files -->
-    
     <script src="assets/vendor/jquery/jquery.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/main.js"></script>
     <script type="text/javascript" src="assets/vendor/jquery-validate/js/jquery.validate.min.js"></script>
-    
-    <!-- Main JS File -->
-    
     <script src="assets/js/global.js"></script>
     <script src="assets/js/base64tojson.js"></script>
     <script src="assets/js/crypto-js.js"></script>
@@ -461,43 +136,33 @@
     <script src="assets/vendor/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script src="assets/scripts/xlsx.full.min.js"></script>
     <script src="assets/scripts/jspdf.umd.min.js"></script>
-    
-    <!-- Crypto js -->
     <script src="assets/vendor/encryption/crypto-js.min.js"></script>
-    <!-- Encryption js -->
     <script src="assets/vendor/encryption/Encryption.js"></script>
     <script src="assets/vendor/sweetalert2/js/sweetalert2.all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src='https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js'></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="https:
+    <script src='https:
     <script type="text/javascript">
       const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
       const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     </script>
-    
  
  <script type="text/javascript">
   var url = window.location.href;
   var page_url = url.split('/');
   var page = page_url[4];
-  
   var userDataString = getCookie('payment_official');
   userDataString = JSON.parse(userDataString);
   jQuery.noConflict();
   jQuery(document).ready(function () {
-  
     $(document).on({
            ajaxStart: function () {
              $('#preloader').show();
-            //  console.log('preloader is show');
+            
            },
            ajaxStop: function () {
              $('#preloader').hide();
-            //  console.log('preloader is show');
            }
          });
-  
     $('.official').each(function (i, obj) {
       var href = obj.getAttribute("href");
       if (href == page) {
@@ -506,76 +171,51 @@
         obj.classList.remove('active');
       }
     });
-    // $('#preloader').hide();
-    
     var userDataString = getCookie('payment_official');
     if (!userDataString) {
       $('#preloader').show();
       window.location.href = "login.html";
     }
-  
     userDataString = JSON.parse(userDataString);
     $('#official_username').text(userDataString['first_name']);
     $('#UserID').val(userDataString['user_id']);
     window.loginUser_id = userDataString['user_id'];
-
-
     reloID = userDataString['role_id'];
     roleBasedPageAllow(loginUser_id,reloID);
-    
     getSchemeCategory();
-    // getSchemeCode();
-    // getDistricts();
-    
     $('#ddl_sub_scheme').on('change',function(){      
      $('#ddl_department').empty();
      $('#ddl_sub_department').empty();
-  
      $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
      $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
-  
        $.ajax({
          url: APIURL +'schem_filter',
          type: "POST",
          headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
          data: {case: "get_department",scheme_code:$('#ddl_scheme_code').val(),scheme_name:$('#ddl_scheme_name').val(),sub_scheme_name:$('#ddl_sub_scheme').val(),whereColumn:$('#ddl_scheme_cate').val(),user_id:loginUser_id},
          success: function(response) {
-            //  console.log("department:", response);
              var department_code = response.data[0];
-            //  console.log(department_code.department);
-            
              getDepartment(department_code.department);
          },
          error: function(xhr, status, error) {
              console.log("Error:", error);
          }
        });
-    });
-  
     $('#ddl_scheme_cate').on('change', function () {
-      // var district_code = $('#ddl_scheme_cate').val();
       $('#ddl_scheme_code').empty();
       $('#ddl_scheme_code').append('<option value="">--All--</option>');
-      // getTaluk(district_code);
     }); 
     $('#emoDownloadBtn').on('click',function(){
       getEmoMarkedBeneficiaryDetails();
       $("#formFilters").submit();
     })
-    
   $('#paymentFailureReportBtn').on('click',function () {
     paymentFailedReport();
     $("#formFilters").submit();
   });
   $('#validationFailureReportBtn').on('click',function () {
     validationFailedReport();
-    $("#formFilters").submit();
-  });
 });
-
-
-//=======================================
-
 function exportJsonToExcel(jsonData, file_name) {
   var data = jsonData.map(obj => Object.values(obj));
   var ws = XLSX.utils.aoa_to_sheet([Object.keys(jsonData[0])].concat(data));
@@ -586,22 +226,17 @@ function exportJsonToExcel(jsonData, file_name) {
   saveAs(blob, file_name + '.xlsx');
   $('#preloader').hide();
 }
-
 function s2ab(s) {
   var buf = new ArrayBuffer(s.length);
   var view = new Uint8Array(buf);
   for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
   return buf;
-}
-
 function convertJsonToCsv(jsonData,filename) {
     let columns = Object.keys(jsonData[0]);
-
     let csvContent = [
-        columns.join(','), // Header row
-        ...jsonData.map(obj => columns.map(col => obj[col]).join(',')) // Data rows
+        columns.join(','), 
+        ...jsonData.map(obj => columns.map(col => obj[col]).join(',')) 
     ].join('\n');
-
     let blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     let link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
@@ -610,13 +245,7 @@ function convertJsonToCsv(jsonData,filename) {
     link.click();
     document.body.removeChild(link);
     $('#preloader').hide();
-}
-//=======================================================
-//*************GET EMO MARKED BENEFICIARY***************\\
-
 function getEmoMarkedBeneficiaryDetails(){
-  var userDataString = getCookie('payment_official');
-    userDataString = JSON.parse(userDataString);
     var loginUser_id = userDataString['user_id'];
     $.ajax({
         url: APIURL + 'getEmo_Marked_beneficiary_details',
@@ -652,16 +281,14 @@ function getEmoMarkedBeneficiaryDetails(){
                     });
                 }
             } else {
-              //   console.error('Pls Enter the date:', res.message);
                 Swal.fire({
                     icon: 'info',
                     title: res.message,
-                    // text: res.message,
+                    
                     showConfirmButton: false,
                     timer: 2000
                 })
             }
-        },
         error: function(xhr, status, error) {
             console.error("AJAX Error:", error);
             Swal.fire({
@@ -671,158 +298,30 @@ function getEmoMarkedBeneficiaryDetails(){
                 timer: 2000
             });
         }
-    });
-}
-
-//======================================
-//*******Payment Failed Report********\\
 function paymentFailedReport() {
-    var userDataString = getCookie('payment_official');
-    userDataString = JSON.parse(userDataString);
-    var loginUser_id = userDataString['user_id'];
     if($('#label_payment_date').val() =="")
     {
       return;
-    }
-    $.ajax({
         url: APIURL + 'payment_failure_report',
-        type: 'POST',
         headers: {
             'X-APP-KEY': config.app_key,
             'X-APP-NAME': config.app_name
-        },
-        dataType: 'JSON',
-        data: {
-            schmecate: $('#ddl_scheme_cate').val(),
-            schemeCode: $('#ddl_scheme_code').val(),
-            schemeName: $('#ddl_scheme_name').val(),
-            subSchemeName: $('#ddl_sub_scheme').val(),
-            department: $('#ddl_department').val(),
-            subDepartment: $('#ddl_sub_department').val(),
-            paymentCycle: $('#ddl_payment_cycle').val(),
-            paymentPeriod: $('#ddl_payment_period').val(),
-            paymentInstall: $('#ddl_payment_installment').val(),
-            yyyymm: $('#ddl_year').val(),
-            paymentdate: $('#label_payment_date').val(),
-            userId: loginUser_id,
-        },
-        success: function(res) {
             console.log('payment failure report data:', res);
-            if(res.success){
-                if (res.data && res.data.length > 0) {
                   exportJsonToExcel(res.data, $('#ddl_scheme_name').val() + '_' + $('#ddl_year').val() + '_payment failed details('+$('#label_payment_date').val()+')');
-                } else {
-                    console.log("No data available.");
-                    Swal.fire({
-                        icon: "info",
-                        title: 'No Data Found',
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
-                }
-            } else {
-              //   console.error('Pls Enter the date:', res.message);
-                Swal.fire({
-                    icon: 'info',
-                    title: res.message,
-                    // text: res.message,
-                    showConfirmButton: false,
-                    timer: 2000
-                })
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("AJAX Error:", error);
-            Swal.fire({
-                icon: "info",
-                title: 'Choose the scheme Category!',
-                showConfirmButton: false,
-                timer: 2000
-            });
-        }
-    });
-}
-//**----------***----------------**\\
-//Validation**Failed**Report -------------
 function validationFailedReport() {
-    var userDataString = getCookie('payment_official');
-    userDataString = JSON.parse(userDataString);
-    var loginUser_id = userDataString['user_id'];
-    
-    $.ajax({
         url: APIURL + 'validation_failure_report',
-        type: 'POST',
-        headers: {
-            'X-APP-KEY': config.app_key,
-            'X-APP-NAME': config.app_name
-        },
-        dataType: 'JSON',
-        data: {
-            schmecate: $('#ddl_scheme_cate').val(),
-            schemeCode: $('#ddl_scheme_code').val(),
-            schemeName: $('#ddl_scheme_name').val(),
-            subSchemeName: $('#ddl_sub_scheme').val(),
-            department: $('#ddl_department').val(),
-            subDepartment: $('#ddl_sub_department').val(),
-            paymentCycle: $('#ddl_payment_cycle').val(),
-            paymentPeriod: $('#ddl_payment_period').val(),
-            paymentInstall: $('#ddl_payment_installment').val(),
-            yyyymm: $('#ddl_year').val(),
-            userId: loginUser_id,
-        },
-        success: function(res) {
             console.log('Validation failure report data:', res);
-            if(res.success){
-                if (res.data && res.data.length > 0) {
                   exportJsonToExcel(res.data, $('#ddl_scheme_name').val() + '_' + $('#ddl_year').val() + '_validation failed details('+$('#label_payment_date').val()+')');
-                } else {
-                    console.log("No data available.");
-                    Swal.fire({
-                        icon: "info",
-                        title: 'No Data Found',
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
-                }
-            } else {
-                // console.error('Pls Enter the date:', res.message);
-                Swal.fire({
-                    icon: 'info',
-                    title: res.message,
-                    // text: res.message,
-                    showConfirmButton: false,
-                    timer: 2000
-                })
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("AJAX Error:", error);
-            Swal.fire({
-                icon: "info",
+                
                 title: 'Choose the scheme category',
-                showConfirmButton: false,
-                timer: 2000
-            });
-        }
-    });
-}
-//==========**//**//**//END\\**\\**\\**\\============
-
  function getCookie(name) {
       const cookies = document.cookie.split(';');
       for (let i = 0; i < cookies.length; i++) {
         const cookie = cookies[i].trim();
         if (cookie.startsWith(name + '=')) {
           return cookie.substring(name.length + 1);
-        }
-      }
       return null;
-    }
-  
-  /* filters */
-
 function getSchemeCategory(){
-    
     $('#ddl_scheme_name').empty();
     $('#ddl_sub_scheme').empty();
     $('#ddl_department').empty();
@@ -831,101 +330,58 @@ function getSchemeCategory(){
     $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--All--"}));
     $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
     $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
- 
   $.ajax({
     url: APIURL +'schem_filter',
     type: "POST",
     headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
     data: {case: "get_scheme_category",get_column:"scheme_code",groupbycolumn:"scheme_code",user_id:loginUser_id},
     success: function(response) {
-       //  console.log("Success:", response);
+       
         var schemeCode = response.data;
-       //  console.log('scheme code >>> ',schemeCode);
- 
         $('#ddl_scheme_cate').empty();
         $('#ddl_scheme_cate').append($('<option>', {
               value: "",
               text: "--All--"
           }));
-
         $.each(schemeCode, function (index, scheme) {
-            // console.log('scheem code lenthg >>> ', schemeCode.length);
             if(schemeCode.length >1){
               $('#ddl_scheme_cate').append($('<option>', {
                 value: scheme.scheme_category,
                 text: scheme.scheme_category
             }));
             }else{
-              $('#ddl_scheme_cate').append($('<option>', {
-                value: scheme.scheme_category,
-                text: scheme.scheme_category
             }).prop('selected', true));
             $('#ddl_scheme_cate').trigger('change');
-            }
-         });
     },
     error: function(xhr, status, error) {
         console.log("Error:", error);
-    }
-  });
-}
-
 let booleanSet = false;
-
 $('#ddl_scheme_cate').on('change',function(){
   resetYearMonth();
   let scheme_cate = $(this).val();
-  // $('#filter_based_info_card_div').hide();
-  // $('#scheme_wise_dashboard').hide();
   labelPaymentMonthEmpty();
-  
-
   if(scheme_cate ==''|| scheme_cate==null||scheme_cate==undefined){
     $('#ddl_year').empty();
     $('#ddl_payment_period').empty();
     $('#ddl_payment_installment').empty();
     $('#ddl_payment_cycle').text('Scheme Based Payment Period');
-    
     $('#ddl_year').append($('<option>', {
           value: "",
           text: "Select Year - Month"
       }).attr('disabled','true').attr('selected', 'selected'));
-
       $('#ddl_payment_installment').append($('<option>', {
-          value: "",
           text: "Select Installment"
-      }).attr('disabled','true').attr('selected', 'selected'));
-
       $('#ddl_payment_period').append($('<option>', {
-          value: "",
           text: "Select the Payment Period"
-      }).attr('disabled','true').attr('selected', 'selected'));
-     
   }
-
   $('#payment_date_input').val('');
-
     let select_scheme_cate = $(this).val();
       if(select_scheme_cate!='' && select_scheme_cate!=null){
-        // alert('enable');
         booleanSet = true;
       }else{
-        // alert('disable')
        booleanSet = false;
-      }
-  
     $('#ddl_scheme_code').empty();
-    $('#ddl_scheme_name').empty();
-    $('#ddl_sub_scheme').empty();
-    $('#ddl_department').empty();
-    $('#ddl_sub_department').empty();
-
     $('#ddl_scheme_code').append($('<option>', {value: "", text: "--All--"}));
-    $('#ddl_scheme_name').append($('<option>', {value: "", text: "--All--"}));
-    $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--All--"}));
-    $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
-    $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
-  
    $.ajax({
      url: APIURL +'schem_filter',
      type: "POST",
@@ -933,28 +389,14 @@ $('#ddl_scheme_cate').on('change',function(){
      data: {case: "get_scheme_code",get_column:"scheme_code",groupbycolumn:"scheme_code",whereColumn:$('#ddl_scheme_cate').val(),user_id:loginUser_id},
      success: function(response) {
          var schemeCode = response.data;
-  
          $('#ddl_scheme_code').empty();
          $('#ddl_scheme_code').append($('<option>', {
                value: "",
                text: "--All--"
            }));  
-
-        $.each(schemeCode, function (index, scheme) {
-            // console.log('scheem code lenthg >>> ', schemeCode.length);
-            if(schemeCode.length >1){
               $('#ddl_scheme_code').append($('<option>', {
                 value: scheme.scheme_code,
                 text: scheme.scheme_code
-            }));
-            }else{
-              $('#ddl_scheme_code').append($('<option>', {
-                value: scheme.scheme_code,
-                text: scheme.scheme_code
-            }).prop('selected', true));
-            // $('#ddl_scheme_code').trigger('change');
-            }
-         });
          $('#ddl_scheme_code').trigger('change');
      },
      error: function(xhr, status, error) {
@@ -962,136 +404,48 @@ $('#ddl_scheme_cate').on('change',function(){
      }
    });
 })
-
   $('#ddl_scheme_code').on('change',function(){
-    // $('#filter_based_info_card_div').hide();
-    // $('#scheme_wise_dashboard').hide();
     labelPaymentMonthEmpty();
     resetYearMonth();
-  
        $('#ddl_sub_scheme').empty();
        $('#ddl_scheme_name').empty();
-       $('#ddl_sub_scheme').empty();
        $('#ddl_department').empty();
        $('#ddl_sub_department').empty();
-  
        $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--All--"}));
        $('#ddl_scheme_name').append($('<option>', {value: "", text: "--All--"}));
-       $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--All--"}));
        $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
        $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
-  
      $.ajax({
-     url: APIURL +'schem_filter',
-     type: "POST",
-     headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
      data: {case: "get_scheme",scheme_code:$('#ddl_scheme_code').val(),whereColumn:$('#ddl_scheme_cate').val(),user_id:loginUser_id},
-     success: function(response) {
-        //  console.log("Success:", response);
-         var schemeCode = response.data;
-        //  console.log(schemeCode.scheme_code);
          $('#ddl_scheme_name').empty();
          $('#ddl_scheme_name').append($('<option>', {
-               value: "",
-               text: "--All--"
            }));
-         // Iterate over the JSON object and append options
+         
          $.each(schemeCode, function (index, scheme) {
-          // console.log('scheem code lenthg >>> ', schemeCode.length);
           if(schemeCode.length >1){
             $('#ddl_scheme_name').append($('<option>', {
                value: scheme.scheme_name,
                text: scheme.scheme_name
-           }));
           }else{
-            $('#ddl_scheme_name').append($('<option>', {
-               value: scheme.scheme_name,
-               text: scheme.scheme_name
            }).prop('selected', true));
-          //  $('#ddl_scheme_name').trigger('change');
           }
-         });
          $('#ddl_scheme_name').trigger('change');
-     },
-     error: function(xhr, status, error) {
-         console.log("Error:", error);
-     }
-   });
-  
-  });
-  
   $('#ddl_scheme_name').on('change',function(){
-     // $('#ddl_scheme_name').empty();
      $('#ddl_sub_scheme').empty();
-     $('#ddl_department').empty();
-     $('#ddl_sub_department').empty();
-     // $('#ddl_scheme_name').append($('<option>', {value: "", text: "--All--"}));
      $('#ddl_sub_scheme').append($('<option>', {value: "",text: "--All--"}));
-     $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
-     $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
-  
-     $.ajax({
-     url: APIURL +'schem_filter',
-     type: "POST",
-     headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
      data: {case: "get_sub_scheme",scheme_code:$('#ddl_scheme_code').val(),scheme_name:$('#ddl_scheme_name').val(),whereColumn:$('#ddl_scheme_cate').val(),user_id:loginUser_id},
-     success: function(response) {
-        //  console.log("Success:", response);
-         var schemeCode = response.data;
-        //  console.log(schemeCode.scheme_code);
          $('#ddl_sub_scheme').empty();
          $('#ddl_sub_scheme').append($('<option>', {
-               value: "",
-               text: "--All--"
-           }));
-         // Iterate over the JSON object and append options
-         $.each(schemeCode, function (index, scheme) {
           if(schemeCode.length > 1){
             $('#ddl_sub_scheme').append($('<option>', {
                value: scheme.subscheme_name,
                text: scheme.subscheme_name
-           }));
-          }else{
-            $('#ddl_sub_scheme').append($('<option>', {
-               value: scheme.subscheme_name,
-               text: scheme.subscheme_name
-           }).prop('selected', true));
-          }
-          // $('#ddl_sub_scheme').trigger('change');
-         });
          $('#ddl_sub_scheme').trigger('change');
-     },
-     error: function(xhr, status, error) {
-         console.log("Error:", error);
-     }
-   });
-  
-  });
-  
-  // get_scheme
-  /* filters */
   function getDepartment(depID){
-     $('#ddl_department').empty();
-     $('#ddl_sub_department').empty();
-  
-     $('#ddl_department').append($('<option>', {value: "",text: "--All--"}));
-     $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
       let scheme_cate = $('#ddl_scheme_cate').val();
-
-  $.ajax({
      url: APIURL +'get_department',
-     type: "POST",
-     headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
      data: {type: "department"},
-     success: function(response) {
-         // console.log("Success:",JSON.parse(response)[0].data );
          var department = response[0].data;
-         // Handle the successful response here
-        //  $('#ddl_department').empty();
-        //  $('#ddl_department').append($('<option>', {
-        //        value: "",
-        //        text: "--All--"
-        //    }));
         if(scheme_cate == '' || scheme_cate === 0){
                   $('#ddl_department').empty();
                   $('#ddl_department').append($('<option>', {val: '', text: '--All--' }));
@@ -1100,82 +454,54 @@ $('#ddl_scheme_cate').on('change',function(){
               }
               else
               {
-         // Iterate over the JSON object and append options
          $.each(department, function (index, dep) {
            if(dep.department_code==depID){
              $('#ddl_department').append($('<option>', {
                value: dep.department_code,
                text: dep.department_name
              }).attr('selected', 'selected'));
-             // $('#ddl_department').trigger('change');
-  
+             
              $.ajax({
                    url: APIURL +'schem_filter',
                    type: "POST",
                    headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
                    data: {case: "get_sub_department",scheme_code:$('#ddl_scheme_code').val(),scheme_name:$('#ddl_scheme_name').val(),sub_scheme_name:$('#ddl_sub_scheme').val(),department:$('#ddl_department').val(),whereColumn:$('#ddl_scheme_cate').val(),user_id:loginUser_id},
                    success: function(response) {
-                      //  console.log("department:", response);
+                      
                        var subdepartment_code = response.data[0];
-                      //  console.log(subdepartment_code.department);
                        get_sub_department(dep.department_code,subdepartment_code.subdepartment);
                    },
                    error: function(xhr, status, error) {
                        console.log("Error:", error);
                    }
                });
-             
-           }
-         });
-        }
-     },
-     error: function(xhr, status, error) {
-         console.log("Error:", error);
-         // Handle the error here
-     }
-   });
-  }
-  
-  
-  // $('#ddl_department').on('change',function(){
    function get_sub_department(depID,subDepID){
-     $('#ddl_sub_department').empty();
-     $('#ddl_sub_department').append($('<option>', {value: "",text: "--All--"}));
-  
-       // var department = $('#ddl_department').val();
-       $.ajax({
        url: APIURL +'get_department',
        type: "POST",
        headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
        data: {type: "sub_department",whereColumn:$('#ddl_scheme_cate').val(),department_code:depID},
        success: function(response) {
-
            var department = response[0].data;
-           // Handle the successful response here
+           
            $('#ddl_sub_department').empty();
            $('#ddl_sub_department').append($('<option>', {
                  value: "",
                  text: "--All--"
              }));
-
            $.each(department, function (index, sub_dep) {
              if(sub_dep.sub_department_code==subDepID){
                $('#ddl_sub_department').append($('<option>', {
                  value: sub_dep.sub_department_code,
                  text: sub_dep.sub_department_name
-             }).attr('selected', 'selected'));
              }
            });
            get_schemebyuser(loginUser_id);
        },
        error: function(xhr, status, error) {
            console.log("Error:", error);
-           // Handle the error here
        }
      });
-
    }
-  
     function getDistricts(){
       $('#ddl_scheme_cate').selectpicker('destroy');
         const userDataString = getCookie("payment_official");
@@ -1187,11 +513,8 @@ $('#ddl_scheme_cate').on('change',function(){
         data={ case: 'district',district_code: districtID,user_id:userData['user_id']};
         } else {
         data={ case: 'district',user_id:userData['user_id']};
-        }
-  
         $('#ddl_scheme_code').empty();
         $('#ddl_scheme_code').append('<option value="">--All--</option>');
-      
       $.ajax({
         url: userMasterAPIURL+'userMaster',
         method: 'POST',
@@ -1199,12 +522,10 @@ $('#ddl_scheme_cate').on('change',function(){
         data: data,
         dataType: 'json',
         success: function (response) {
-          //console.log(response);
           var district = response.district;
           var districtDropdown = $("#ddl_scheme_cate");
           $('#ddl_scheme_cate').empty();
           $('#ddl_scheme_cate').append($('<option>', {value: "",text: "--All--"}));
-            
           if(districtID==0 || districtID ==undefined){
           populateDropdown('ddl_scheme_cate', response.districts, 'district');              
           } else {
@@ -1213,114 +534,53 @@ $('#ddl_scheme_cate').on('change',function(){
           var district_code= district['district_code'];
             getTaluk(district_code);
           } 
-          
           $('#ddl_scheme_cate').selectpicker();
-        },
         error: function () {
           console.error('Error fetching district data');
-        }
       });
-    }
-  
-    /*START : Get Taluk list*/
     function getTaluk(districtID){
       $('#ddl_scheme_code').selectpicker('destroy');
-      $('#ddl_scheme_code').empty();
-      $('#ddl_scheme_code').append('<option value="">--All--</option>');
-      // var district=$("#ddl_scheme_cate").val();
-        const userDataString = getCookie("payment_official");
-        const userData = JSON.parse(userDataString);
-  
-        // var district=district_code;
         var talukID=0;
-        var data=[];
         if(userData['taluk_code']!=0){
-        // districtID=userData['district_code'];
         talukID=userData['taluk_code'];
         data={ case: 'taluk',district_code: districtID,taluk_code: talukID,user_id:userData['user_id']};
-        } else {
         data={ case: 'taluk',district_code: districtID,user_id:userData['user_id']};
-        }
-      $.ajax({
-        url: userMasterAPIURL+'userMaster', // Replace with your API endpoint
-        method: 'POST',
+        url: userMasterAPIURL+'userMaster', 
         headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
-        data: data,
-        dataType: 'json',
-        success: function (response) {
           var taluk = response.taluk
           var talukDropdown = $("#ddl_scheme_code");
-        //  populateDropdown('ddl_scheme_code', response.taluk, 'taluk'); 
           if(talukID==0){
             populateDropdown('ddl_scheme_code', response.taluk, 'taluk');             
-          } else {
-            
             talukDropdown.html('<option value="'+taluk['taluk_code']+'">'+taluk['taluk_name']+'</option>');
           $('#ddl_scheme_code').trigger('change');
-          }
           $('#ddl_scheme_code').selectpicker();
-        },
-        error: function () {
           Swal.fire({
             icon: "error",
             title: "Service Error!",
             showConfirmButton: false,
             timer: 2000
           })
-        }
-      });
-    }
-    
-    /*END : Get Taluk list*/
-  // });
   var formsFilter = [];
   window.localStorage.removeItem('filters');
-  /*from submit*/
   $(document).ready(function() {
-    
     $("#formFilters").validate({
             rules: {
-              // ddl_scheme_cate: {required: true},
-              // ddl_scheme_code: {required: true},
-              // ddl_scheme_name: {required: true},
-              // ddl_sub_scheme: {required: true},
-              // ddl_department: {required: true},
-              // ddl_sub_department: {required: true},
-              // ddl_payment_period: {required: true},
-              // ddl_payment_installment : {required: true},
-              // ddl_year : {required: true},
             },
             messages: {
-              // ddl_scheme_cate: {required: "Select the Scheme Category"},
-              // ddl_scheme_code: {required: "Select the Scheme Code"},
-              // ddl_scheme_name: {required: "Select the scheme Name"},
-              // ddl_sub_scheme: {required: "Select the Sub Scheme Name"},
-              // ddl_department: {required: "Select the Deparment"},
-              // ddl_sub_department: {required: "Select the Sub Deparment"},
-              // ddl_payment_period :{required: "Select the Payment Period"},
-              // ddl_payment_installment : {required: "Select the Installment"},
-              // ddl_year : {required: "Select the Year-Month"},
-            },
             errorClass: "help-inline text-danger",
             errorElement: "span",
             highlight: function(element, errorClass, validClass) {
                 $(element).parents('.form-group').addClass('has-error');
-            },
             unhighlight: function(element, errorClass, validClass) {
                 $(element).parents('.form-group').removeClass('has-error');
                 $(element).parents('.form-group').addClass('has-success');
-            },
             submitHandler: function(form,e) {
                 e.preventDefault();
-              
                 formsFilter.length = 0;
                 formsFilter = [];
                 var formData = $(form).serialize();
                 window.localStorage.removeItem('filters');
                 window.localStorage.setItem('filters', JSON.stringify(formData));
-                // getDashboard('laksh');
-                // getDashboardDistinctBeneficiary();
-                // getDashboardBeneficiarySummary();
                
                 $('#lable_text_scheme_cate').text($('#ddl_scheme_cate').val());
                 $('#lable_text_scheme_code').text($('#ddl_scheme_code').val());
@@ -1328,76 +588,38 @@ $('#ddl_scheme_cate').on('change',function(){
                 $('#lable_text_sub_scheme').text($('#ddl_sub_scheme').val());
                 $('#lable_text_Department').text($("#ddl_department option:selected").text());
                 $('#lable_text_sub_department').text($("#ddl_sub_department option:selected").text());
-              
-              
               let paymentCycle = $('#ddl_payment_cycle').text();
               if($("#ddl_payment_period option:selected").val()!='' && $("#ddl_payment_period option:selected").val()!=null && $("#ddl_payment_period option:selected").val()!=undefined){
                 paymentCycle = $('#ddl_payment_cycle').text()+'-'+$("#ddl_payment_period option:selected").text();
-              }
-
               $('#lable_text_payment_period').text(paymentCycle);
-              
               $('#lable_text_year_month').text($("#ddl_year option:selected").text());
               $('#lable_text_installment').text($("#ddl_payment_installment option:selected").text());
-              // $('#lable_text_month').text(mm);
-              
-
               if ($('#ddl_scheme_code').val() !== '' && $('#ddl_scheme_name').val() !== '' && $('#ddl_sub_scheme').val() !== '' && $('#ddl_department').val() !== '' && $('#ddl_sub_department').val() !== '') {
                 if(($('#payment_date_input').val()=='' )|| ($('#payment_date_input').val() == null) || ($('#payment_date_input').val() == undefined)){
-                  // $('#scheme_wise_dashboard').hide();
+                  
                   getpaymentDate();
-                }
-                //   $('#filter_based_info_card_div').show();
-                //   // $('#btnfilter').click();
-                //   $('#accordionExample .accordion-collapse').collapse('hide');
               }else{
-                // $('#filter_based_info_card_div').hide();
               } 
                 return false;
             }  
-      });
       $("#fromSubmitbtn").click();
-  });
-
   function populateDropdown(dropdownId, data, fieldName) {
       const dropdown = document.getElementById(dropdownId);
-  
-      // Populate options from data
       data.forEach(item => {
         const option = document.createElement('option');
         option.value = item[fieldName + '_code'];
         option.textContent = item[fieldName + '_name'];
         dropdown.appendChild(option);
-      });
-    }
-  
   $('#ddl_year').on('change',function(){
-    labelPaymentMonthEmpty();
     getpaymentDate();
-  });
-
   function labelPaymentMonthEmpty(){
     $('#label_payment_date').empty();
     $('#label_payment_date').append($('<option>', {value: "", text: "--Please Select Payment Year Month--" }));
       $('#payment_date_input').val('');
-  }
-
   function getpaymentDate(){
-    $('#label_payment_date').empty();
     $('#label_payment_date').append($('<option>', { value: "", text: "--Payment Date Not Found--" }));
-    var userDataString = getCookie('payment_official');
-    userDataString = JSON.parse(userDataString);
-    var loginUser_id = userDataString['user_id'];
-
     var dataFilters = window.localStorage.getItem('filters');
-    $.ajax({
         url: APIURL + 'get_payment_date_new',
-        method: 'POST',
-        headers: {
-            'X-APP-KEY': config.app_key,
-            'X-APP-NAME': config.app_name
-        },
-        data: {
             ddl_scheme_cate: $('#ddl_scheme_cate').val(),
             ddl_scheme_code: $('#ddl_scheme_code').val(),
             ddl_scheme_name: $('#ddl_scheme_name').val(),
@@ -1410,9 +632,6 @@ $('#ddl_scheme_cate').on('change',function(){
             ddl_year: $('#ddl_year').val(),
             payment_date: $('#label_payment_date').val(),
             user_id: loginUser_id
-        },
-        dataType: 'json',
-        success: function (response) {
             if (response.success == 1) {
                 var paymentDates = response.data;
                 $('#label_payment_date').empty();
@@ -1422,128 +641,66 @@ $('#ddl_scheme_cate').on('change',function(){
                     value: "",
                     text: "--All--"
                   }));
-                }
                 else if (paymentDates.length == 0)
                 {
-                  $('#label_payment_date').append($('<option>', {
-                    value: "",
                     text: "--Payment Date Not Found--"
-                  }));
                   Swal.fire({
                     icon: "question",
                     title: "Details was not Found for the Given Period",
-                    showConfirmButton: false,
                     timer: 4000
                 });
-                }
                 paymentDates.forEach(function (date) {
                     $('#label_payment_date').append($('<option>', {
                         value: date.payment_date,
                         text: date.payment_date
                     }));
-                });
             } else if (response.success == 0) {
-                Swal.fire({
-                    icon: "question",
                     title: response.message,
-                    showConfirmButton: false,
-                    timer: 4000
-                });
-            }
-        },
         error: function (xhr, status, error) {
-            console.error("AJAX Error:", error);
-            Swal.fire({
                 icon: "error",
                 title: "Service Error!",
                 text: "Failed to retrieve payment dates.",
-                showConfirmButton: false,
-                timer: 2000
-            });
-        }
-    });
-}
-
 $('#label_payment_date').on('change', function () {
     let payment_date = $('#label_payment_date').val();
     let paymentTextAll = $('#label_payment_date :selected').text();
     $('#payment_date_input').val(payment_date);
     $('#formFilters').button();
-});
-
 function get_schemebyuser(userid){
-
-  // alert(userid);
   let ddl_scheme_cate = $('#ddl_scheme_cate').val();
   let ddl_scheme_code = $('#ddl_scheme_code').val();
   let ddl_scheme_name = $('#ddl_scheme_name').val();
   let ddl_sub_scheme = $('#ddl_sub_scheme').val();
   let ddl_department = $('#ddl_department').val();
   let ddl_sub_department = $('#ddl_sub_department').val();
-
   $('#ddl_payment_period').empty();
-
     $('#ddl_payment_cycle').text('');
     $('#payment_cycle_hidden').val('');
-
-      // var department = $('#ddl_department').val();
-      $.ajax({
       url: APIURL +'get_scheme_by_user',
       type: "POST",
       headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
       data: {user_id:userid,ddl_scheme_cate:ddl_scheme_cate,ddl_scheme_code:ddl_scheme_code,ddl_scheme_name:ddl_scheme_name,ddl_sub_scheme:ddl_sub_scheme,ddl_department:ddl_department,ddl_sub_department:ddl_sub_department},
       success: function(response) {
-          // console.log("Success:",JSON.parse(response)[0].data );
           if(response.success == 1){
-
           var output = response.data[0];
         $('#ddl_payment_cycle').text(output.payment_cycle_text);
         $('#payment_cycle_hidden').val(output.payment_cycle);
-
-        // get_schemebyuserPaymentPeriod(userid,paymentcycle,paymentperiod,iinstallment);
         bindDropDownList(output.payment_cycle_text,'#ddl_payment_period');
-          }else{
           console.log("Error:", response);
-          }
       },
       error: function(xhr, status, error) {
           console.log("Error:", error);
-          // Handle the error here
-      }
-    });
-}
-
 function bindDropDownList(type,element){
-  var userDataString = getCookie('payment_official');
-  userDataString = JSON.parse(userDataString);
   window.loginUser_id = userDataString['user_id'];
-
       $('#ddl_payment_installment').empty();
       $('#ddl_year').empty();
-      
       $('#ddl_year').append($('<option>', {
-          value: "",
-          text: "Select Year - Month"
-      }).attr('disabled','true').attr('selected', 'selected'));
-
-      $('#ddl_payment_installment').append($('<option>', {
-          value: "",
-          text: "Select Installment"
-      }).attr('disabled','true').attr('selected', 'selected'));
-
       if (typeof type === 'object') {
         type = type[0];
-      }
-
-    $.ajax({
       url: APIURL +'fn_general_getdropdownvalues',
-      type: "POST",
       headers: {'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
       data: {user_id: loginUser_id,dropdown_type:type},
-      success: function(response) {
         console.log(response);
         console.log(response.data);
-      
           var dropdownList = response.data;
           if(response.success ==1){
             $(element).show();
@@ -1552,109 +709,47 @@ function bindDropDownList(type,element){
           $(element).append($('<option>', {
                 value: "",
                 text: "Select "+type
-            }));
-          // Iterate over the JSON object and append options
           $.each(dropdownList, function (index, dep) {
             $(element).append($('<option>', {
                 value: dep.id,
                 text: dep.display_text
-            }));
           });
         }else{
-          $(element).empty();
           if(element!=null && element!=''&&element!=undefined){
             $(element).hide();
             $(element+'_col').hide();
-          }
-
           if(type=='Monthly' || type=='Yearly'){
             get_instalment_filter();
-          }
-        }
-      },
-      error: function(xhr, status, error) {
-          console.log("Error:", error);
-          // Handle the error here
-      }
-    });
-}
-
 $('#ddl_payment_period').on('change',function(){
   get_instalment_filter();
-});
-
-
 function resetYearMonth(){
   $('#ddl_year').selectpicker('destroy');
-  
   $('#ddl_year').empty();
   $('#ddl_year').append($('<option>', {
       value: "",
       text: "Select Year - Month"
   }).attr('disabled','true').attr('selected', 'selected'));
-
   $('#ddl_year').selectpicker();
-}
-
-
 function get_instalment_filter(){
-  
-  $('#ddl_year').selectpicker('destroy');
   $('#ddl_payment_installment').empty();
   $('#ddl_payment_installment').append($('<option>', {
-          value: "",
-          text: "Select Installment"
-      }).attr('disabled','true').attr('selected', 'selected'));
-  $('#ddl_year').empty();
-  $('#ddl_year').append($('<option>', {
-      value: "",
-      text: "Select Year - Month"
-  }).attr('disabled','true').attr('selected', 'selected'));
-
-  $('#ddl_year').selectpicker();
-
-
-  var userDataString = getCookie('payment_official');
-  userDataString = JSON.parse(userDataString);
-  window.loginUser_id = userDataString['user_id'];
-    
-  let ddl_scheme_cate = $('#ddl_scheme_cate').val();
-  let ddl_scheme_code = $('#ddl_scheme_code').val();
-  let ddl_scheme_name = $('#ddl_scheme_name').val();
-  let ddl_sub_scheme = $('#ddl_sub_scheme').val();
-  let ddl_department = $('#ddl_department').val();
-  let ddl_sub_department = $('#ddl_sub_department').val();
   let ddl_payment_period = $('#ddl_payment_period').val();
   let ddl_payment_cycle = $('#payment_cycle_hidden').val();
-  
   if(ddl_payment_period=='' || ddl_payment_period==null||ddl_payment_period==undefined){
     ddl_payment_period = -1;
-  }
-
-    $.ajax({
      url: APIURL +'get_installment_filter',
-     type: "POST",
-     headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
      data: {user_id:loginUser_id,ddl_scheme_cate:ddl_scheme_cate,ddl_scheme_code:ddl_scheme_code,ddl_scheme_name:ddl_scheme_name,ddl_sub_scheme:ddl_sub_scheme,ddl_department:ddl_department,ddl_sub_department:ddl_sub_department,paymentcycle:ddl_payment_cycle,paymentperiod:ddl_payment_period},
-     success: function(response) {
-
          if(response.success == 1){
           var output = response.data;
-
           console.log('ouput >>>', output);
-
               let installment = fetchDropdownValues('Installment');
               installment.then(function(arrayValue) {
               let grounList = [];
-
               output.forEach(element => {
                 grounList.push(element.installments);
               });
-
               let instamentList = arrayValue.filter(item => grounList.includes(item.id));
-            
               $('#ddl_payment_installment').empty();
-              
                 console.log('instamentList length', instamentList.length);
                 if(instamentList.length==1){
                   instamentList.forEach(list => {                 
@@ -1663,54 +758,24 @@ function get_instalment_filter(){
                     text: list.display_text
                   }).attr('selected','selected'));
                   $('#ddl_payment_installment').change();
-                });
                 }else{
                   $('#ddl_payment_installment').append($('<option>', { value: "",text: "Select Installment"}).attr('disabled','true').attr('selected', 'selected'));
                     instamentList.forEach(list => {                 
                     $('#ddl_payment_installment').append($('<option>', {
                       value: list.value,
                       text: list.display_text
-                    }));
                   });
-                }
-              });
          }else{
-          console.log("Error:", response);
-         }
-     },
-     error: function(xhr, status, error) {
-         console.log("Error:", error);
-         // Handle the error here
-     }
-   });
-}
-
 $('#ddl_payment_installment').on('change',function(){
-  $('#ddl_year').selectpicker('destroy');
-          
   let instalmment_value = $('#ddl_payment_installment').val();
-  
   if(instalmment_value!='' || instalmment_value!=null){
       let installment_txt_value = $('#ddl_payment_installment option:selected').text();
-      
       $('#installment_txt_value').val(installment_txt_value);
   }else{
       let installment_txt_value = '';
-      $('#installment_txt_value').val(installment_txt_value);
-  }
-  
-
-  $('#ddl_year').empty();
-      
-      $('#ddl_year').append($('<option>', {
-          value: "",
-          text: "Select Year - Month"
-      }).attr('disabled','true').attr('selected', 'selected'));
-
 var userDataString = getCookie('payment_official');
 userDataString = JSON.parse(userDataString);
 window.loginUser_id = userDataString['user_id'];
-  
 let ddl_scheme_cate = $('#ddl_scheme_cate').val();
 let ddl_scheme_code = $('#ddl_scheme_code').val();
 let ddl_scheme_name = $('#ddl_scheme_name').val();
@@ -1721,89 +786,48 @@ let ddl_payment_period = $('#ddl_payment_period').val();
 let ddl_payment_cycle = $('#payment_cycle_hidden').val();
 let ddl_payment_installment = $('#ddl_payment_installment').val();
 if(ddl_payment_period=='' || ddl_payment_period==null||ddl_payment_period==undefined){
-    ddl_payment_period = -1;
-  }
-  $.ajax({
    url: APIURL +'get_year_filter',
    type: "POST",
    headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
    data: {user_id:loginUser_id,ddl_scheme_cate:ddl_scheme_cate,ddl_scheme_code:ddl_scheme_code,ddl_scheme_name:ddl_scheme_name,ddl_sub_scheme:ddl_sub_scheme,ddl_department:ddl_department,ddl_sub_department:ddl_sub_department,paymentcycle:ddl_payment_cycle,paymentperiod:ddl_payment_period,iinstallment:ddl_payment_installment},
    success: function(response) {
-
        if(response.success == 1){
         var output = response.data;
-        // Iterate over the JSON object and append options
         $.each(output, function (index, list) {
-            // if(sub_dep.sub_department_code==subDepID){ 
-
               $('#ddl_year').append($('<option>', {
                 value: list.yyyymm,
                 text: list.yyyymm_text
-            }));
-          // }
         });
         $('#ddl_year').trigger('change');
-      
         $("#ddl_year").val($("#ddl_year option:eq(1)").val());
-
         $('#ddl_year').selectpicker();
-
         $("#fromSubmitbtn").click();
-        
-
        }else{
         console.log("Error:", response);
-       }
-       
-    
    },
    error: function(xhr, status, error) {
        console.log("Error:", error);
-       // Handle the error here
-   }
  });
-});
-
-
 async function dropDownList(type) {
   try {
       var userDataString = getCookie('payment_official');
       userDataString = JSON.parse(userDataString);
       window.loginUser_id = userDataString['user_id'];
-
       const response = await $.ajax({
           url: APIURL + 'fn_general_getdropdownvalues',
           type: "POST",
           headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
           data: { user_id: loginUser_id, dropdown_type: type }
-      });
-
-      // console.log(response.data);
       return response.data;
   } catch (error) {
       console.error("Error:", error);
       throw error;
-  }
-}
-
 async function fetchDropdownValues(type) {
-  try {
       let getDropDown = await dropDownList(type);
-      // console.log(`type >>`, getDropDown);
       return getDropDown;
-  } catch (error) {
       console.error('Error occurred:', error);
-  }
-}
-
-// $('#scheme_wise_dashboard').hide();
-// $('#filter_based_info_card_div').hide();
-
-
-
 var formsFilter = [];
 window.localStorage.removeItem('filters');
-/*from submit*/
   $("#formFilters").validate({
           rules: {
             ddl_scheme_cate: {required: true},
@@ -1812,11 +836,8 @@ window.localStorage.removeItem('filters');
             ddl_sub_scheme: {required: true},
             ddl_department: {required: true},
             ddl_sub_department: {required: true},
-            // ddl_year :{required: true},
-            // ddl_payment_period: {required: true},
             ddl_payment_installment : {required: true},
             ddl_year : {required: true},
-            // label_payment_date: {required: true},
           },
           messages: {
             ddl_scheme_cate: {required: "Select the Scheme Category"},
@@ -1825,80 +846,37 @@ window.localStorage.removeItem('filters');
             ddl_sub_scheme: {required: "Select the Sub Scheme Name"},
             ddl_department: {required: "Select the Deparment"},
             ddl_sub_department: {required: "Select the Sub Deparment"},
-            // ddl_payment_period: {required: "Select the Payment Period"},
             ddl_payment_installment : {required: "Select the Installment"},
-            // label_payment_date: {required: "select the date"},
             ddl_year :{required: "Select the Year Month"},
-
-
-          },
           errorClass: "help-inline text-danger",
           errorElement: "span",
           highlight: function(element, errorClass, validClass) {
               $(element).parents('.form-group').addClass('has-error');
-          },
           unhighlight: function(element, errorClass, validClass) {
               $(element).parents('.form-group').removeClass('has-error');
               $(element).parents('.form-group').addClass('has-success');
-          },
           submitHandler: function(form,e) {
               e.preventDefault();
-              // console.log('Form submitted');
               formsFilter.length = 0;
               formsFilter = [];
               var formData = $(form).serialize();
               window.localStorage.removeItem('filters');
               window.localStorage.setItem('filters', JSON.stringify(formData));
-              // window.localStorage.setItem('filters', formData);
-
               $('#lable_text_scheme_cate').text($('#ddl_scheme_cate').val());
               $('#lable_text_scheme_code').text($('#ddl_scheme_code').val());
               $('#lable_text_scheme').text($('#ddl_scheme_name').val());
               $('#lable_text_sub_scheme').text($('#ddl_sub_scheme').val());
               $('#lable_text_Department').text($("#ddl_department option:selected").text());
               $('#lable_text_sub_department').text($("#ddl_sub_department option:selected").text());
-              let paymentCycle = $('#ddl_payment_cycle').text();
-              if($("#ddl_payment_period option:selected").val()!='' && $("#ddl_payment_period option:selected").val()!=null && $("#ddl_payment_period option:selected").val()!=undefined){
-                paymentCycle = $('#ddl_payment_cycle').text()+'-'+$("#ddl_payment_period option:selected").text();
-              }
-
-              $('#lable_text_payment_period').text(paymentCycle);
-              
-              $('#lable_text_year_month').text($("#ddl_year option:selected").text());
-              $('#lable_text_installment').text($("#ddl_payment_installment option:selected").text());
-              // $('#lable_text_month').text(mm);
-              
-
-              if ($('#ddl_scheme_code').val() !== '' && $('#ddl_scheme_name').val() !== '' && $('#ddl_sub_scheme').val() !== '' && $('#ddl_department').val() !== '' && $('#ddl_sub_department').val() !== '') {
-
-                if(($('#payment_date_input').val()=='' )|| ($('#payment_date_input').val() == null) || ($('#payment_date_input').val() == undefined)){
-                  getpaymentDate();
-                }
-                  // $('#filter_based_info_card_div').show();
                   $('#tblCard').show();
-                  // $('#btnfilter').click();
                   $('#accordionExample .accordion-collapse').collapse('hide');
-
                     var tabId = $('#approvelpayment').val();
                     if(tabId==''){tabId = 8;}
                     tabClickValue(tabId);
-
                     $('html, body').animate({
                     scrollTop: $("#tblCard").offset().top
                     }, 2000);
-
-              }else{
-                // $('#filter_based_info_card_div').hide();
-              }
-            
-              // $('#filter_based_info_card_div').show();
-              // $('#tblCard').show();
-              // $('#btnfilter').click();
-
               return false;
-          }
-    });
-
 window.getCurrentTabId = -1;
   </script>
   </body>

@@ -6,17 +6,14 @@
     <title>Payment Automation Dashboard</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
-    <!-- Favicons -->
+    
     <link href="assets/img/tn_logo.png" rel="icon">
     <link href="assets/img/tn_logo.png" rel="apple-touch-icon">
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-    <!-- Vendor CSS Files -->
+    <link href="https:
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <!-- CSS File --> 
+     
     <link href="assets/css/style2.css" rel="stylesheet">
     <link href="assets/vendor/toastr/toastr.min.css" rel="stylesheet">
   </head>
@@ -34,10 +31,7 @@
     </style>
 
     <section class="wavescss">
-      <!-- <div class='air air1'></div>
-      <div class='air air2'></div>
-      <div class='air air3'></div>
-      <div class='air air4'></div> -->
+      
     </section>
     <section class="w-100 pos-relative">
       <div class="container">
@@ -45,115 +39,81 @@
           <div class="col-lg-12 text-center">
             <img src="assets/img/logo.png" alt="Govt. Of India" class="logoImg">
             <h3 class="fw-bold text-white">Government of Tamilnadu</h3>
-            <!-- <p class="mb-0 fw-bold">Government of Tamilnadu</p> -->
+            
           </div>
           <div class="">
             <div class="card col-lg-12 mb-3 mauto">
               <div class="card-body pt-5 pb-3">
                 <div class="logo-section text-center">
-                  <!-- <img src="assets/img/user_icon.png" class="img-fluid logo" alt="Department"> -->
+                  
                   <h2 class="logo-txt1 text-default"><b><i class="bi bi-credit-card-2-front"></i> Payment Automation</b></h2>
                 </div>
-
                 <form class="row" id="official_login_form" method="POST" autocomplete="off">
                         <div class="input-group mb-2" id="div_password">
                           <input type="text" id="mobileNo" name="mobileNo" class="form-control form-control"
                             placeholder="Enter UserName" autocomplete="off">
                         </div>
-                        <div class="input-group mb-2" id="div_password">
                           <input type="password" id="official_password" name="official_password" class="form-control form-control"
                             placeholder="Enter Password" autocomplete="off">
-                        </div>
                         <div class="input-group mb-2" id="captcha">
                           <div class="captcha-container" id="official_custom_captcha" style="background: repeating-linear-gradient(-45deg, transparent, transparent 5px, #e9e9e9 5px, #d2d1d1 10px);user-select: none;"><strong>JmZ0qm</strong></div>
                           <input type="text" id="official_captcha_input" name="official_captcha_input" class="form-control form-control small-input" placeholder="Enter Captcha" autocomplete="off">
                           <span id="official_refresh_captcha" class="refresh-icon ms-2"><i class="bi bi-arrow-repeat" style="font-size: 20px;"></i></span>
-                        </div>
                         <div class="mb-3 mt-3 h-100 d-flex align-items-center justify-content-center">
                           <a href="javascript:void(0);" id="official_login" value="Submit"  class="btn btn-lg btn-otp btn-success d-block">Submit</a>
-                        </div>
                       </form>
-
-
                 
               </div>
             </div>
             <div class="col-lg-2"></div>
-          </div>
         </div>
       </div>
-    </section>
     <div class="col-lg-12 text-center footerInfo">
       <p class="text-white">TNeGA, Copyright © 2023. All Rights Reserved</p>
     </div>
-    <!-- view project ends -->
-
-      <!-- jQuery -->
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/jquery-validate/js/jquery.validate.min.js"></script>
   <script src="assets/vendor/sweetalert2/js/sweetalert.min.js"></script>
   <script src="assets/vendor/sweetalert2/js/sweetalert2.all.min.js"></script>
   <script type="text/javascript" src="assets/vendor/toastr/toastr.min.js"></script>
-  <!-- Main JS File -->
+  
   <script src="assets/js/main.js"></script>
   <script src="assets/js/global.js"></script>
   <script src="assets/js/base64tojson.js"></script>
   <script src="assets/js/crypto-js.js"></script>
   <script src="assets/js/aes.js"></script>
-
-  <!-- Crypto js -->
   <script src="assets/vendor/encryption/crypto-js.min.js"></script>
-  <!-- Encryption js -->
   <script src="assets/vendor/encryption/Encryption.js"></script>
-
-  <!-- START: Document ready function  -->
   <script>
     var txn = '';
-    // document.getElementById('txt_aadhar_number').addEventListener('input', function () {
-    //   this.value = this.value.replace(/[^\d]/g, ''); // Remove non-digit characters
-    // });
-    // document.getElementById('txt_entered_otp').addEventListener('input', function () {
-    //   this.value = this.value.replace(/[^\d]/g, ''); // Remove non-digit characters
-    // });
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {
          document.getElementById('mobileNo').value = '';
          document.getElementById('official_password').value = '';
-      }, 700); // Set the delay in milliseconds (1 second in this example)
+      }, 700); 
    });
-
     let timerInterval;
     function startTimer() {
       $('#timer').show();
       let timeLeft = 90;
       updateTimerDisplay(timeLeft);
-
       clearInterval(timerInterval);
       timerInterval = setInterval(function () {
         timeLeft--;
-
         if (timeLeft >= 0) {
           updateTimerDisplay(timeLeft);
         } else {
-
           clearInterval(timerInterval);
           timeLeft = 90;
-          updateTimerDisplay(timeLeft);
           $('#time_otp').show();
           $('#btnGetOTP').prop("disabled", false);
-        }
       }, 1000);
-
     }
-    
-
     function updateTimerDisplay(timeLeft) {
       const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
       const seconds = (timeLeft % 60).toString().padStart(2, '0');
       document.getElementById('timer').textContent = `${minutes}:${seconds}`;
-    }
-
     $(document).ready(function () {
       function encrypt(data, key, iv) {
         return CryptoJS.AES.encrypt(data, key, {
@@ -163,210 +123,15 @@
         }).toString();
       }
       $("#resendLink").click(function (e) {
-        $('#btnGetOTP').click(); // Trigger the click event on #btnGetOTP2
+        $('#btnGetOTP').click(); 
       });
-
-      
-
-      // $('#div_otp_verify').hide();
-      // $('#btnGetOTP2').on('click', function () {
-      //   var Aadhar = $('#txt_aadhar_number').val();
-
-      //   // Check if Aadhar number is empty
-      //   if (Aadhar === '') {
-      //     // Display a SweetAlert error
-      //     Swal.fire({
-      //       icon: 'error',
-      //       title: 'Error',
-      //       text: 'உங்கள் ஆதார் எண்ணை உள்ளிடவும்',
-      //     });
-      //   }
-      //   else if (Aadhar.length !== 12) {
-      //     // Display a SweetAlert error for Aadhar not being 12 digits
-      //     Swal.fire({
-      //       icon: 'error',
-      //       title: 'Error',
-      //       text: 'Aadhar number should be 12 digits',
-      //     });
-      //   } else {
-      //     var Aadhar = $('#txt_aadhar_number').val();
-      //     var secretKey = CryptoJS.lib.WordArray.random(16); // 128 bits (16 bytes) for AES-128
-      //     var iv = CryptoJS.lib.WordArray.random(16); // 128 bits (16 bytes) IV
-
-      //     // Convert the key and IV to hexadecimal strings for transmission
-      //     var secretKeyHex = CryptoJS.enc.Hex.stringify(secretKey);
-      //     var ivHex = CryptoJS.enc.Hex.stringify(iv);
-
-      //     // Encrypt the password using the generated key and IV
-      //     var encryptedAadharString = encrypt(Aadhar, secretKey, iv);
-      //     var expirationDate = new Date();
-      //     expirationDate.setDate(expirationDate.getDate() + 1);
-      //     document.cookie = 'encryptedAadhar=' + encodeURIComponent(encryptedAadharString) + "; expires=" + expirationDate.toUTCString();
-      //     document.cookie = 'secretKey=' + encodeURIComponent(secretKey) + "; expires=" + expirationDate.toUTCString();
-      //     document.cookie = 'iv=' + encodeURIComponent(iv) + "; expires=" + expirationDate.toUTCString();
-
-      //     $.ajax({
-      //       url: API_URL + 'dashboard/get_application_by_aadhaar',
-      //       method: 'POST',
-      //       headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
-      //       data: {
-      //         uid: Aadhar,
-      //       },
-      //       dataType: 'json',
-      //       success: function (response) {
-      //         if (response.success == 1) {
-      //           var applicantData = localStorage.setItem('kmut_mobile', JSON.stringify(response.appeal_list[0]));
-      //           var applicantData = JSON.parse(localStorage.getItem('kmut_mobile'));
-      //           var mobileNumber1 = (applicantData.applicant_mobile != null && applicantData.applicant_mobile !== "") ? applicantData.applicant_mobile : applicantData.alternative_number;
-
-      //           $.ajax({
-      //             url: sent_OTP_URL,
-      //             method: 'POST',
-      //             headers: { 'X-APP-NAME': '#$kmUt#$' },
-      //             data: {
-      //               mobile_number: mobileNumber1,
-      //               otp_type: 'sms',
-      //               request_type: 'send',
-      //               app_name: 'கலைஞர் மகளிர் உரிமைத் திட்டம்'
-      //             },
-      //             dataType: 'json',
-      //             success: function (response) {
-
-      //               Swal.fire({
-      //                 icon: 'success',
-      //                 title: 'Success!',
-      //                 text: 'OTP வெற்றிகரமாக அனுப்பப்பட்டுள்ளது!',
-      //                 showConfirmButton: false, // Hide the "OK" button
-      //                 timer: 1000, // Auto-close after 2 seconds
-      //               })
-
-      //             },
-      //             error: function () {
-      //               Swal.fire({
-      //                 icon: 'error',
-      //                 title: 'Error!',
-      //                 text: 'ஏற்கனவே உள்ள OTP காலாவதியான பிறகு மீண்டும் முயற்சிக்கவும். OTP 3 நிமிடங்களில் காலாவதியாகிவிடும்',
-      //               }).then((result) => {
-      //                 if (result.isConfirmed) {
-      //                   window.location.href = "login.html";
-      //                 }
-      //               });
-      //             }
-      //           });
-      //         }
-      //         else if (response.success == 0) {
-      //           Swal.fire({
-      //             icon: 'error',
-      //             title: 'Error!',
-      //             text: 'தாங்கள் அளித்த ஆதார் எண் எங்கள் தரவுகளில் இல்லை!',
-      //           }).then(() => {
-      //             window.location.href = "login.html";
-      //           });
-      //         }
-
-      //       },
-      //       error: function (data, textStatus, http) {
-      //         Swal.fire({
-      //           icon: 'error',
-      //           title: 'Error!',
-      //           text: 'தயவு செய்து ஆதார் எண்ணை சரிபார்க்கவும்! ',
-      //         }).then(() => {
-      //           window.location.href = "login.html";
-      //         });
-      //       }
-      //     });
-      //   }
-      // });
-
-      // $('#btnOTPVerify2').on('click', function () {
-      //   var Aadhar = $('#txt_aadhar_number').val();
-      //   var applicantData = JSON.parse(localStorage.getItem('kmut_mobile'));
-      //   var mobileNumber = applicantData.applicant_mobile;;
-      //   const userEnteredCaptcha = document.getElementById('captcha_input').value;
-      //   const actualCaptcha = document.getElementById('custom_captcha').textContent;
-      //   if (userEnteredCaptcha === actualCaptcha) {
-      //     $.ajax({
-      //       url: sent_OTP_URL,
-      //       method: 'POST',
-      //       headers: { 'X-APP-NAME': '#$kmUt#$' },
-      //       data: {
-      //         mobile_number: mobileNumber,
-      //         otp: $('#txt_entered_otp').val(),
-      //         otp_type: 'sms',
-      //         request_type: 'verify',
-      //         app_name: 'கலைஞர் மகளிர் உரிமைத் திட்டம்'
-      //       },
-      //       dataType: 'json',
-      //       success: function (response) {
-      //         if (response[0].success == 1) {
-      //           $.ajax({
-      //             url: API_URL + 'userMaster/login',
-      //             method: 'POST',
-      //             headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
-      //             data: {
-      //               case: 'publicLogin',
-      //               aadhar_number: Aadhar,
-      //             },
-      //             dataType: 'json',
-      //             success: function (response) {
-      //               console.log(response.details);
-      //               var expirationDate = new Date();
-      //               expirationDate.setDate(expirationDate.getDate() + 1);
-      //               // Convert the object to a JSON string
-      //               var detailsJSON = JSON.stringify(response.details);
-      //               document.cookie =
-      //                 "kmut_web_portal=" + detailsJSON + "; expires=" + expirationDate.toUTCString();
-      //               localStorage.removeItem('kmut_mobile');
-
-      //               window.location.href = "user-dashboard.html";
-
-      //             },
-      //             error: function (data, textStatus, http) {
-      //               Swal.fire({
-      //                 icon: 'error',
-      //                 title: 'Error!',
-      //                 text: 'தயவு செய்து ஆதார் எண்ணை சரிபார்க்கவும்! ',
-      //               }).then(() => {
-      //                 window.location.href = "login.html";
-      //               });
-      //             },
-      //           })
-      //         }
-      //       },
-      //       error: function () {
-      //         Swal.fire({
-      //           icon: 'error',
-      //           title: 'Error!',
-      //           text: 'தயவு செய்து OTP ஐ சரிபார்க்கவும்',
-      //           timer: 2000,
-      //         })
-      //       }
-      //     });
-      //   }
-      //   else {
-      //     Swal.fire({
-      //       icon: 'error',
-      //       title: 'Error!',
-      //       text: 'கேப்ட்சா தவறானது!. தயவு செய்து மீண்டும் முயற்சிக்கவும். ',
-      //     }).then((result) => {
-      //       if (result.isConfirmed) {
-      //         generateCaptcha();
-      //       }
-      //     });
-
-      //   }
-
-      // });
-      /*START: OTP Verify*/
       $('#btnOTPVerify1').on('click', function () {
         const userEnteredCaptcha = document.getElementById('captcha_input').value;
         const actualCaptcha = document.getElementById('custom_captcha').textContent;
         if (userEnteredCaptcha === actualCaptcha) {
           var enteredOTP = $('#txt_entered_otp').val();
-          var validOTP = 1234; // Change this to your valid OTP
-
+          var validOTP = 1234; 
           if (enteredOTP === '') {
-            // Display a SweetAlert error if the OTP field is empty
             Swal.fire({
               icon: 'error',
               title: 'Error',
@@ -374,7 +139,6 @@
             });
           } else if (parseInt(enteredOTP) === validOTP) {
             var storedData = localStorage.getItem('kmut_public');
-
             if (!storedData) {
               var expirationDate = new Date();
               expirationDate.setDate(expirationDate.getDate() + 1);
@@ -382,16 +146,13 @@
               var address_details_jsonStr = JSON.stringify({ "co": "D/O:Kumar", "country": "India", "dist": "Madurai", "house": "11/104", "lm": "Thirumangalam", "pc": "608940", "state": "Tamil Nadu", "street": "R K Nagar" });
               document.cookie =
                 "kmut_web_portal=" + basic_details_jsonStr + "; expires=" + expirationDate.toUTCString();
-              document.cookie =
                 "kmut_web_portal_address_details=" + address_details_jsonStr + "; expires=" + expirationDate.toUTCString();
               window.location.href = "user-dashboard.html";
-
             }
             else {
               var parsedData = JSON.parse(storedData);
               var rationCard = parsedData.ufc_no;
               $.ajax({
-                //url: KMUTAPIURL + '/v1/application_status_check',
                 url: API_URL + 'super_check/application_status_check',
                 method: 'POST',
                 headers: { 'X-APP-KEY': 'km$ut_verific@tion', 'X-APP-NAME': config.app_name },
@@ -418,23 +179,12 @@
                       var address_details_jsonStr = JSON.stringify({ "co": "D/O:Annamalai", "country": "India", "dist": "Vilupuram", "house": "1/84", "lm": "VASANTHAPURAM", "pc": "6040001", "state": "Tamil Nadu", "street": "south street" });
                       document.cookie = "kmut_web_portal=" + basic_details_jsonStr + "; expires=" + expirationDate.toUTCString();
                       document.cookie = "kmut_web_portal_address_details=" + address_details_jsonStr + "; expires=" + expirationDate.toUTCString();
-
                       document.cookie = "kmut_public=" + JSON.stringify(details1);
                       localStorage.removeItem('kmut_public');
                     }
                     else {
-                      var expirationDate = new Date();
-                      expirationDate.setDate(expirationDate.getDate() + 1);
                       var basic_details_jsonStr = JSON.stringify({ "dob": "25-08-1978", "gender": "F", "name": "Nikitha" });
                       var address_details_jsonStr = JSON.stringify({ "co": "D/O:Sivaji", "country": "India", "dist": "Dindugul", "house": "11/24", "lm": "Nilakottai", "pc": "6080001", "state": "Tamil Nadu", "street": "West street" });
-                      document.cookie = "kmut_web_portal=" + basic_details_jsonStr + "; expires=" + expirationDate.toUTCString();
-                      document.cookie = "kmut_web_portal_address_details=" + address_details_jsonStr + "; expires=" + expirationDate.toUTCString();
-
-                      document.cookie = "kmut_public=" + JSON.stringify(details1);
-                      localStorage.removeItem('kmut_public');
-
-                    }
-
                     window.location.href = "user-dashboard.html";
                   }
                   else {
@@ -444,11 +194,7 @@
                     var address_details_jsonStr = JSON.stringify({ "co": "D/O:Kumar", "country": "India", "dist": "Madurai", "house": "11/104", "lm": "Thirumangalam", "pc": "608940", "state": "Tamil Nadu", "street": "R K Nagar" });
                     document.cookie =
                       "kmut_web_portal=" + basic_details_jsonStr + "; expires=" + expirationDate.toUTCString();
-                    document.cookie =
                       "kmut_web_portal_address_details=" + address_details_jsonStr + "; expires=" + expirationDate.toUTCString();
-                    window.location.href = "user-dashboard.html";
-                  }
-                },
                 error: function () {
                   Swal.fire({
                     icon: 'error',
@@ -457,21 +203,12 @@
                   }).then((result) => {
                     if (result.isConfirmed) {
                       window.location.href = "login.html";
-                    }
                   });
                 }
               });
-            }
           }
           else {
-            // Display a SweetAlert error if the OTPs don't match
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
               text: 'Entered OTP is incorrect',
-            });
-          }
-        }
         else {
           Swal.fire({
             icon: 'error',
@@ -480,39 +217,25 @@
           }).then((result) => {
             if (result.isConfirmed) {
               generateCaptcha();
-            }
           });
-
-        }
-
-      });
       $('#btnGetOTP1').on('click', function () {
         var Aadhar = $('#txt_aadhar_number').val();
-        // Check if Aadhar number is empty
+        
         if (Aadhar === '') {
-          // Display a SweetAlert error
-          Swal.fire({
-            icon: 'error',
+          
             title: 'Error',
             text: 'Please enter your Aadhar number',
-          });
-        } else {
           var Aadhar = $('#txt_aadhar_number').val();
-          var secretKey = CryptoJS.lib.WordArray.random(16); // 128 bits (16 bytes) for AES-128
-          var iv = CryptoJS.lib.WordArray.random(16); // 128 bits (16 bytes) IV
-
-          // Convert the key and IV to hexadecimal strings for transmission
+          var secretKey = CryptoJS.lib.WordArray.random(16); 
+          var iv = CryptoJS.lib.WordArray.random(16); 
           var secretKeyHex = CryptoJS.enc.Hex.stringify(secretKey);
           var ivHex = CryptoJS.enc.Hex.stringify(iv);
-
-          // Encrypt the password using the generated key and IV
           var encryptedAadharString = encrypt(Aadhar, secretKey, iv);
           var expirationDate = new Date();
           expirationDate.setDate(expirationDate.getDate() + 1);
           document.cookie = 'encryptedAadhar=' + encodeURIComponent(encryptedAadharString) + "; expires=" + expirationDate.toUTCString();
           document.cookie = 'secretKey=' + encodeURIComponent(secretKey) + "; expires=" + expirationDate.toUTCString();
           document.cookie = 'iv=' + encodeURIComponent(iv) + "; expires=" + expirationDate.toUTCString();
-
           $.ajax({
             url: API_URL + 'userMaster/login',
             method: 'POST',
@@ -523,34 +246,20 @@
             },
             dataType: 'json',
             success: function (response) {
-
               if (response.success == 1) {
                 Swal.fire({
                   icon: 'success',
                   title: 'Success!',
                   text: 'OTP Sent Successfully!',
-                  showConfirmButton: false, // Hide the "OK" button
-                  timer: 1000, // Auto-close after 2 seconds
+                  showConfirmButton: false, 
+                  timer: 1000, 
                 }).then(() => {
                   localStorage.setItem('kmut_public', JSON.stringify(response.details));
-
                   $('#div_otp_enter').hide();
                   $('#div_otp_verify').show();
                 });
               }
               else if (response.success == 0) {
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Success!',
-                  text: 'OTP Sent Successfully!',
-                  showConfirmButton: false, // Hide the "OK" button
-                  timer: 1000, // Auto-close after 2 seconds
-                }).then(() => {
-                  // $('#div_otp_enter').hide();
-                  // $('#div_otp_verify').show();
-                });
-              }
-            },
             error: function () {
               Swal.fire({
                 icon: 'error',
@@ -559,140 +268,53 @@
               }).then((result) => {
                 if (result.isConfirmed) {
                   window.location.href = "login.html";
-                }
-              });
-            }
-          });
-
-
-        }
-      });
-      /*START: OTP Verify*/
       $('#btnGetOTP').on('click', function () {
-        var Aadhar = $('#txt_aadhar_number').val();
         var attemptCount = localStorage.getItem('aadharAttemptCount') || 0;
         var lastAttemptTimestamp = localStorage.getItem('aadharLastAttemptTimestamp');
         var currentTimestamp = new Date().getTime();
-        // Check if Aadhar number is empty
-        if (Aadhar === '') {
-          // Display a SweetAlert error
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
             text: 'உங்கள் ஆதார் எண்ணை உள்ளிடவும்',
-          });
         } else if (attemptCount >= 3) {
-          Swal.fire({
-            icon: 'error',
             text: 'அதிகபட்ச முயற்சிகளை அடைந்துவிட்டீர்கள். 30 நிமிடங்களுக்குப் பிறகு மீண்டும் முயற்சிக்கவும்.',
             showConfirmButton: false,
             timer: 2000,
-          });
           attemptCount = 0;
           localStorage.setItem('aadharAttemptCount', attemptCount);
-        }
-        else {
-          var Aadhar = $('#txt_aadhar_number').val();
-          var secretKey = CryptoJS.lib.WordArray.random(16); // 128 bits (16 bytes) for AES-128
-          var iv = CryptoJS.lib.WordArray.random(16); // 128 bits (16 bytes) IV
-
-          // Convert the key and IV to hexadecimal strings for transmission
-          var secretKeyHex = CryptoJS.enc.Hex.stringify(secretKey);
-          var ivHex = CryptoJS.enc.Hex.stringify(iv);
-
-          // Encrypt the password using the generated key and IV
-          var encryptedAadharString = encrypt(Aadhar, secretKey, iv);
-          var expirationDate = new Date();
-          expirationDate.setDate(expirationDate.getDate() + 1);
-          document.cookie = 'encryptedAadhar=' + encodeURIComponent(encryptedAadharString) + "; expires=" + expirationDate.toUTCString();
-          document.cookie = 'secretKey=' + encodeURIComponent(secretKey) + "; expires=" + expirationDate.toUTCString();
-          document.cookie = 'iv=' + encodeURIComponent(iv) + "; expires=" + expirationDate.toUTCString();
-
           var form_data = {};
           form_data['aadhar_id'] = $('#txt_aadhar_number').val();
           form_data['request_type'] = 'send';
           form_data['app_name'] = 'kmut';
-
           let encryption = new Encryption();
           var unameEncrypted = encryption.encrypt(JSON.stringify(form_data), nonve);
           $('#btnGetOTP').prop("disabled", true);
-          $.ajax({
             url: Generic_UID,
-            method: 'POST',
             headers: { 'X-APP-NAME': '#$kmUt#$', 'Ran': nonve },
             data: { 'data': unameEncrypted },
-            dataType: 'json',
-            success: function (response) {
-
               var decrypted_data = JSON.parse(encryption.decrypt(response, nonve));
               if (decrypted_data.success == true) {
-                Swal.fire({
-                  icon: 'success',
                   text: 'OTP வெற்றிகரமாக அனுப்பப்பட்டுள்ளது!',
                   showConfirmButton: false,
                   timer: 2000
                 })
                 localStorage.setItem("txn", decrypted_data.txn);
-                // $('#div_otp_enter').hide();
-                // $('#div_otp_verify').show();    
                 startTimer();
-              }
               attemptCount++;
               localStorage.setItem('aadharAttemptCount', attemptCount);
-
-            },
             error: function (data, textStatus, http) {
               var decrypted_data1 = JSON.parse(encryption.decrypt(data.responseJSON, nonve));
               if (decrypted_data1.success == 0) {
-                Swal.fire({
                   icon: 'error',
                   text: decrypted_data1.message,
-                  showConfirmButton: false,
                   timer: 2000,
-                })
-              }
               $('#btnGetOTP').prop("disabled", false);
               attemptCount = 0;
-              localStorage.setItem('aadharAttemptCount', attemptCount);
-
-            },
-
-          });
-        }
-
-      });
-
-
       $('#btnOTPVerify').on('click', function () {
-        var Aadhar = $('#txt_aadhar_number').val();
         var otp = $('#txt_entered_otp').val();
         var captcha = $('#captcha_input').val();
-        // Check if Aadhar number is empty
-        if (Aadhar === '') {
-          // Display a SweetAlert error
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
             text: 'உங்கள் ஆதார் எண்ணை உள்ளிடவும்!',
-          });
         } else if (otp === '') {
-          // Display a SweetAlert error
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
             text: 'தயவுசெய்து otp ஐ உள்ளிடவும்!',
-          });
-        }
         else if (captcha == '') {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
             text: 'தயவுசெய்து கேப்ட்சாவை உள்ளிடவும்!',
-          });
-        }
-
-        else {
-
           const userEnteredCaptcha = document.getElementById('captcha_input').value;
           const actualCaptcha = document.getElementById('custom_captcha').textContent;
           if (userEnteredCaptcha === actualCaptcha) {
@@ -705,8 +327,6 @@
             form_data['basic_details'] = true;
             form_data['address_details'] = true;
             form_data['photo_details'] = true;
-            //console.log(form_data);
-            // Encrypt form data
             let encryption = new Encryption();
             var unameEncrypted = encryption.encrypt(JSON.stringify(form_data), nonve);
             $.ajax({
@@ -717,25 +337,14 @@
               dataType: 'json',
               success: function (response) {
                 var decrypted_data = JSON.parse(encryption.decrypt(response, nonve));
-                //console.log(decrypted_data);
                 if (decrypted_data.success == true) {
-                  // Swal.fire({
-                  //   icon: 'success',
-                  //   text: decrypted_data.message,
-                  //   showConfirmButton: false,
-                  //   timer: 2000,
-                  // })
-
                   var basic_details_jsonStr = JSON.stringify(decrypted_data.basic_details);
                   var address_details_jsonStr = JSON.stringify(decrypted_data.address_details);
                   var photo_details_jsonStr = decrypted_data.photo_details;
-
-                  //document.cookie = "kmut_web_portal=" + jsonStr;
                   var expirationDate = new Date();
                   expirationDate.setDate(expirationDate.getDate() + 1);
                   document.cookie =
                     "kmut_web_portal=" + basic_details_jsonStr + "; expires=" + expirationDate.toUTCString();
-                  document.cookie =
                     "kmut_web_portal_address_details=" + address_details_jsonStr + "; expires=" + expirationDate.toUTCString();
                   localStorage.setItem("photo_details", photo_details_jsonStr);
                   $.ajax({
@@ -755,16 +364,11 @@
                       else {
                         var expirationDate = new Date();
                         expirationDate.setDate(expirationDate.getDate() + 1);
-                        // Convert the object to a JSON string
+                        
                         var detailsJSON = JSON.stringify(response.details);
                         document.cookie =
                           "kmut_public=" + detailsJSON + "; expires=" + expirationDate.toUTCString();
-
-                        window.location.href = "user-dashboard.html";
-                      }
                       localStorage.removeItem('aadharAttemptCount');
-
-                    },
                     error: function (data, textStatus, http) {
                       Swal.fire({
                         icon: 'error',
@@ -773,155 +377,66 @@
                       }).then(() => {
                         window.location.href = "login.html";
                       });
-                    },
                   })
-
-                }
                 else {
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
                     text: 'தயவு செய்து OTP ஐ சரிபார்க்கவும்! ',
                   }).then(() => {
                     window.location.href = "login.html";
-                  });
-                }
               },
               error: function (data, textStatus, http) {
                 var decrypted_data1 = JSON.parse(encryption.decrypt(data.responseJSON, nonve));
                 if (decrypted_data1.success == 0) {
-                  Swal.fire({
-                    icon: 'error',
-                    text: 'தயவு செய்து OTP ஐ சரிபார்க்கவும்! ',
                     showConfirmButton: false,
                     timer: 2000,
-                  })
-                }
-              }
-            });
-          }
-          else {
-            Swal.fire({
-              icon: 'error',
               title: 'Error!',
               text: 'கேப்ட்சா தவறானது. தயவு செய்து மீண்டும் முயற்சிக்கவும். ',
             }).then((result) => {
               if (result.isConfirmed) {
                 generateCaptcha();
-              }
-            });
-
-          }
-
-        }
-
-      });
-      /*END: OTP Verify*/
-      /*END: OTP Verify END: Document ready function*/
     });
   </script>
-  <script>
-    $(document).ready(function () {
-
       const aadharRadio = $('#aadhar');
       const mobileRadio = $('#mobile');
       const aadharForm = $('#login_form');
       const mobileForm = $('#mobile_form');
-
       mobileRadio.change(function () {
         if (mobileRadio.is(':checked')) {
           aadharForm.hide();
           mobileForm.show();
-        } else {
           aadharForm.show();
           mobileForm.hide();
-        }
-      });
       aadharRadio.change(function () {
         if (aadharRadio.is(':checked')) {
-          aadharForm.show();
-          mobileForm.hide();
-        } else {
-          aadharForm.hide();
-          mobileForm.show();
-        }
-      });
-      //generate Captcha 
-      // function generateCaptcha() {
-      //   const captchaContainer = document.getElementById('custom_captcha');
-      //   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      //   let captchaCode = '';
-
-      //   for (let i = 0; i < 6; i++) {
-      //     const randomIndex = Math.floor(Math.random() * characters.length);
-      //     captchaCode += characters.charAt(randomIndex);
-      //   }
-
-      //   captchaContainer.innerHTML = `<strong>${captchaCode}</strong>`;
-      // }
-
-      // Generate CAPTCHA when the page loads
-      //generateCaptcha();
-
-      // Refresh CAPTCHA when the "Refresh CAPTCHA" button is clicked
-    //   document.getElementById('refresh_captcha').addEventListener('click', function () {
-    //     document.getElementById("refresh_captcha").classList.toggle("rotate-icon");
-    //     generateCaptcha();
-    //     document.getElementById('captcha_input').value = ''; // Clear the user-entered CAPTCHA
-    //   });
-    });
-  </script>
-
   <script type="text/javascript">
-    // generate Captcha 
     function generateCaptcha() {
       const captchaContainer = document.getElementById('official_custom_captcha');
       const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       let captchaCode = '';
-
       for (let i = 0; i < 6; i++) {
         const randomIndex = Math.floor(Math.random() * characters.length);
         captchaCode += characters.charAt(randomIndex);
-      }
-
       captchaContainer.innerHTML = `<strong>${captchaCode}</strong>`;
-    }
-
-    // Generate CAPTCHA when the page loads
     generateCaptcha();
-
-    //Refresh CAPTCHA when the "Refresh CAPTCHA" button is clicked
     document.getElementById('official_refresh_captcha').addEventListener('click', function () {
       document.getElementById("official_refresh_captcha").classList.toggle("rotate-icon");
       generateCaptcha();
-      document.getElementById('official_captcha_input').value = ''; // Clear the user-entered CAPTCHA
-    });
-
+      document.getElementById('official_captcha_input').value = ''; 
     function encrypt(data, key, iv) {
       return CryptoJS.AES.encrypt(data, key, {
         iv: iv,
         mode: CryptoJS.mode.CBC,
         padding: CryptoJS.pad.Pkcs7
       }).toString();
-    }
-
     $("#official_login").click(function (event) {
       event.preventDefault();
-      // Get the values from the input fields
       var username = document.getElementById("mobileNo").value;
       var pwd = document.getElementById("official_password").value;
       const userEnteredCaptcha = document.getElementById('official_captcha_input').value;
       const actualCaptcha = document.getElementById('official_custom_captcha').textContent;
-
-      // Generate a random secret key and IV
-      var secretKey = CryptoJS.lib.WordArray.random(16); // 128 bits (16 bytes) for AES-128
-      var iv = CryptoJS.lib.WordArray.random(16); // 128 bits (16 bytes) IV
-
-      // Convert the key and IV to hexadecimal strings for transmission
+      var secretKey = CryptoJS.lib.WordArray.random(16); 
+      var iv = CryptoJS.lib.WordArray.random(16); 
       var secretKeyHex = CryptoJS.enc.Hex.stringify(secretKey);
       var ivHex = CryptoJS.enc.Hex.stringify(iv);
-
-      // Encrypt the password using the generated key and IV
       var encryptedPassword = encrypt(pwd, secretKey, iv);
       if (username === "" && pwd === "") {
         Swal.fire({
@@ -930,104 +445,34 @@
           text: 'அலுவலரின் பயனர் குறியீடு மற்றும் கடவுச்சொல்லை உள்ளீடவும்',
         })
       } else {
-        if (userEnteredCaptcha === actualCaptcha) {
           var data1 = {
             case: 'officialLogin',
             user_name: username,
             password: encryptedPassword,
             secretKeyHex: secretKeyHex,
             ivHex: ivHex
-          }
-          $.ajax({
-            url: API_URL + 'userMaster/login',
-            method: 'POST',
             headers: {'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
             data: data1,
-            dataType: 'json',
-            success: function (response) {
-              if (response.success == 1) {
-
-                // This code will execute after the toast is closed (optional)
                 document.cookie = "payment_official=" + JSON.stringify(response.details);
                 if (response.details.role_id === 1) {
                   window.location.href = "dashboard-ui.html";
-                }
                 else if (response.details.role_id === 2) {
-                  window.location.href = "dashboard-ui.html";
-                }
                 else if (response.details.role_id === 3) {
-                  window.location.href = "dashboard-ui.html";
-                }
-                else {
-                  Swal.fire({
-                    icon: 'error',
                     text: 'தங்களுக்கு அனுமதி இல்லை',
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      window.location.href = "login.html";
-                    }
-                  });
-                }
-              }
               else {
-                Swal.fire({
-                  icon: 'error',
                   title: 'Error!',
                   text: 'அலுவலரின் பயனர் குறியீடு மற்றும் கடவுச்சொல்லை சரிபார்க்கவும்',
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    window.location.href = "login.html";
-                  }
-                });
-              }
-            },
-            error: function () {
-              Swal.fire({
-                icon: 'error',
-                title: 'Error!',
                 text: 'அலுவலரின் பயனர் குறியீடு மற்றும் கடவுச்சொல்லை சரிபார்க்கவும்',
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  window.location.href = "login.html";
-                }
-              });
-            }
-          });
-        }
-        else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error!',
             text: 'கேப்ட்சா தவறானது. தயவு செய்து மீண்டும் முயற்சிக்கவும். ',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              generateCaptcha();
-            }
-          });
-
-        }
-      }
-    });
-
     window.onload = () => {
-      // const myInput1 = document.getElementById('captcha_input');
       const myInput = document.getElementById('official_captcha_input');
-      // myInput1.onpaste = e => e.preventDefault();
       myInput.onpaste = e => e.preventDefault();
-    }
-
     function getCookie(name) {
       const value = `; ${document.cookie}`;
       const parts = value.split(`; ${name}=`);
       if (parts.length === 2) return parts.pop().split(';').shift();
-    }
     const myData = getCookie("payment_official");
-
-
-  // Store Aadhar
-
-  </script>
-
 </body>
-
 </html>

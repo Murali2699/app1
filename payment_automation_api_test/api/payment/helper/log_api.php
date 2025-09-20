@@ -4,11 +4,10 @@ function log_api($userid,$response_status_code,$session_id,$payload,$db,$schema,
 {
     $payload = json_encode($payload);
     $error_detail = json_encode($error_detail);
-    //$response_params = json_encode($response_params);
+    
     $userip = $_SERVER['REMOTE_ADDR'];
     $browser = $_SERVER['HTTP_USER_AGENT'];
     $session = $session_id == '' ? '' : $session_id;
-
     if (preg_match('/linux/i', $browser)) {
     $platform = 'linux';
     }elseif (preg_match('/macintosh|mac os x/i', $browser)) {
@@ -19,9 +18,6 @@ function log_api($userid,$response_status_code,$session_id,$payload,$db,$schema,
     else
     {
         $platform = 'mobile';
-    }
-
-    // Next get the name of the useragent yes seperately and for good reason
       if(preg_match('/MSIE/i',$browser) && !preg_match('/Opera/i',$browser)){
         $browser_name = 'Internet Explorer';
         $ub = "MSIE";
@@ -44,41 +40,15 @@ function log_api($userid,$response_status_code,$session_id,$payload,$db,$schema,
         $browser_name = 'Edge';
         $ub = "Edge";
       }elseif(preg_match('/Trident/i',$browser)){
-        $browser_name = 'Internet Explorer';
-        $ub = "MSIE";
       }
       else
       {
         $browser_name = 'chrome';
-      }
-      //$response_time_ms = round($response_time_ms);
+      
       $response_time_ms = round($response_time_ms * 10000);
-
-    /*CALL public.spsaveapiaccesslog(
-    <IN $userid, character varying>, 
-    <IN $userip, character varying>, 
-    <IN $session, character varying>, 
-    <IN $browser, character varying>, 
-    <IN $platform, character varying>, 
-    <IN $requestmethod, character varying>, 
-    <IN $operationtype, character varying>, 
-    <IN $payload, text>, 
-    <IN $request_dt, timestamp without time zone>, 
-    <IN $response_dt, timestamp without time zone>, 
-    <IN $response_status_code, character varying>, 
-    <IN $response_time_ms, integer>, 
-    <OUT $logid, bigint>
-    )*/
     $log_sql = "CALL public.spsaveapiaccesslog(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     $log_sth = $db->prepare($log_sql);
     if($log_sth->execute(array($userid,$userip,$session,$browser_name,$platform,$requestmethod,$operationtype,$payload,$request_dt,$response_dt,$response_status_code,$response_time_ms,$error_detail,'1')))
-    {
-
-    }
-    else
-    {
-        //print_r($insert_prepare->errorInfo());exit;
-    }
+        
 }
-
 ?>

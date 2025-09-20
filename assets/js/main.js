@@ -1,9 +1,7 @@
 (function() {
   "use strict";
 
-  /**
-   * Easy selector helper function
-   */
+  
   const select = (el, all = false) => {
     el = el.trim()
     if (all) {
@@ -12,55 +10,21 @@
       return document.querySelector(el)
     }
   }
-
-  /**
-   * Easy event listener function
-   */
   const on = (type, el, listener, all = false) => {
-    if (all) {
       select(el, all).forEach(e => e.addEventListener(type, listener))
-    } else {
       select(el, all).addEventListener(type, listener)
-    }
-  }
-
-  /**
-   * Easy on scroll event listener 
-   */
   const onscroll = (el, listener) => {
     el.addEventListener('scroll', listener)
-  }
-
-  /**
-   * Sidebar toggle
-   */
-  // if (select('.toggle-sidebar-btn')) {
-  //   on('click', '.toggle-sidebar-btn', function(e) {
-  //     alert('side bar toggle');
-  //     select('body').classList.toggle('toggle-sidebar')
-  //   })
-  // }
-
   $(document).ready(function() {
     if ($('.toggle-sidebar-btn').length) {
       $('.toggle-sidebar-btn').on('click', function(e) {
         $('body').toggleClass('toggle-sidebar');
       });
-    }
   });
-
-  /**
-   * Search bar toggle
-   */
   if (select('.search-bar-toggle')) {
     on('click', '.search-bar-toggle', function(e) {
       select('.search-bar').classList.toggle('search-bar-show')
     })
-  }
-
-  /**
-   * Navbar links active state on scroll
-   */
   let navbarlinks = select('#navbar .scrollto', true)
   const navbarlinksActive = () => {
     let position = window.scrollY + 200
@@ -73,154 +37,77 @@
       } else {
         navbarlink.classList.remove('active')
       }
-    })
-  }
   window.addEventListener('load', navbarlinksActive)
   onscroll(document, navbarlinksActive)
-
-  /**
-   * Toggle .header-scrolled class to #header when page is scrolled
-   */
   let selectHeader = select('#header')
   if (selectHeader) {
     const headerScrolled = () => {
       if (window.scrollY > 100) {
         selectHeader.classList.add('header-scrolled')
-      } else {
         selectHeader.classList.remove('header-scrolled')
-      }
-    }
     window.addEventListener('load', headerScrolled)
     onscroll(document, headerScrolled)
-  }
-
-  /**
-   * Back to top button
-   */
   let backtotop = select('.back-to-top')
   if (backtotop) {
     const toggleBacktotop = () => {
-      if (window.scrollY > 100) {
         backtotop.classList.add('active')
-      } else {
         backtotop.classList.remove('active')
-      }
-    }
     window.addEventListener('load', toggleBacktotop)
     onscroll(document, toggleBacktotop)
-  }
-
-  /**
-   * Initiate tooltips
-   */
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
   var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
-
-/**
-     * Preloader
-     */
-   /* let preloader = select('#preloader');
-    if (preloader) {
-      window.addEventListener('load', () => {
-        $('#preloader').hide()
-      });
-    }*/
-
+   
 })();
-
-
 var pages = ['#dashboard', '#schemeRegistration', '#schemeList', '#paymentProcess', '#paymentReport', '#beneficiariesUpload'];
 var schemeEnable = ['DDO','KMUT','PPS','OAP'];
-
 function showPages() {
   pages.forEach(page => $(page).show());
 }
-
 function hidePages() {
   ['#schemeRegistration', '#schemeList'].forEach(page => {
     var href = $(page + ' a').attr('href');
     if (href && getCurrentPage() === href) {
       logoutWithPermission(page);
-    }
     $(page).hide();
-  });
-}
-
 function compareAndLogout(page) {
   $('.official').each(function (i, obj) {
     var href = obj.getAttribute("href");
     if (href == page) {
       logout();
-    }
-  });
-}
-
 function logoutWithPermission(page) {
-  // Perform logout with permission logic based on the current page
   console.log('Logging out with permission for page:', page);
   logout();
-}
-
 function getCurrentPage() {
   var url = window.location.href;
   var page_url = url.split('/');
   var page = page_url[4];
   return page;
-}
-
-// Example usage:
 hidePages();
-
 window.schemeEnable = ['DDO','KMUT','PPS','OAP'];
-
 function roleBasedPageAllow(user_id,role_id){
-
   $.ajax({
     url: APIURL + 'user_based_schemes',
     type: "POST",
     headers: { 'X-APP-KEY': config.app_key, 'X-APP-NAME': config.app_name },
     data: { user_id: user_id },
     success: function (response) {
-      // console.log(response);
-
+      
         if (role_id == 1 || role_id == 2) {
           showPages();
         } else {
           hidePages();
         }
         
-      // if (role_id == 'Super Admin' || role_id == 'Admin') {
-      //   showPages();
-      // } else {
-      //   response.data.forEach(scheme => {
-      //     if (schemeEnable.includes(scheme.scheme_category)) {
-      //       hidePages();
-      //     }
-      //   });
-      // }
-
-
-
     },
     error: function (xhr, status, error) {
       console.log("Error:", error);
-    }
-  });
-
-}
-
 function logout() {
   var cookies = document.cookie.split(";");
-
   for (var i = 0; i < cookies.length; i++) {
     var cookie = cookies[i];
     var eqPos = cookie.indexOf("=");
     var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
     document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-  }
   window.location.href = "login.html";
-}
-
-
