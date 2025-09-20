@@ -103,4 +103,9 @@ class Header extends HTMLElement {
     }
   }  
   customElements.define('official-header-component', Header);
- 
+  // <li class="nav-item" id="user-master">
+  //     <a class="nav-link official" href="reports.html">
+  //     <i class="bi bi-card-checklist"></i>
+  //     <span>Report</span>
+  //     </a>
+  //   </li> 
