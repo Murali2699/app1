@@ -53,7 +53,7 @@ pipeline {
                                [envVar: 'DB_USER', vaultKey: 'username'],
                                [envVar: 'DB_PASS', vaultKey: 'password'],
                                [envVar: 'DB_NAME', vaultKey: 'dbname'],
-                               [envVar: 'DB_PORT', vaultKey: 'dbport'],
+                               [envVar: 'DB_PORT', vaultKey: 'port'],
                                [envVar: 'DB_HOST', vaultKey: 'host']
                            ]]]]) {
                     sh '''
