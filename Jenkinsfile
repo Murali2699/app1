@@ -5,6 +5,7 @@ pipeline {
         VAULT_ADDR = 'http://127.0.0.1:8200'
         SONARQUBE_SERVER = 'SonarQubeServer'
         SONARQUBE_SCANNER = 'sonar-scanner'
+        BACKEND_DIR = "./payment_automation_api_test"
     }
 
     options {
@@ -59,51 +60,38 @@ EOF
             }
         }
 
-        stage('Set Variables for Frontend and Backend') {
+        stage('Archive Backend Code') {
             steps {
                 script {
-                    env.FRONTEND_DIR = "./frontend"
-                    env.BACKEND_DIR = "./backend"
+                    if (fileExists(env.BACKEND_DIR)) {
+                        archiveArtifacts artifacts: "${env.BACKEND_DIR}/**/*", fingerprint: true
+                    } else {
+                        echo "Backend folder not found, skipping archive"
+                    }
                 }
             }
         }
 
-        stage('Archive Frontend Code') {
+        stage('Build Backend') {
             steps {
-                archiveArtifacts artifacts: "${env.FRONTEND_DIR}/**/*", fingerprint: true
-            }
-        }
-
-        stage('Archive Backend Code') {
-            steps {
-                archiveArtifacts artifacts: "${env.BACKEND_DIR}/**/*", fingerprint: true
-            }
-        }
-
-        stage('Build Frontend and Backend') {
-            steps {
-                sh '''
-                    # Example frontend build
-                    if [ -d "${FRONTEND_DIR}" ]; then
-                        cd ${FRONTEND_DIR}
-                        npm install
-                        npm run build
-                        cd -
-                    fi
-
-                    # Example backend build (Composer)
-                    if [ -d "${BACKEND_DIR}" ]; then
-                        cd ${BACKEND_DIR}
-                        composer install --no-interaction --prefer-dist
-                        cd -
-                    fi
-                '''
+                script {
+                    if (fileExists(env.BACKEND_DIR)) {
+                        dir(env.BACKEND_DIR) {
+                            sh '''
+                                # Install dependencies
+                                composer install --no-interaction --prefer-dist
+                            '''
+                        }
+                    } else {
+                        echo "Backend folder not found, skipping build"
+                    }
+                }
             }
         }
 
         stage('Archive Artifact') {
             steps {
-                archiveArtifacts artifacts: "**/build/**/*, **/vendor/**/*", fingerprint: true
+                archiveArtifacts artifacts: "**/vendor/**/*", fingerprint: true
             }
         }
 
