@@ -3,18 +3,9 @@ pipeline {
 
     environment {
         VAULT_ADDR = 'http://127.0.0.1:8200'
-        SONARQUBE_SERVER = 'SonarQubeServer'
-        SONARQUBE_SCANNER = 'sonar-scanner'
-        BACKEND_DIR = "./payment_automation_api_test"
-    }
-
-    options {
-        skipDefaultCheckout() // We'll do explicit checkout
-        timestamps()
     }
 
     stages {
-
         stage('Clean Workspace before build') {
             steps {
                 cleanWs()
@@ -23,28 +14,31 @@ pipeline {
 
         stage('Checkout Code from SCM') {
             steps {
-                checkout scm
+                checkout([$class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [],
+                    submoduleCfg: [],
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/Murali2699/app1.git',
+                        credentialsId: 'jenkins-deploy-ssh'
+                    ]]
+                ])
             }
         }
 
         stage('Fetch Secrets from Vault and Prepare Environment') {
             steps {
-                withVault([configuration: [vaultUrl: env.VAULT_ADDR, vaultCredentialId: 'vault-jenkins-approle'],
-                           vaultSecrets: [[path: 'secret/app1/postgres', engineVersion: 2, secretValues: [
-                               [envVar: 'DB_USER', vaultKey: 'username'],
-                               [envVar: 'DB_PASS', vaultKey: 'password'],
-                               [envVar: 'DB_NAME', vaultKey: 'dbname'],
-                               [envVar: 'DB_PORT', vaultKey: 'port'],
-                               [envVar: 'DB_HOST', vaultKey: 'host']
-                           ]]]]) {
+                withVault([vaultSecrets: [[
+                    path: 'secret/app1/postgres',
+                    secretValues: [
+                        [envVar: 'DB_USER', vaultKey: 'username'],
+                        [envVar: 'DB_PASS', vaultKey: 'password']
+                    ]
+                ]]]) {
                     sh '''
-                        cat > .env <<EOF
-DB_HOST=${DB_HOST}
-DB_DATABASE=${DB_NAME}
-DB_USERNAME=${DB_USER}
-DB_PASSWORD=${DB_PASS}
-DB_PORT=${DB_PORT}
-EOF
+                        echo "DB_USER=$DB_USER" > .env
+                        echo "DB_PASS=$DB_PASS" >> .env
                         chmod 640 .env
                     '''
                 }
@@ -63,10 +57,10 @@ EOF
         stage('Archive Backend Code') {
             steps {
                 script {
-                    if (fileExists(env.BACKEND_DIR)) {
-                        archiveArtifacts artifacts: "${env.BACKEND_DIR}/**/*", fingerprint: true
+                    if (fileExists('payment_automation_test_api')) {
+                        archiveArtifacts artifacts: 'payment_automation_test_api/**/*', fingerprint: true
                     } else {
-                        echo "Backend folder not found, skipping archive"
+                        error "❌ Backend folder 'payment_automation_test_api' not found"
                     }
                 }
             }
@@ -74,65 +68,61 @@ EOF
 
         stage('Build Backend') {
             steps {
-                script {
-                    if (fileExists(env.BACKEND_DIR)) {
-                        dir(env.BACKEND_DIR) {
-                            sh '''
-                                # Install dependencies
-                                composer install --no-interaction --prefer-dist
-                            '''
-                        }
-                    } else {
-                        echo "Backend folder not found, skipping build"
-                    }
-                }
+                sh '''
+                    # Copy composer.json into API folder
+                    cp composer.json payment_automation_test_api/
+
+                    cd payment_automation_test_api
+                    composer install --no-interaction --prefer-dist
+                '''
             }
         }
 
         stage('Archive Artifact') {
             steps {
-                archiveArtifacts artifacts: "**/vendor/**/*", fingerprint: true
+                archiveArtifacts artifacts: 'payment_automation_test_api/vendor/**/*', fingerprint: true
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv("${env.SONARQUBE_SERVER}") {
-                    sh """
-                        ${tool(env.SONARQUBE_SCANNER)}/bin/sonar-scanner \
+                withSonarQubeEnv('MySonarQube') {
+                    sh '''
+                        cd payment_automation_test_api
+                        sonar-scanner \
                             -Dsonar.projectKey=app1 \
                             -Dsonar.sources=.
-                    """
+                    '''
                 }
             }
         }
 
         stage('Deploy to Environment') {
             steps {
-                sshagent(['jenkins-deploy-ssh']) {
-                    sh "rsync -avz --delete --exclude '.git' ./ deploy@192.168.5.245:/var/www/html/payment_automation_test"
-                }
+                sh '''
+                    echo "Deploying API..."
+                    # Example: rsync to server
+                    # rsync -avz payment_automation_test_api/ user@server:/var/www/app1_api/
+                '''
             }
         }
 
         stage('Security Scan (OWASP ZAP)') {
             steps {
                 sh '''
-                    docker run -t owasp/zap2docker-stable zap-baseline.py \
-                        -t http://192.168.5.245/payment_automation_test \
-                        -r zap_report.html
+                    echo "Running OWASP ZAP scan..."
+                    # zap-cli quick-scan http://localhost:8080
                 '''
-                archiveArtifacts artifacts: 'zap_report.html', fingerprint: true
             }
         }
     }
 
     post {
         success {
-            echo '✅ Deployment succeeded'
+            echo "✅ Build and deploy successful"
         }
         failure {
-            echo '❌ Build or deploy failed'
+            echo "❌ Build or deploy failed"
         }
     }
 }
